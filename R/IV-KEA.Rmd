@@ -1,0 +1,118 @@
+---
+title: "10_invitro_predictions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+```
+
+The kinase-phosphosite predictions used here are from Sugiyama 2019 
+(https://doi.org/10.1038/s41598-019-46385-4).
+
+# Import and clean data
+## Import humanized sites and uniprot entry names
+```{r}
+humanized_sites <- readxl::read_xlsx("data/imported/phospho_human.xlsx", sheet = 1, col_types = c("text", "numeric", "numeric", "numeric"))
+humanized_sites <- humanized_sites %>%
+  select("ProteinID-Phospho:Site" = PhosphoSite,
+         "Log2" = `LAM-Log2(Relapse/diagnostic`,
+         "Adj. p-value" = `pvalue LAM`) %>% 
+  filter(`Adj. p-value` != "NA") %>% 
+  # filter(pvalue < 0.05) %>%  #select for IV-KEA only sites significantly deregulated
+  mutate(substrate = str_extract(`ProteinID-Phospho:Site`, ".+(?=-)"),
+         substrate_position = str_extract(`ProteinID-Phospho:Site`, "(?<=:).*")) %>%  
+  tidyr::separate_rows(substrate_position, sep = "\\.")
+```
+
+
+Convert gene names from phospho data into uniprot ID
+```{r}
+ortho <- read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = c("__c___c")) %>% 
+  distinct()
+humanized_sites <- inner_join(humanized_sites, ortho, by = c("substrate" = "PROTEIN_human"))
+```
+
+
+```{r}
+prot_ids <- unique(humanized_sites$ACC_ID_human)
+source("R/uniprot_entry_names.R")
+uniprot_keys <- uniprot_entry_names(prot_ids, query_length = 750)
+
+humanized_sites %<>% left_join(uniprot_keys, by = "ACC_ID_human") 
+
+rm(prot_ids, uniprot_entry_names, uniprot_keys)
+```
+
+
+
+
+## Import in vitro predictions
+```{r}
+invitro_db <- readxl::read_xlsx("data/imported/db_phosphosite_kinase_invitro.xlsx", col_names = FALSE, skip = 2) 
+colnames(invitro_db) <- c("type", "kinase", "substrate_uniprot_name", "substrate_protein_description", "substrate_position", "sidic_confirmation", "PTMscore_confirmation")
+invitro_db %<>%
+  mutate(sidic_confirmation = if_else(is.na(sidic_confirmation) == FALSE, "yes", "no"),
+         PTMscore_confirmation = if_else(is.na(PTMscore_confirmation) == FALSE, "yes", "no"))
+```
+
+
+# Merge predictions
+
+```{r}
+invitro_phospho_predictions <- humanized_sites %>% 
+  left_join(invitro_db, by = c("uniprot_entry_name" = "substrate_uniprot_name", "substrate_position")) %>% 
+  select(-substrate_protein_description)
+
+# write_csv(invitro_phospho_predictions, "data/outputs/invitro_predictions_ERR.csv")
+
+
+```
+__Warning: `r nrow(filter(invitro_phospho_predictions, is.na(kinase)==TRUE))/nrow(humanized_sites)*100`% of phosphosites have NO prediction.
+
+
+
+# Enrichment test
+```{r}
+upreg_proteo <- invitro_phospho_predictions %>% 
+  filter(is.na(kinase)==FALSE) %>% 
+  filter(Log2 > 0) %>% 
+  count(kinase)
+
+downreg_proteo <- invitro_phospho_predictions %>% 
+  filter(is.na(kinase)==FALSE) %>% 
+  filter(Log2 < 0) %>% 
+  count(kinase)
+
+contingency_table <- full_join(upreg_proteo, downreg_proteo, by = "kinase", suffix = c("_upreg", "_downreg"))
+
+contingency_table %<>%  replace_na(replace = list(n_upreg = 0, n_downreg = 0))
+
+contingency_table %<>% 
+  remove_rownames() %>% 
+  column_to_rownames("kinase") 
+rm(upreg_proteo, downreg_proteo)
+
+source("R/fisher_exact_test.R")
+
+contingency_table %<>% 
+  mutate(fisher_res = map2(.x = n_upreg, .y = n_downreg, .f = fisher_exact_test, sum(contingency_table$n_upreg), sum(contingency_table$n_downreg))) %>% 
+  separate(col = fisher_res, into = c("up_vs_down_pvalue", "up_vs_down_odds_ratio"), sep = ",", convert = TRUE)
+contingency_table %<>% bind_cols(up_vs_down_FDR =  p.adjust(contingency_table$up_vs_down_pvalue, method = "fdr")) %>% 
+  rownames_to_column(var = "kinase")
+
+write_csv(contingency_table, "data/analyses/IV-KEA_ERR.csv")
+
+source("R/make_volcano_plot.R")
+make_volcano_plot(dataframe = contingency_table, 
+                  odds_ratio = up_vs_down_odds_ratio,
+                  FDR_cutoff = 0.05, 
+                  FDR = up_vs_down_FDR,
+                  labels = kinase,
+                  graph_title = "IV-KEA",
+                  x_axis_title = "log2(odds ratio)",
+                  save_path = "figures/IV-KEA_LAM.pdf")
+```
+

@@ -1,0 +1,56 @@
+---
+title: "Phosphoproteo data humanization"
+output: html_document
+---
+
+This script is used instead of script `1a` if raw phosphoproteomic data are human data (and not mouse ones).
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+```
+
+# Import raw data and clean
+```{r}
+proteo <- readxl::read_xlsx("data/imported/phospho_human.xlsx", sheet = 2)
+proteo %<>% 
+  select("ProteinID-Phospho:Site" = PhosphoSite,
+         "Log2" = `ERR-Log2(Relapse/diagnostic`,
+         "Adj. p-value" = `pvalue ERR`) %>% 
+  filter(`Adj. p-value` != "NA")
+
+proteo %<>% 
+  mutate(Ratio = 2^Log2) %>% 
+  mutate(ACC_ID = str_extract(`ProteinID-Phospho:Site`, pattern = "^[:alnum:]*"),
+         MOD_RSD = str_extract(`ProteinID-Phospho:Site`, pattern = "(?<=Phospho:).*")) %>% 
+  tidyr::separate_rows(MOD_RSD, sep = "\\.") %>% 
+  mutate(MOD_RSD = paste0(MOD_RSD, "-p")) #-p added for nomenclature consistency
+
+```
+
+# Prepare NetworKIN input
+```{r}
+proteo %<>% 
+  select("substrate" = ACC_ID, MOD_RSD) %>% 
+  mutate(location = str_extract(MOD_RSD, pattern = "[:digit:]+"),
+         amino_acid = str_extract(MOD_RSD, pattern = "^[:alpha:]")) %>% 
+  select(-MOD_RSD)
+
+```
+
+## Convert gene names from phospho data into uniprot ID
+```{r}
+ortho <- read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = c("__c___c")) %>% 
+  distinct()
+proteo <- inner_join(proteo, ortho, by = c("substrate" = "PROTEIN_human"))
+```
+
+## Output networkin input
+```{r}
+proteo %>% 
+  select(ACC_ID_human, location, amino_acid) %>% 
+  write_tsv("data/outputs/networKIN_input.res", col_names = FALSE)
+```
+
+Remark: there is no need to remove duplicates for NetworKIN as they have already been removed during the `r inner_join`.
