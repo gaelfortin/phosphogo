@@ -1,0 +1,6 @@
+cleaned_9606_uniprot_201312.fa filter=lfs diff=lfs merge=lfs -text
+*.psq filter=lfs diff=lfs merge=lfs -text
+nn_data.h filter=lfs diff=lfs merge=lfs -text
+*.fa filter=lfs diff=lfs merge=lfs -text
+*.h filter=lfs diff=lfs merge=lfs -text
+*.gz filter=lfs diff=lfs merge=lfs -text
