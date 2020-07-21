@@ -3,9 +3,16 @@ title: "pipeline"
 output: html_document
 ---
 
-This script performs the usual 
-
 
 ```{r setup, include=FALSE}
 library(tidyverse)
 ```
+
+0. NetworKIN is installed
+```{r}
+source('R/install_networkin.R')
+networkin_setup()
+```
+
+
+
