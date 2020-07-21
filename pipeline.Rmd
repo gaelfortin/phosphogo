@@ -6,6 +6,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(magrittr)
 ```
 
 0. NetworKIN is installed
@@ -14,5 +15,16 @@ source('R/install_networkin.R')
 networkin_setup()
 ```
 
+1. Generate NetworKIN input from phosphoproteomic data
+```{r}
+source('R/networkin_input.R')
+networkin_input(
+  phospho_file = "data/imported/phospho_human.xlsx",
+  phosphosites_column = "PhosphoSite",
+  log2_column = "LAM-Log2(Relapse/diagnostic",
+  fdr_column = "pvalue LAM",
+  experiment = "LAM"
+)
+```
 
 
