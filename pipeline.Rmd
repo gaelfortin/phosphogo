@@ -17,13 +17,26 @@ networkin_setup()
 
 1. Generate NetworKIN input from phosphoproteomic data
 ```{r}
+# Human phosphoproteomic data
 source('R/networkin_input.R')
 networkin_input(
   phospho_file = "data/imported/phospho_human.xlsx",
   phosphosites_column = "PhosphoSite",
   log2_column = "LAM-Log2(Relapse/diagnostic",
   fdr_column = "pvalue LAM",
-  experiment = "LAM"
+  experiment = "human",
+  species = 'hsa'
+)
+
+# Mouse phosphoproteomic data
+source('R/networkin_input.R')
+networkin_input(
+  phospho_file = "data/imported/phospho_mouse.xlsx",
+  phosphosites_column = "ProteinID-Phospho:Site",
+  log2_column = "Log2",
+  fdr_column = "Adj. p-value",
+  experiment = "mouse",
+  species = 'mmu'
 )
 ```
 
