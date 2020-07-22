@@ -20,7 +20,7 @@ networkin_setup()
 # Human phosphoproteomic data
 source('R/networkin_input.R')
 networkin_input(
-  phospho_file = "data/imported/phospho_human.xlsx",
+  phospho_file = "data/imported/phospho_human_LAM.xlsx",
   phosphosites_column = "PhosphoSite",
   log2_column = "LAM-Log2(Relapse/diagnostic",
   fdr_column = "pvalue LAM",
@@ -40,4 +40,13 @@ networkin_input(
 )
 ```
 
+2. Run NetworKIN
+```{r}
+source('R/run_networkin.R')
+run_networkin(
+  input_file = "data/outputs/networKIN_input_human.res",
+  blastall_location <- "~/blast-2.2.17/bin/blastall",
+  experiment = "human"
+)
+```
 
