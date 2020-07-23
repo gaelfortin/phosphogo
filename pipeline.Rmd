@@ -41,12 +41,23 @@ networkin_input(
 ```
 
 2. Run NetworKIN
+__may not work on Windows__
 ```{r}
 source('R/run_networkin.R')
 run_networkin(
   input_file = "data/outputs/networKIN_input_human.res",
   blastall_location <- "~/blast-2.2.17/bin/blastall",
   experiment = "human"
+)
+```
+
+3. NetworKIN predictions filtering
+Predictions that have a score in the top 20% of all predictions are kept. Predictions are kept for all sites (significantly deregulated or not deregulated).
+```{r}
+source('R/filter_predictions.R')
+filter_predictions(
+  predictions_file = 'data/outputs/networKIN_output_human.tsv',
+  experiment = 'human'
 )
 ```
 
