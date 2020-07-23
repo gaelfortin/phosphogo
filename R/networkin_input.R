@@ -40,21 +40,20 @@ networkin_input <- function(phospho_file = 'data/imported/phospho.xlsx',
   }
   
   phospho %<>% 
-    select("substrate" = ACC_ID, MOD_RSD) %>% 
-    mutate(location = str_extract(MOD_RSD, pattern = "[:digit:]+"),
-           amino_acid = str_extract(MOD_RSD, pattern = "^[:alpha:]")) %>% 
-    select(-MOD_RSD)
+    select("substrate" = ACC_ID, MOD_RSD, Ratio, Log2, adj_pvalue) 
   
   if (species == 'hsa') { #data humanization directly produce Uniprot IDs. This step is skipped for mouse data.
     ortho <- read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = c("__c___c")) %>% #import Uniprot IDs
       distinct()
     phospho <- inner_join(phospho, ortho, by = c("substrate" = "PROTEIN_human")) %>% 
-      select("substrate" = ACC_ID_human, location, amino_acid)
+      select("substrate" = ACC_ID_human, MOD_RSD, Ratio, Log2, adj_pvalue)
   }
   
   write_csv(phospho, paste0("data/outputs/phospho_clean_", experiment, ".csv")) #write cleaned file
   
   phospho %>% #generate NetworKIN input
+    mutate(location = str_extract(MOD_RSD, pattern = "[:digit:]+"),
+           amino_acid = str_extract(MOD_RSD, pattern = "^[:alpha:]")) %>% 
     select(substrate, location, amino_acid) %>% 
     write_tsv(paste0("data/outputs/networKIN_input_", experiment ,".res"), col_names = FALSE)
 }
