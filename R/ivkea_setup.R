@@ -16,5 +16,6 @@ ivkea_setup <- function(invitrodb_file = 'data/imported/db_phosphosite_kinase_in
   source('R/get_uniprot_ids.R')
   uniprot_ids <- get_uniprot_ids(unique(invitro_db$substrate_uniprot_name), query_length = 400)
   invitro_db %<>% left_join(uniprot_ids, by = "uniprot_name") 
+  write_csv(invitro_db, 'data/outputs/invitrodb.csv')
 }
 
