@@ -1,18 +1,18 @@
 #' Draw a volcano plot from any test results
-#' @param dataframe `<dataframe>` Contains the results of the test
-#' @param odds_ratio `<column_name>` Unquoted name of the `dataframe` column 
+#' @param kinase_enrichment_file `<character>` Location of the file with Fisher exact test results
+#' @param odds_ratio `<column_name>` Unquoted name of the `kinase_enrichment_file` column 
 #' that contains the odds ratios.
 #' @param FDR_cutoff `<numeric>` Cutoff to display.
-#' @param FDR_data `<column_name>` Unquoted name of `dataframe` column 
+#' @param FDR_data `<column_name>` Unquoted name of `kinase_enrichment_file` column 
 #' that contains the FDR values.
-#' @param labels `<column_name>` Unquoted name of `dataframe` column
+#' @param labels `<column_name>` Unquoted name of `kinase_enrichment_file` column
 #' that contains the labels.
 #' @param graph_title `<character>`
 #' @param x_axis_title `<character>`
 #' @param save_path `<character>` File path to save the volcano plot in.
 #' @export 
 
-make_volcano_plot <- function(dataframe = contingency_table,
+make_volcano_plot <- function(kinase_enrichment_file = 'data/analyses/networkin_kinase_enrichment.csv',
                               odds_ratio = odds_ratio,
                               FDR_cutoff = 0.05,
                               FDR_data = FDR,
@@ -23,17 +23,17 @@ make_volcano_plot <- function(dataframe = contingency_table,
   require(tidyverse)
   require(magrittr)
   require(ggrepel)
-  
+  contingency_table <- read_csv(kinase_enrichment_file, col_types = cols())
   odds_ratio <- enquo(odds_ratio)
   FDR_data <- enquo(FDR_data)
   labels <- enquo(labels)
-  dataframe %<>% 
+  contingency_table %<>% 
     mutate(cutoff = if_else(condition = !!FDR_data < FDR_cutoff, true = "signif", false = "not signif")) %>% 
     arrange(!!FDR_data)
   
-  significant_kinases <- filter(dataframe, cutoff == "signif")
+  significant_kinases <- filter(contingency_table, cutoff == "signif")
   
-  dataframe %>% 
+  contingency_table %>% 
     ggplot(aes(x = log2(!!odds_ratio), y = -log10(!!FDR_data), col = cutoff)) +
     geom_point() +
     scale_colour_manual(name = "Significance", values = c("#333333", "#B90504")) +

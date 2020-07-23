@@ -99,7 +99,7 @@ rm(fisher_exact_test)
 ## Volcano plot for up vs down
 ```{r}
 source("R/make_volcano_plot.R")
-vp_networkin <- make_volcano_plot(dataframe = contingency_table, 
+make_volcano_plot(dataframe = contingency_table, 
                   odds_ratio = up_vs_down_odds_ratio,
                   FDR_cutoff = 0.05, 
                   FDR = up_vs_down_FDR,
