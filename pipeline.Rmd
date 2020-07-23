@@ -61,3 +61,12 @@ filter_predictions(
 )
 ```
 
+4. NetworKIN Fisher exact test
+```{r}
+source('R/select_top_predictions.R')
+select_top_predictions(predictions_file = 'data/analyses/filtered_networkin_predictions_human.csv',
+                phospho_cleaned_file = 'data/outputs/phospho_clean_human.csv',
+                experiment = 'human')
+```
+
+
