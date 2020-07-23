@@ -4,7 +4,7 @@
 #' This function is not part of the main pipeline as the projet already includes
 #' a ready-to-use in vitro database.
 #' @param invitrodb_file `<character>` Location of the in vitro database
-#' from Sugyiama 2019.
+#' from Sugiyama 2019.
 #' @export
 
 ivkea_setup <- function(invitrodb_file = 'data/imported/db_phosphosite_kinase_invitro.xlsx'){

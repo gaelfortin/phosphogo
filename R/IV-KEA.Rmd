@@ -28,7 +28,7 @@ humanized_sites <- humanized_sites %>%
 ```
 
 
-Convert gene names from phospho data into uniprot ID
+Convert gene names from phospho data into uniprot name
 ```{r}
 ortho <- read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = c("__c___c")) %>% 
   distinct()
@@ -38,7 +38,7 @@ humanized_sites <- inner_join(humanized_sites, ortho, by = c("substrate" = "PROT
 
 ```{r}
 prot_ids <- unique(humanized_sites$ACC_ID_human)
-source("R/uniprot_entry_names.R")
+source("R/uniprot_entry_names.R") #converts Uniprot IDs (Q9P242) in Uniprot names (NYAP2_HUMAN)
 uniprot_keys <- uniprot_entry_names(prot_ids, query_length = 750)
 
 humanized_sites %<>% left_join(uniprot_keys, by = "ACC_ID_human") 

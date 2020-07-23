@@ -47,5 +47,5 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
     up_vs_tot_FDR =  p.adjust(contingency_table$up_vs_tot_pvalue, method = "fdr"),
     down_vs_tot_FDR =  p.adjust(contingency_table$down_vs_tot_pvalue, method = "fdr"))%>% 
     rownames_to_column(var = "top_predicted_kinase")
-  write_csv(contingency_table, paste0("data/analyses/networkin_kinase_enrichment_", experiment, ".csv"))
+  write_csv(contingency_table, paste0("data/analyses/kinase_enrichment_", experiment, ".csv"))
 }
