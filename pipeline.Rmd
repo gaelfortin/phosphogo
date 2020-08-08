@@ -43,11 +43,15 @@ networkin_input(
 
 2. Run NetworKIN
 __may not work on Windows__
+NetworKIN works with old versions of BLAST (i.e. before BLAST 2.2.18). 
+Install Blast 2.2.17 at https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/
+NetworKIN requires Python 2.
+
 ```{r}
 source('R/run_networkin.R')
 run_networkin(
   input_file = "data/outputs/networKIN_input_human.res",
-  blastall_location <- "~/blast-2.2.17/bin/blastall",
+  blastall_location = "~/blast-2.2.17/bin/blastall",
   experiment = "human"
 )
 ```
