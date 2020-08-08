@@ -8,6 +8,8 @@
 #' @import readxl
 #' @import dplyr
 #' @import readr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 
 ivkea_setup <- function(invitrodb_file = 'data/imported/db_phosphosite_kinase_invitro.xlsx'){

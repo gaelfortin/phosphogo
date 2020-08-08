@@ -12,6 +12,8 @@
 #' @param experiment `<character>` Name of the experiment to tag output
 #' @import readr
 #' @import dplyr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 
 perform_ivkea <- function(clean_phospho_file = 'data/outputs/phospho_clean.csv',

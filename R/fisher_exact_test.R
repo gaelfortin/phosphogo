@@ -4,6 +4,8 @@
 #' @param nb `<integer>` value for the tested item in group B
 #' @param tota `<integer>` total number of items in group A
 #' @param totb `<integer>` total number of items in group B
+#' @importFrom stats fisher.test
+#' @importFrom stats p.adjust
 #' @export
 #' 
 fisher_exact_test <- function(na, nb, tota, totb){

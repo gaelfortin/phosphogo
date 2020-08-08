@@ -9,7 +9,8 @@
 #' Change this parameter only if a HTTP404 error is outputted.
 #' @import tibble
 #' @import dplyr
-#' @import magrittr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 
 

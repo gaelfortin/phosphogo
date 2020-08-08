@@ -12,7 +12,8 @@
 #' @param save_path `<character>` File path to save the volcano plot in.
 #' @import readr
 #' @import dplyr
-#' @import magrittr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @import ggrepel
 #' @import ggplot2
 #' @export

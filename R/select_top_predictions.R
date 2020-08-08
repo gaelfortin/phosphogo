@@ -6,6 +6,7 @@
 #' @param experiment `<character>` Name of the experiment to tag output files
 #' @import readr
 #' @import dplyr
+#' @importFrom magrittr "%>%" 
 #' @export
 
 select_top_predictions <- function(predictions_file = 'data/analyses/filtered_networkin_predictions.csv',

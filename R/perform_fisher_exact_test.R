@@ -8,7 +8,8 @@
 #' @import dplyr
 #' @import tibble
 #' @import tidyr
-#' @import magrittr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 
 perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_predictions.csv',

@@ -5,7 +5,8 @@
 #' @param experiment `<character>` Name of the experiment to tag output files
 #' @import readr
 #' @import dplyr
-#' @import magrittr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 #'
 

@@ -12,7 +12,8 @@
 #' @import readxl
 #' @import tidyr
 #' @import stringr
-#' @import magrittr
+#' @importFrom magrittr "%>%" 
+#' @importFrom magrittr "%<>%" 
 #' @export
 #'
 

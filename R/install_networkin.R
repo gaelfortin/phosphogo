@@ -1,5 +1,6 @@
 #' NetworKIN setup
 #' NetworKIN is properly setup with this function.
+#' @importFrom utils unzip
 #' @export
 #' 
 networkin_setup <- function(){

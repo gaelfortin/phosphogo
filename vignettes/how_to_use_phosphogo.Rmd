@@ -1,8 +1,8 @@
 ---
-title: "how_to_use_phosphogo"
+title: "How to use phosphogo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{how_to_use_phosphogo}
+  %\VignetteIndexEntry{How to use phosphogo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
