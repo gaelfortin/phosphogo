@@ -1,0 +1,29 @@
+Package: phosphogo
+Title: Analyze your phosphoproteomic data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Gael",
+           family = "Fortin",
+           role = c("aut", "cre"),
+           email = "fortin.gael@outlook.fr",
+           comment = c(ORCID = "0000-0003-0461-1573"))
+Description: Analyze your phosphoproteomic data.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    readr,
+    dplyr,
+    magrittr,
+    tibble,
+    readxl,
+    ggplot2,
+    tidyr,
+    stringr,
+    ggrepel

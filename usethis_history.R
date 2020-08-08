@@ -1,0 +1,11 @@
+#This script is the history of all usethis::use_package() commands
+#performed to build phosphogo dependencies
+usethis::use_package('readr')
+usethis::use_package('dplyr')
+usethis::use_package('magrittr')
+usethis::use_package('tibble')
+usethis::use_package('readxl')
+usethis::use_package('ggrepel')
+usethis::use_package('ggplot2')
+usethis::use_package('tidyr')
+usethis::use_package('stringr')
