@@ -18,18 +18,15 @@ knitr::opts_chunk$set(
 library(phosphogo)
 ```
 
-
 0. Install NetworKIN and in vitro database for IV-KEA
-```{r}
-source('R/install_networkin.R')
+```{r eval=FALSE}
 networkin_setup()
 # ivkea_setup() #optional, should not have to be run (file given in github already with correct IDs)
 ```
 
 1. Generate NetworKIN input from phosphoproteomic data
-```{r}
+```{r eval=FALSE}
 # Human phosphoproteomic data
-source('R/networkin_input.R')
 networkin_input(
   phospho_file = "data/imported/phospho_human_LAM.xlsx",
   phosphosites_column = "PhosphoSite",
@@ -40,7 +37,6 @@ networkin_input(
 )
 
 # Mouse phosphoproteomic data
-source('R/networkin_input.R')
 networkin_input(
   phospho_file = "data/imported/phospho_mouse.xlsx",
   phosphosites_column = "ProteinID-Phospho:Site",
@@ -52,13 +48,12 @@ networkin_input(
 ```
 
 2. Run NetworKIN
-__may not work on Windows__
+__Does not work on Windows__
 NetworKIN works with old versions of BLAST (i.e. before BLAST 2.2.18). 
 Install Blast 2.2.17 at https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/
 NetworKIN requires Python 2.
 
-```{r}
-source('R/run_networkin.R')
+```{r eval=FALSE}
 run_networkin(
   input_file = "data/outputs/networKIN_input_human.res",
   blastall_location = "~/blast-2.2.17/bin/blastall",
@@ -68,8 +63,7 @@ run_networkin(
 
 3. NetworKIN predictions filtering
 Predictions that have a score in the top 20% of all predictions are kept. Predictions are kept for all sites (significantly deregulated or not deregulated).
-```{r}
-source('R/filter_predictions.R')
+```{r eval=FALSE}
 filter_predictions(
   predictions_file = 'data/outputs/networKIN_output_human.tsv',
   experiment = 'human'
@@ -81,20 +75,17 @@ The following Fisher exact test can be performed with NetworKIN and IV-KEA:
 - Up reg vs down reg
 - Up reg vs everything (signif and not signif)
 - Down reg vs everything (signif and not signif)
-```{r}
-source('R/select_top_predictions.R')
+```{r eval=FALSE}
 select_top_predictions(predictions_file = 'data/analyses/filtered_networkin_predictions_human.csv',
                 phospho_cleaned_file = 'data/outputs/phospho_clean_human.csv',
                 experiment = 'human')
-source('R/perform_fisher_exact_test.R')
 perform_Fisher_exact_test(top_predictions_file = 'data/analyses/top_predictions_human.csv',
                               experiment = 'networkin_human')
 ```
 
 5. Generate volcano plots
 Each Fisher exact test can be used to generate a volcano plot.
-```{r}
-source("R/make_volcano_plot.R")
+```{r eval=FALSE}
 make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_networkin_human.csv', 
                   odds_ratio = up_vs_down_odds_ratio,
                   FDR_cutoff = 0.05, 
@@ -119,8 +110,7 @@ make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_netw
 ```
 
 6. Perform IV-KEA
-```{r}
-source('R/perform_ivkea.R')
+```{r eval=FALSE}
 perform_ivkea <- function(clean_phospho_file = 'data/outputs/phospho_clean_human.csv',
                           invitrodb_file = 'data/outputs/invitrodb.csv',
                           experiment = 'human'
@@ -128,15 +118,13 @@ perform_ivkea <- function(clean_phospho_file = 'data/outputs/phospho_clean_human
 ```
 
 Run Fisher Exact test
-```{r}
-source('R/perform_Fisher_exact_test.R')
+```{r eval=FALSE}
 perform_Fisher_exact_test(top_predictions_file = 'data/outputs/ivkea_predictions_human.csv',
                               experiment = 'ivkea_human')
 ```
 
 Plot results on volcano plots
-```{r}
-source("R/make_volcano_plot.R")
+```{r eval=FALSE}
 make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_ivkea_human.csv', 
                   odds_ratio = up_vs_down_odds_ratio,
                   FDR_cutoff = 0.05, 
