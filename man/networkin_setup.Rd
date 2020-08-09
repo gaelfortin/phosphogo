@@ -3,23 +3,11 @@
 \name{networkin_setup}
 \alias{networkin_setup}
 \title{NetworKIN setup
-NetworKIN is properly setup with this function.}
+NetworKIN is properly downloaded and installed with this function.}
 \usage{
-networkin_setup(
-  networkin_zip = "networkin.zip",
-  networkin_folder = "networkin"
-)
-}
-\arguments{
-\item{networkin_zip}{\verb{<character>} Location of the networkin.zip
-archive to be installed.}
-
-\item{networkin_folder}{\verb{<character>} Location in which NetworKIN will be
-installed. By default, NetworKIN is installed in the R project main folder
-from networkin.zip (also in the main folder). For an example,
-see the project architecture at https://github.com/gaelfortin/phosphogo}
+networkin_setup()
 }
 \description{
 NetworKIN setup
-NetworKIN is properly setup with this function.
+NetworKIN is properly downloaded and installed with this function.
 }
