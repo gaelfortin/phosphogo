@@ -29,7 +29,7 @@ _For custom installation, see the detailed instructions below._
 
 
 
-### __Example of __
+### __Pipeline example__
 
 An example of a pipeline can be found in the vignette 
 `utils::browseVignettes('phosphogo')` or open the .Rmd file in 
@@ -76,31 +76,19 @@ NetworKIN setup can be customized by changing `networkin_setup()` parameters
 
 
 ### IV-KEA
-__Dependencies__
+__Installation__
 
 
 IV-KEA relies on the in vitro kinase-substrate interaction database produced
 by [Sugiyama __et al.__](https://www.nature.com/articles/s41598-019-46385-4).
-You can download the database in the Supplementary data of the paper and install
-it with `phosphogo`:
-```
-ivkea_setup('data/imported/db_phosphosite_kinase_invitro.xlsx')
-```
-
-You can also directly use the ready-to-use version of the database available
-at 
-
-__Installation__
+UniprotKB accession numbers have been added to this database.
 
 
-install package + download project and open as R project to have
-the networkin.zip and data correctly installed. Custom installation can also be
-done as data location is always asked but in this case in vitro database 
-location and networkin.zip location must be specified and properly installed (EXPLAIN INSTALLATION)
+## Issues
+If you have an issue or find a bug, please open an issue
+in the Issues section of the [Github repository](https://github.com/gaelfortin/phosphogo/issues).
 
 
-
-
-
-
-https://github.com/gaelfortin/phosphogo
+## Other informations
+This package is maintained by Gael Fortin (fortin.gael@outlook.fr) and was designed
+on R 3.6.3
