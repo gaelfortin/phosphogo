@@ -12,7 +12,7 @@
 networkin_setup <- function(networkin_zip = 'networkin.zip',
                             networkin_folder = 'networkin'){
   message('Unzipping NetworKIN archive...')
-  unzip(networkin_location)
+  unzip(networkin_zip)
   system(paste0("chmod +x ", networkin_folder, "/bin/NetworKIN3.0_release/NetworKIN.py")) # Allow NetworKIN to be executed
   message('NetworKIN setup completed.')
 }
