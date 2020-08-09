@@ -12,7 +12,7 @@
 #' @importFrom magrittr "%<>%" 
 #' @export
 
-ivkea_setup <- function(invitrodb_file = 'data/imported/db_phosphosite_kinase_invitro.xlsx'){
+ivkea_setup <- function(invitrodb_file = 'data/imported/raw_db_phosphosite_kinase_invitro.xlsx'){
   invitro_db <- read_xlsx(invitrodb_file, col_names = FALSE, skip = 2)
   colnames(invitro_db) <- c("type", "kinase", "uniprot_name", "substrate_protein_description", "substrate_position", "sidic_confirmation", "PTMscore_confirmation")
   invitro_db %<>%
@@ -21,6 +21,6 @@ ivkea_setup <- function(invitrodb_file = 'data/imported/db_phosphosite_kinase_in
   source('R/get_uniprot_ids.R')
   uniprot_ids <- get_uniprot_ids(unique(invitro_db$substrate_uniprot_name), query_length = 400)
   invitro_db %<>% left_join(uniprot_ids, by = "uniprot_name")
-  write_csv(invitro_db, 'data/outputs/invitrodb.csv')
+  write_csv(invitro_db, 'data/imported/invitrodb.csv')
 }
 

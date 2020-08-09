@@ -112,7 +112,7 @@ make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_netw
 6. Perform IV-KEA
 ```{r eval=FALSE}
 perform_ivkea <- function(clean_phospho_file = 'data/outputs/phospho_clean_human.csv',
-                          invitrodb_file = 'data/outputs/invitrodb.csv',
+                          invitrodb_file = 'data/imported/invitrodb.csv',
                           experiment = 'human'
                           )
 ```

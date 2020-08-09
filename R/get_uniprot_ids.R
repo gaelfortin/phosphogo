@@ -47,7 +47,7 @@ get_uniprot_ids <- function(uniprot_names, query_length = 750){
 #' @import dplyr
 #' @export
 
-.get_uniprot_id <- function(query_names){
+get_uniprot_id <- function(query_names){
   uri <- 'http://www.uniprot.org/uniprot/?query='
   idStr <- paste(query_names, collapse="+or+")
   format <- '&format=tab'
