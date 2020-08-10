@@ -17,12 +17,12 @@
 #' @export
 #'
 
-networkin_input <- function(phospho_file = 'data/imported/phospho.xlsx',
+networkin_input <- function(phospho_file = 'data/imported/phospho_human.xlsx',
                             species = 'hsa',
-                            phosphosites_column = 'ProteinID-Phospho:Site',
-                            log2_column = 'Log2(Relapse/diagnostic)',
-                            fdr_column = 'Adj. p-value',
-                            experiment = 'test'){
+                            phosphosites_column = 'PhosphoSite',
+                            log2_column = 'Log2',
+                            fdr_column = 'Adj. Pvalue',
+                            experiment = 'human'){
   phosphosites_column <- enquo(phosphosites_column)
   log2_column <- enquo(log2_column)
   fdr_column <- enquo(fdr_column)
