@@ -56,6 +56,7 @@ NetworKIN relies on the following dependencies:
 be downloaded [here](https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/).
 
 - Python 2. Python 3 is currently __not__ supported. 
+Python 2 can be installed with `sudo apt install python2` (on a bash terminal).
 
 
 __Installation__

@@ -34,10 +34,10 @@ networkin_setup()
 ```{r eval=FALSE}
 # Human phosphoproteomic data
 networkin_input(
-  phospho_file = "data/imported/phospho_human_LAM.xlsx",
+  phospho_file = "data/imported/phospho_human.xlsx",
   phosphosites_column = "PhosphoSite",
-  log2_column = "LAM-Log2(Relapse/diagnostic",
-  fdr_column = "pvalue LAM",
+  log2_column = "Log2",
+  fdr_column = "Adj. Pvalue",
   experiment = "human",
   species = 'hsa'
 )
@@ -47,7 +47,7 @@ networkin_input(
   phospho_file = "data/imported/phospho_mouse.xlsx",
   phosphosites_column = "ProteinID-Phospho:Site",
   log2_column = "Log2",
-  fdr_column = "Adj. p-value",
+  fdr_column = "Adj. Pvalue",
   experiment = "mouse",
   species = 'mmu'
 )

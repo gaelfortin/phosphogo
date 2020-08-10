@@ -40,7 +40,6 @@ networkin_input <- function(phospho_file = 'data/imported/phospho_human.xlsx',
     mutate(MOD_RSD = paste0(MOD_RSD, "-p")) #-p added for nomenclature consistency
 
   if (species == 'mmu') {
-    source('R/data_humanization.R')
     phospho <- data_humanization(phospho_df = phospho, experiment = experiment)
   }
 

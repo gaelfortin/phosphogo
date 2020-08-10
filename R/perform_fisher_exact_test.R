@@ -30,7 +30,6 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
   contingency_table %<>%
     remove_rownames() %>%
     column_to_rownames("top_predicted_kinase")
-  source("R/fisher_exact_test.R")
   # Fisher exact test upregulated vs downregulated phosphosites
   contingency_table %<>%
     mutate(fisher_res = map2(.x = n_upreg, .y = n_downreg, .f = fisher_exact_test, sum(contingency_table$n_upreg), sum(contingency_table$n_downreg))) %>%
