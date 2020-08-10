@@ -7,12 +7,12 @@ This function imports, clean, and prepare phosphoproteomic
 data for NetworKIN.}
 \usage{
 networkin_input(
-  phospho_file = "data/imported/phospho.xlsx",
+  phospho_file = "data/imported/phospho_human.xlsx",
   species = "hsa",
-  phosphosites_column = "ProteinID-Phospho:Site",
-  log2_column = "Log2(Relapse/diagnostic)",
-  fdr_column = "Adj. p-value",
-  experiment = "test"
+  phosphosites_column = "PhosphoSite",
+  log2_column = "Log2",
+  fdr_column = "Adj. Pvalue",
+  experiment = "human"
 )
 }
 \arguments{
