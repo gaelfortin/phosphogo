@@ -5,7 +5,7 @@
 #' 
 networkin_setup <- function(){
   message('Downloading NetworKIN archive...')
-  download.file('https://github.com/gaelfortin/phosphogo/raw/master/networkin.zip', 'networkin.zip')
+  download.file('https://drive.google.com/uc?export=download&confirm=mnFh&id=1ALZNg_k1iGpYMW6Gp40oFIhkKRGGlOHu', 'networkin.zip')
   message('Unzipping NetworKIN archive...')
   unzip(networkin.zip)
   system(paste0("chmod +x ", networkin_folder, "/bin/NetworKIN3.0_release/NetworKIN.py")) # Allow NetworKIN to be executed
