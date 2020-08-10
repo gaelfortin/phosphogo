@@ -2,10 +2,7 @@
 % Please edit documentation in R/perform_fisher_exact_test.R
 \name{perform_Fisher_exact_test}
 \alias{perform_Fisher_exact_test}
-\title{Perform Fisher exact test
-This function computes Fisher exact test and the corresponding adjusted p-values (FDR)
-for upregulated vs downregulated phosphosites, upregulated vs all phosphosites,
-downregulated vs all phosphosites.}
+\title{Perform Fisher exact test}
 \usage{
 perform_Fisher_exact_test(
   top_predictions_file = "data/analyses/top_predictions.csv",
@@ -18,7 +15,6 @@ perform_Fisher_exact_test(
 \item{experiment}{\verb{<character>} Name of the experiment to tag output files}
 }
 \description{
-Perform Fisher exact test
 This function computes Fisher exact test and the corresponding adjusted p-values (FDR)
 for upregulated vs downregulated phosphosites, upregulated vs all phosphosites,
 downregulated vs all phosphosites.

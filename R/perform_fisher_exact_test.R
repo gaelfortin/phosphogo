@@ -29,9 +29,6 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
     count(top_predicted_kinase)
   contingency_table <- full_join(upreg_proteo, downreg_proteo, by = "top_predicted_kinase", suffix = c("_upreg", "_downreg"))
   contingency_table %<>%  replace_na(replace = list(n_upreg = 0, n_downreg = 0))
-  # contingency_table %<>%
-  #   remove_rownames() %>%
-  #   column_to_rownames("top_predicted_kinase")
   # Fisher exact test upregulated vs downregulated phosphosites
   contingency_table %<>%
     mutate(fisher_res = map2(.x = n_upreg, .y = n_downreg, .f = fisher_exact_test, sum(contingency_table$n_upreg), sum(contingency_table$n_downreg))) %>%
