@@ -5,9 +5,9 @@
 #' 
 networkin_setup <- function(){
   message('Downloading NetworKIN archive...')
-  download.file('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213566&authkey=AHQSjMEM2FKJg60', 'networkin.zip')
+  download.file('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213567&authkey=AGdpgSa0BgvVV-U', 'networkin.zip')
   message('Unzipping NetworKIN archive...')
-  unzip('networkin.zip')
+  system('unzip networkin.zip') #use unix unzip as R unzip alters networkin files
   system(paste0("chmod +x networkin/bin/NetworKIN3.0_release/NetworKIN.py")) # Allow NetworKIN to be executed
   message('NetworKIN setup completed.')
 }
