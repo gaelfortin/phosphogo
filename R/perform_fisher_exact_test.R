@@ -8,6 +8,7 @@
 #' @import dplyr
 #' @import tibble
 #' @import tidyr
+#' @importFrom purrr map2
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
 #' @export

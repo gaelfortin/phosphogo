@@ -26,4 +26,5 @@ Imports:
     ggplot2,
     tidyr,
     stringr,
-    ggrepel
+    ggrepel,
+    purrr
