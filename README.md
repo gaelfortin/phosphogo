@@ -41,6 +41,8 @@ An example of a pipeline can be found in the vignette
 
 ### __Detailed instructions for custom installation (not recommended)__
 ### NetworKIN installation
+`phosphogo` uses a modified version of NetworKIN 3.
+
 __Dependencies__
 
 
@@ -58,22 +60,10 @@ be downloaded [here](https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPOR
 
 __Installation__
 
-
-Download NetworKIN as an archive from `phosphogo` [GitHub repository](https://github.com/gaelfortin/phosphogo/blob/master/networkin.zip).
-Remark: this archive is a modified version of NetworKIN 3 available 
-[here](http://networkin.info/download.shtml).
-
-It is recommended to download this archive in your R working directory.
-
-
-Once downloaded, run
+Run
 ```
-networkin_setup(networkin_zip = 'networkin.zip', networkin_folder = 'networkin')
+networkin_setup()
 ```
-
-NetworKIN setup can be customized by changing `networkin_setup()` parameters
-(see `?networkin_setup` for details).
-
 
 
 
@@ -82,9 +72,13 @@ __Installation__
 
 
 IV-KEA relies on the in vitro kinase-substrate interaction database produced
-by [Sugiyama __et al.__](https://www.nature.com/articles/s41598-019-46385-4).
-UniprotKB accession numbers have been added to this database.
-
+by [Sugiyama _et al._](https://www.nature.com/articles/s41598-019-46385-4).
+UniprotKB accession numbers have been added to this database. The database 
+is contained in a ready-to-use file (`data/imported/invitrodb.csv').
+To download the IV-KEA database (for custom installation), run:
+```
+ivkea_setup()
+```
 
 ## Issues
 If you have an issue or find a bug, please open an issue
