@@ -21,6 +21,7 @@ R project file `phosphogo.Rproj` and execute the following commands:
 library(phosphogo)
 dir.create('data/analyses', showWarnings = FALSE) 
 dir.create('data/outputs', showWarnings = FALSE)
+dir.create('figures', showWarnings = FALSE)
 networkin_setup()
 ```
 
