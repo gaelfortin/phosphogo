@@ -2,10 +2,7 @@
 % Please edit documentation in R/run_networkin.R
 \name{run_networkin}
 \alias{run_networkin}
-\title{Run NetworKIN
-This function prepares and executes NetworKIN to generate predictions
-on a given set of phosphorylated peptides.
-NetworKIN requires Python and the BLASTALL version of BLAST.}
+\title{Run NetworKIN}
 \usage{
 run_networkin(
   input_file = "data/outputs/networKIN_input_test.res",
@@ -21,7 +18,6 @@ run_networkin(
 \item{experiment}{\verb{<character>} Name of the experiment to tag output}
 }
 \description{
-Run NetworKIN
 This function prepares and executes NetworKIN to generate predictions
 on a given set of phosphorylated peptides.
 NetworKIN requires Python and the BLASTALL version of BLAST.

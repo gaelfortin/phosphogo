@@ -1,4 +1,5 @@
 #' Generate NetworKIN input
+#' 
 #' This function imports, clean, and prepare phosphoproteomic
 #' data for NetworKIN.
 #' @param phospho_file `<.xlsx file>` Raw phosphoproteomic data

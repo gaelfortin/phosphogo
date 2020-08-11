@@ -2,8 +2,7 @@
 % Please edit documentation in R/ivkea_setup.R
 \name{ivkea_setup}
 \alias{ivkea_setup}
-\title{IV-KEA setup
-IV-KEA database is downloaded. Run this function only for custom IV-KEA setup.}
+\title{IV-KEA setup}
 \usage{
 ivkea_setup(ivkea_folder = "data/imported/")
 }
@@ -11,6 +10,5 @@ ivkea_setup(ivkea_folder = "data/imported/")
 \item{ivkea_folder}{\verb{<character>} Where to download IV-KEA database}
 }
 \description{
-IV-KEA setup
 IV-KEA database is downloaded. Run this function only for custom IV-KEA setup.
 }

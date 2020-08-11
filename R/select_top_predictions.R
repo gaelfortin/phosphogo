@@ -1,4 +1,5 @@
 #' Extract top NetworKIN predictions
+#' 
 #' The strongest NetworKIN predictions for each phosphosite are selected.
 #' @param predictions_file `<character>` Location of the filtered NetworKIN output file
 #' @param phospho_cleaned_file `<character>` Location of the cleaned phosphoproteomic file

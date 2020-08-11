@@ -1,3 +1,5 @@
+#' Make volcano plot
+#' 
 #' Draw a volcano plot from any test results
 #' @param kinase_enrichment_file `<character>` Location of the file with Fisher exact test results
 #' @param odds_ratio `<column_name>` Unquoted name of the `kinase_enrichment_file` column

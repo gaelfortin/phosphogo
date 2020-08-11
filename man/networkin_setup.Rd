@@ -2,12 +2,10 @@
 % Please edit documentation in R/networkin_setup.R
 \name{networkin_setup}
 \alias{networkin_setup}
-\title{NetworKIN setup
-NetworKIN is properly downloaded and installed with this function.}
+\title{NetworKIN setup}
 \usage{
 networkin_setup()
 }
 \description{
-NetworKIN setup
 NetworKIN is properly downloaded and installed with this function.
 }

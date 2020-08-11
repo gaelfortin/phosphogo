@@ -3,6 +3,7 @@
 #' according to the in vitro database produced by Sugiyama et al. 2019.
 #' @param clean_phospho_file `<character>` Location of the clean
 #' phosphoproteomic file
+#' 
 #' @param invitrodb_file `<character>` Location of the in vitro database.
 #' This must be the ready-to-use version of the database produced by `ivkea_setup`
 #' @param uniprot_id_phospho `<column_name>` Column with UniprotKB IDs in

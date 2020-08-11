@@ -2,9 +2,7 @@
 % Please edit documentation in R/data_humanization.R
 \name{data_humanization}
 \alias{data_humanization}
-\title{Humanize phosphoproteomic data
-This function humanizes mouse phosphoproteomic data according to the
-PhosphoSitePlus orthology database.}
+\title{Humanize phosphoproteomic data}
 \usage{
 data_humanization(phospho_df = phospho, experiment = "test")
 }
@@ -14,7 +12,6 @@ data_humanization(phospho_df = phospho, experiment = "test")
 \item{experiment}{\verb{<character>} Name of the experiment to tag output files}
 }
 \description{
-Humanize phosphoproteomic data
 This function humanizes mouse phosphoproteomic data according to the
 PhosphoSitePlus orthology database.
 }

@@ -2,8 +2,7 @@
 % Please edit documentation in R/fisher_exact_test.R
 \name{fisher_exact_test}
 \alias{fisher_exact_test}
-\title{Fisher exact test
-Computes the odds ratio and its pvalue of Fisher enrichment exact test.}
+\title{Fisher exact test}
 \usage{
 fisher_exact_test(na, nb, tota, totb)
 }
@@ -17,6 +16,5 @@ fisher_exact_test(na, nb, tota, totb)
 \item{totb}{\verb{<integer>} total number of items in group B}
 }
 \description{
-Fisher exact test
 Computes the odds ratio and its pvalue of Fisher enrichment exact test.
 }

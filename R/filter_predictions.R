@@ -1,4 +1,5 @@
 #' Filter NetworKIN predictions
+#' 
 #' NetworKIN predictions are filtered to keep the top 20% prediction scores.
 #' @param predictions_file `<character>` Location of NetworKIN output file
 #' @param threshold `<numeric>` NetworKIN prediction score threshold used

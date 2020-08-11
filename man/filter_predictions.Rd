@@ -2,8 +2,7 @@
 % Please edit documentation in R/filter_predictions.R
 \name{filter_predictions}
 \alias{filter_predictions}
-\title{Filter NetworKIN predictions
-NetworKIN predictions are filtered to keep the top 20\% prediction scores.}
+\title{Filter NetworKIN predictions}
 \usage{
 filter_predictions(
   predictions_file = "data/outputs/networKIN_output.tsv",
@@ -19,6 +18,5 @@ filter_predictions(
 \item{experiment}{\verb{<character>} Name of the experiment to tag output files}
 }
 \description{
-Filter NetworKIN predictions
 NetworKIN predictions are filtered to keep the top 20\% prediction scores.
 }

@@ -1,4 +1,5 @@
 #' Humanize phosphoproteomic data
+#' 
 #' This function humanizes mouse phosphoproteomic data according to the
 #' PhosphoSitePlus orthology database.
 #' @param phospho_df `<dataframe>` Dataframe to humanize

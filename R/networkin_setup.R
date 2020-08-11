@@ -1,4 +1,5 @@
 #' NetworKIN setup
+#' 
 #' NetworKIN is properly downloaded and installed with this function.
 #' @importFrom utils unzip
 #' @export

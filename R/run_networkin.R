@@ -1,4 +1,5 @@
 #' Run NetworKIN
+#' 
 #' This function prepares and executes NetworKIN to generate predictions
 #' on a given set of phosphorylated peptides.
 #' NetworKIN requires Python and the BLASTALL version of BLAST.

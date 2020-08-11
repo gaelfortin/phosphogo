@@ -1,4 +1,5 @@
 #' IV-KEA setup
+#' 
 #' IV-KEA database is downloaded. Run this function only for custom IV-KEA setup.
 #' @param ivkea_folder `<character>` Where to download IV-KEA database
 #' @importFrom readr read_csv

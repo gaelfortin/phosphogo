@@ -2,9 +2,7 @@
 % Please edit documentation in R/networkin_input.R
 \name{networkin_input}
 \alias{networkin_input}
-\title{Generate NetworKIN input
-This function imports, clean, and prepare phosphoproteomic
-data for NetworKIN.}
+\title{Generate NetworKIN input}
 \usage{
 networkin_input(
   phospho_file = "data/imported/phospho_human.xlsx",
@@ -29,7 +27,6 @@ networkin_input(
 \item{experiment}{\verb{<character>} Name of the experiment to tag output files}
 }
 \description{
-Generate NetworKIN input
 This function imports, clean, and prepare phosphoproteomic
 data for NetworKIN.
 }

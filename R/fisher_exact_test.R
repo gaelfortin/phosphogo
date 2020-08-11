@@ -1,4 +1,5 @@
 #' Fisher exact test
+#' 
 #' Computes the odds ratio and its pvalue of Fisher enrichment exact test.
 #' @param na `<integer>` value for the tested item in group A
 #' @param nb `<integer>` value for the tested item in group B

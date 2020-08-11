@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_volcano_plot.R
 \name{make_volcano_plot}
 \alias{make_volcano_plot}
-\title{Draw a volcano plot from any test results}
+\title{Make volcano plot}
 \usage{
 make_volcano_plot(
   kinase_enrichment_file = "data/analyses/networkin_kinase_enrichment.csv",
