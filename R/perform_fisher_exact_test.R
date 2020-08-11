@@ -37,8 +37,7 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
   # Fisher exact test upregulated vs all sites and downregulated vs all sites
   contingency_table %<>% # count the top predicted kinase for all sites
     left_join(count(phospho_predictions, top_predicted_kinase)) %>%
-    select(everything(), "n_tot" = n) %>%
-    column_to_rownames("top_predicted_kinase")
+    select(everything(), "n_tot" = n) 
   contingency_table %<>%
     mutate(fisher_res_up = map2(.x = n_upreg, .y = n_tot, .f = fisher_exact_test, sum(contingency_table$n_upreg), sum(contingency_table$n_tot)),
            fisher_res_down = map2(.x = n_downreg, .y = n_tot, .f = fisher_exact_test, sum(contingency_table$n_downreg), sum(contingency_table$n_tot))) %>%
@@ -46,7 +45,6 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
     separate(col = fisher_res_down, into = c("down_vs_tot_pvalue", "down_vs_tot_odds_ratio"), sep=",", convert = TRUE)
   contingency_table %<>% bind_cols(
     up_vs_tot_FDR =  p.adjust(contingency_table$up_vs_tot_pvalue, method = "fdr"),
-    down_vs_tot_FDR =  p.adjust(contingency_table$down_vs_tot_pvalue, method = "fdr"))%>%
-    rownames_to_column(var = "top_predicted_kinase")
+    down_vs_tot_FDR =  p.adjust(contingency_table$down_vs_tot_pvalue, method = "fdr"))
   write_csv(contingency_table, paste0("data/analyses/kinase_enrichment_", experiment, ".csv"))
 }
