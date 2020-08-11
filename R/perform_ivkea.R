@@ -12,6 +12,7 @@
 #' @param experiment `<character>` Name of the experiment to tag output
 #' @import readr
 #' @import dplyr
+#' @importFrom tidyr everything
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
 #' @export
@@ -21,12 +22,13 @@ perform_ivkea <- function(clean_phospho_file = 'data/outputs/phospho_clean.csv',
                           experiment = 'test'
                           ){
   phospho <- read_csv(clean_phospho_file, col_types = cols())
-  invitro_db <- read_csv(invitrodb_file, col_types = cols())
+  invitro_db <- read_csv(invitrodb_file, col_types = cols()) %>% 
+    mutate(substrate_position = paste0(substrate_position, "-p"))
   invitro_phospho_predictions <- phospho %>%
-    left_join(invitro_db, by = c("ACC_ID", "substrate_position")) %>%
-    select(-substrate_protein_description)
+    left_join(invitro_db, by = c("substrate" = "ACC_ID", "MOD_RSD" = "substrate_position")) %>%
+    select(everything(), -substrate_protein_description, 'top_predicted_kinase' = kinase)
 
-  write_csv(invitro_phospho_predictions, paste0("data/outputs/ivkea_predictions", experiment, ".csv"))
+  write_csv(invitro_phospho_predictions, paste0("data/outputs/ivkea_predictions_", experiment, ".csv"))
 
 }
 

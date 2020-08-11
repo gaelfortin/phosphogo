@@ -15,7 +15,8 @@
 #' @export
 
 perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_predictions.csv',
-                              experiment = 'test'){
+                              experiment = 'test',
+                              predicted_kinase){
   phospho_predictions <- read_csv(top_predictions_file, col_types = cols())
   upreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%

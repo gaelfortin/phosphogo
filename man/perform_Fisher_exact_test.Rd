@@ -6,7 +6,8 @@
 \usage{
 perform_Fisher_exact_test(
   top_predictions_file = "data/analyses/top_predictions.csv",
-  experiment = "test"
+  experiment = "test",
+  predicted_kinase
 )
 }
 \arguments{
