@@ -391,14 +391,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-8"><a href="#cb7-8"></a><span class="kw">make_volcano_plot</span>(<span class="dt">kinase_enrichment_file =</span> <span class="st">&#39;data/analyses/kinase_enrichment_networkin_human.csv&#39;</span>, </span>
 <span id="cb7-9"><a href="#cb7-9"></a>                  <span class="dt">odds_ratio =</span> up_vs_tot_odds_ratio,</span>
 <span id="cb7-10"><a href="#cb7-10"></a>                  <span class="dt">FDR_cutoff =</span> <span class="fl">0.05</span>, </span>
-<span id="cb7-11"><a href="#cb7-11"></a>                  <span class="dt">FDR =</span> up_vs_down_FDR,</span>
+<span id="cb7-11"><a href="#cb7-11"></a>                  <span class="dt">FDR =</span> up_vs_tot_FDR,</span>
 <span id="cb7-12"><a href="#cb7-12"></a>                  <span class="dt">graph_title =</span> <span class="st">&quot;Kinases prediction enrichment (NetworKIN) up vs tot&quot;</span>,</span>
 <span id="cb7-13"><a href="#cb7-13"></a>                  <span class="dt">x_axis_title =</span> <span class="st">&quot;log2(odds ratio)&quot;</span>,</span>
 <span id="cb7-14"><a href="#cb7-14"></a>                  <span class="dt">save_path =</span> <span class="st">&quot;figures/up_tot_volcano_plot_human.pdf&quot;</span>)</span>
 <span id="cb7-15"><a href="#cb7-15"></a><span class="kw">make_volcano_plot</span>(<span class="dt">kinase_enrichment_file =</span> <span class="st">&#39;data/analyses/kinase_enrichment_networkin_human.csv&#39;</span>, </span>
 <span id="cb7-16"><a href="#cb7-16"></a>                  <span class="dt">odds_ratio =</span> down_vs_tot_odds_ratio,</span>
 <span id="cb7-17"><a href="#cb7-17"></a>                  <span class="dt">FDR_cutoff =</span> <span class="fl">0.05</span>, </span>
-<span id="cb7-18"><a href="#cb7-18"></a>                  <span class="dt">FDR =</span> up_vs_down_FDR,</span>
+<span id="cb7-18"><a href="#cb7-18"></a>                  <span class="dt">FDR =</span> down_vs_tot_FDR,</span>
 <span id="cb7-19"><a href="#cb7-19"></a>                  <span class="dt">graph_title =</span> <span class="st">&quot;Kinases prediction enrichment (NetworKIN) down vs tot&quot;</span>,</span>
 <span id="cb7-20"><a href="#cb7-20"></a>                  <span class="dt">x_axis_title =</span> <span class="st">&quot;log2(odds ratio)&quot;</span>,</span>
 <span id="cb7-21"><a href="#cb7-21"></a>                  <span class="dt">save_path =</span> <span class="st">&quot;figures/down_tot_volcano_plot_human.pdf&quot;</span>)</span></code></pre></div>
