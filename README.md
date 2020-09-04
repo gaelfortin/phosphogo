@@ -86,6 +86,8 @@ ivkea_setup()
 If you have an issue or find a bug, please open an issue
 in the Issues section of the [Github repository](https://github.com/gaelfortin/phosphogo/issues).
 
+## Licence
+`phosphogo` is distributed under the CC BY-NC-SA licence.
 
 ## Other informations
 This package is maintained by Gael Fortin (fortin.gael@outlook.fr) and was designed
