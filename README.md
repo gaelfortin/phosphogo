@@ -35,8 +35,7 @@ _For custom installation, see the detailed instructions below._
 ### __Pipeline example__
 
 An example of a pipeline can be found in the vignette 
-`utils::browseVignettes('phosphogo')` or open the .Rmd file in 
-`vignettes/how_to_use_phosphogo.Rmd`
+`utils::browseVignettes('phosphogo')`.
 
 
 
