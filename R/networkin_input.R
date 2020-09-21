@@ -2,7 +2,7 @@
 #' 
 #' This function imports, clean, and prepare phosphoproteomic
 #' data for NetworKIN.
-#' @param phospho_file `<.xlsx file>` Raw phosphoproteomic data
+#' @param phospho_file `<.xlsx or .csv file>` Raw phosphoproteomic data
 #' @param species `<character>` Species code from which samples were obtained (`hsa` or `mmu`).
 #' @param phosphosites_column `<column_name>` Column with phosphosite names
 #' @param log2_column `<column_name>` Column with log2(experiment/control) values
@@ -27,7 +27,13 @@ networkin_input <- function(phospho_file = 'data/imported/phospho_human.xlsx',
   phosphosites_column <- enquo(phosphosites_column)
   log2_column <- enquo(log2_column)
   fdr_column <- enquo(fdr_column)
-  phospho <- read_xlsx(phospho_file)
+  if (str_detect(phospho_file, pattern = "\\.xlsx") == TRUE ) {
+    phospho <- read_xlsx(phospho_file)
+  } else if (str_detect(phospho_file, pattern = "\\.csv") == TRUE) {
+    phospho <- read_csv(phospho_file)
+  } else {stop(paste0(sapply(str_split(phospho_file, "/"), tail, 1),
+                      ' is not a .csv or a .xlsx file.'))} #Error message if data is not in a proper format
+  
   phospho %<>%
     select("ProteinID-Phospho:Site" = !!phosphosites_column,
            "Log2" = !!log2_column,
