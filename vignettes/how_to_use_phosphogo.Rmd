@@ -87,7 +87,8 @@ select_top_predictions(predictions_file = 'data/analyses/filtered_networkin_pred
                 phospho_cleaned_file = 'data/outputs/phospho_clean_human.csv',
                 experiment = 'human')
 perform_Fisher_exact_test(top_predictions_file = 'data/analyses/top_predictions_human.csv',
-                              experiment = 'networkin_human')
+                              experiment = 'networkin_human',
+                              FC_threshold = 1.2)
 ```
 
 5. Generate volcano plots
@@ -126,7 +127,8 @@ perform_ivkea(clean_phospho_file = 'data/outputs/phospho_clean_human.csv',
 Run Fisher Exact test
 ```{r eval=FALSE}
 perform_Fisher_exact_test(top_predictions_file = 'data/outputs/ivkea_predictions_human.csv',
-                              experiment = 'ivkea_human')
+                              experiment = 'ivkea_human',
+                              FC_threshold = 1.2)
 ```
 
 Plot results on volcano plots

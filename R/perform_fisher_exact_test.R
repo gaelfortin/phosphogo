@@ -5,6 +5,7 @@
 #' downregulated vs all phosphosites.
 #' @param top_predictions_file `<character>` Location of the file with top predictions per phosphosite
 #' @param experiment `<character>` Name of the experiment to tag output files
+#' @param FC_threshold `<numeric>` Fold change threshold to select phosphosites.
 #' @import readr
 #' @import dplyr
 #' @import tibble
@@ -16,16 +17,16 @@
 
 perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_predictions.csv',
                               experiment = 'test',
-                              predicted_kinase){
+                              FC_threshold = 1.2){
   phospho_predictions <- read_csv(top_predictions_file, col_types = cols())
   upreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
-    filter(Log2 > 0) %>%
+    filter(Log2 > FC_threshold) %>%
     filter(adj_pvalue < 0.05) %>%
     count(top_predicted_kinase)
   downreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
-    filter(Log2 < 0) %>%
+    filter(Log2 < -FC_threshold) %>%
     filter(adj_pvalue < 0.05) %>%
     count(top_predicted_kinase)
   contingency_table <- full_join(upreg_proteo, downreg_proteo, by = "top_predicted_kinase", suffix = c("_upreg", "_downreg"))
