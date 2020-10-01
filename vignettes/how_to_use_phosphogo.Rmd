@@ -154,3 +154,14 @@ make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_ivke
                   save_path = "figures/down_tot_volcano_plot_ivkea_human.pdf")
 ```
 
+7. Compare NetworKIN and IV-KEA predictions
+```{r}
+predictions_comparison(
+  ivkea_enrichment_file = 'data/analyses/kinase_enrichment_ivkea_human.csv',
+  networkin_enrichment_file = 'data/analyses/kinase_enrichment_networkin_human.csv',
+  FDR_cutoff = 0.05, 
+  graph_title = "Kinases prediction enrichment up vs down networkin vs iv-kea",
+  save_path = "figures/comp_plot2.pdf"
+)
+```
+
