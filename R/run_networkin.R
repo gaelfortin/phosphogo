@@ -12,6 +12,9 @@
 run_networkin <- function(input_file = 'data/outputs/networKIN_input_test.res', 
                           blastall_location, 
                           experiment = 'test'){
+  if (file.exists(blastall_location)==FALSE) {
+    stop('BLASTALL was not found on your device. Follow phosphogo documentation to know how to install BLASTALL on your device.')
+  }
   dir.create("tmp", showWarnings = FALSE) #create a temporary folder for NetworKIN
   Sys.setenv(TMPDIR = "tmp")
   system(paste0("networkin/bin/NetworKIN3.0_release/NetworKIN.py -n   networkin/bin/NetPhorest_human_2.1/netphorest -b ", 
