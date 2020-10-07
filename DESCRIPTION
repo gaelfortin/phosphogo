@@ -27,4 +27,6 @@ Imports:
     tidyr,
     stringr,
     ggrepel,
-    purrr
+    purrr,
+    shinyDirectoryInput,
+    shiny
