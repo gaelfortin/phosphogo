@@ -7,13 +7,15 @@
 perform_Fisher_exact_test(
   top_predictions_file = "data/analyses/top_predictions.csv",
   experiment = "test",
-  predicted_kinase
+  FC_threshold = 1.2
 )
 }
 \arguments{
 \item{top_predictions_file}{\verb{<character>} Location of the file with top predictions per phosphosite}
 
 \item{experiment}{\verb{<character>} Name of the experiment to tag output files}
+
+\item{FC_threshold}{\verb{<numeric>} Fold change threshold to select phosphosites.}
 }
 \description{
 This function computes Fisher exact test and the corresponding adjusted p-values (FDR)
