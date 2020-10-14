@@ -5,8 +5,8 @@
 \title{Compare predictions}
 \usage{
 predictions_comparison(
-  ivkea_enrichment_file = "data/analyses/ivkea_kinase_enrichment.csv",
-  networkin_enrichment_file = "data/analyses/networkin_kinase_enrichment.csv",
+  ivkea_enrichment_file,
+  networkin_enrichment_file,
   FDR_cutoff = 0.05,
   graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
   save_path = "figures/predictions_comparison.pdf"

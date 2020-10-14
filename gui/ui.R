@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyDirectoryInput)
+library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(

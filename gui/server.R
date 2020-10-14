@@ -191,8 +191,8 @@ shinyServer(function(input, output, session) {
       renderUI(
          tagList(if (input$graph_type == "enrichment") {
             fileInput("enrichment_file", label = h3("Enrichment results file"), placeholder = "Select a .csv file")
-         } else {fileInput("networkin_file", label = h3("Networkin enrichment results file"), placeholder = "Select a .csv file")},
-         if (input$graph_type != "enrichment") {fileInput("ivkea_file", label = h3("IV-KEA enrichment results file"), placeholder = "Select a .csv file")},
+         } else {fileInput("networkin_file", label = h3("Networkin enrichment results file"), placeholder = "Select NetworKIN enrichment results")},
+         if (input$graph_type != "enrichment") {fileInput("ivkea_file", label = h3("IV-KEA enrichment results file"), placeholder = "Select IV-KEA enrichment results")},
          textInput("graph_title", label = "Graph title", value = paste0(input$graph_type, " graph")),
          actionButton("generate_graph", label = "Generate graph"))
          )
@@ -208,10 +208,10 @@ shinyServer(function(input, output, session) {
                    yaxis = list(title = "-log10(FDR)"))
          )} else {
                p <- predictions_comparison(
-                  ivkea_enrichment_file = read_csv(input$ivkea_file[1,4]),
-                  networkin_enrichment_file = read_csv(input$networkin_file[1,4]),
+                  ivkea_enrichment_file = input$ivkea_file[1,4],
+                  networkin_enrichment_file = input$networkin_file[1,4],
                   FDR_cutoff = 0.05, 
-                  graph_title = "Kinases prediction enrichment up vs down networkin vs iv-kea",
+                  graph_title = input$graph_title,
                   save_path = "figures/comp_plot.pdf"
                )
                output$graph <- renderPlotly(ggplotly(p))

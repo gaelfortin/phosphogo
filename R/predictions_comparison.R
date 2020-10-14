@@ -16,8 +16,8 @@
 #' @import ggplot2
 #' @export
 
-predictions_comparison <- function(ivkea_enrichment_file = 'data/analyses/ivkea_kinase_enrichment.csv',
-                                   networkin_enrichment_file = 'data/analyses/networkin_kinase_enrichment.csv',
+predictions_comparison <- function(ivkea_enrichment_file,
+                                   networkin_enrichment_file,
                                     FDR_cutoff = 0.05,
                                     graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
                                     save_path = "figures/predictions_comparison.pdf"){
