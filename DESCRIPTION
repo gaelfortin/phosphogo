@@ -29,4 +29,5 @@ Imports:
     ggrepel,
     purrr,
     shinyDirectoryInput,
-    shiny
+    shiny,
+    plotly

@@ -14,7 +14,7 @@ networkin_input(
 )
 }
 \arguments{
-\item{phospho_file}{\verb{<.xlsx file>} Raw phosphoproteomic data}
+\item{phospho_file}{\verb{<.xlsx or .csv file>} Raw phosphoproteomic data}
 
 \item{species}{\verb{<character>} Species code from which samples were obtained (\code{hsa} or \code{mmu}).}
 
