@@ -28,7 +28,7 @@ make_volcano_plot <- function(kinase_enrichment_file = 'networkin_kinase_enrichm
                               labels = top_predicted_kinase,
                               graph_title = "Volcano plot",
                               x_axis_title = "X axis",
-                              output_folder = 'data',
+                              output_folder = 'myexperiment/',
                               file_name){
   contingency_table <- read_csv(paste0(output_folder, kinase_enrichment_file), col_types = cols())
   odds_ratio <- enquo(odds_ratio)

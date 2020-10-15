@@ -13,7 +13,7 @@
 
 filter_predictions <- function(predictions_file = 'networKIN_output.tsv',
                                threshold = 0.8,
-                              output_folder = 'data/'){
+                              output_folder = 'myexperiment/'){
   predictions <- read_tsv(paste0(output_folder, predictions_file), col_types = cols()) %>%
     select(-`Target Name`,
            -`Kinase/Phosphatase/Phospho-binding domain description`,

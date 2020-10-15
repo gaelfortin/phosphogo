@@ -12,8 +12,8 @@
 #'
 
 data_humanization <- function(phospho_df = phospho,
-                              output_folder = 'data/'){
-  ortho <- read_csv("imports/shared_phospho_human_mouse.csv", col_types = cols())
+                              output_folder = 'myexperiment/'){
+  ortho <- read_csv("data/imports/shared_phospho_human_mouse.csv", col_types = cols())
   phospho_df <-
     inner_join(phospho_df,
                ortho,

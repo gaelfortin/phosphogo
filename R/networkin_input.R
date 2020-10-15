@@ -23,14 +23,14 @@ networkin_input <- function(phospho_file = 'phospho_human.xlsx',
                             phosphosites_column = 'PhosphoSite',
                             log2_column = 'Log2',
                             fdr_column = 'Adj. Pvalue',
-                            output_folder = 'data/'){
+                            output_folder = 'myexperiment/'){
   phosphosites_column <- enquo(phosphosites_column)
   log2_column <- enquo(log2_column)
   fdr_column <- enquo(fdr_column)
-  if (str_detect((paste0(output_folder, phospho_file)), pattern = "\\.xlsx") == TRUE ) {
-    phospho <- read_xlsx(paste0(output_folder, phospho_file))
-  } else if (str_detect((paste0(output_folder, phospho_file)), pattern = "\\.csv") == TRUE) {
-    phospho <- read_csv(paste0(output_folder, phospho_file))
+  if (str_detect(phospho_file, pattern = "\\.xlsx") == TRUE ) {
+    phospho <- read_xlsx(phospho_file)
+  } else if (str_detect(phospho_file, pattern = "\\.csv") == TRUE) {
+    phospho <- read_csv(phospho_file)
   } else {stop(paste0(sapply(str_split(phospho_file, "/"), tail, 1),
                       ' is not a .csv or a .xlsx file.'))} #Error message if data is not in a proper format
   

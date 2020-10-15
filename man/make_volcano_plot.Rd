@@ -12,7 +12,7 @@ make_volcano_plot(
   labels = top_predicted_kinase,
   graph_title = "Volcano plot",
   x_axis_title = "X axis",
-  output_folder = "data",
+  output_folder = "myexperiment/",
   file_name
 )
 }

@@ -7,7 +7,7 @@
 perform_Fisher_exact_test(
   top_predictions_file = "top_predictions.csv",
   predictions = "networkin",
-  output_folder = "data/",
+  output_folder = "myexperiment/",
   FC_threshold = 1.2
 )
 }

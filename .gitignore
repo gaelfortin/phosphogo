@@ -4,3 +4,9 @@
 .Ruserdata
 networkin/
 Meta
+figures/
+data/analyses
+data/outputs
+pipeline_test.Rmd
+myexperiment/
+tmp/

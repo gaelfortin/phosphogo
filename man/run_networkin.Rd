@@ -7,7 +7,7 @@
 run_networkin(
   input_file = "networKIN_input.res",
   blastall_location,
-  output_folder = "data/"
+  output_folder = "myexperiment/"
 )
 }
 \arguments{

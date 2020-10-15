@@ -11,7 +11,7 @@
 
 run_networkin <- function(input_file = 'networKIN_input.res', 
                           blastall_location, 
-                          output_folder = 'data/'){
+                          output_folder = 'myexperiment/'){
   if (file.exists(blastall_location)==FALSE) {
     stop('BLASTALL was not found on your device. Follow phosphogo documentation to know how to install BLASTALL on your device.')
   }

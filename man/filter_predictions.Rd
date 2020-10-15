@@ -7,7 +7,7 @@
 filter_predictions(
   predictions_file = "networKIN_output.tsv",
   threshold = 0.8,
-  output_folder = "data/"
+  output_folder = "myexperiment/"
 )
 }
 \arguments{

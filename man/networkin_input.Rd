@@ -10,7 +10,7 @@ networkin_input(
   phosphosites_column = "PhosphoSite",
   log2_column = "Log2",
   fdr_column = "Adj. Pvalue",
-  output_folder = "data/"
+  output_folder = "myexperiment/"
 )
 }
 \arguments{

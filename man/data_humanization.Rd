@@ -4,7 +4,7 @@
 \alias{data_humanization}
 \title{Humanize phosphoproteomic data}
 \usage{
-data_humanization(phospho_df = phospho, output_folder = "data/")
+data_humanization(phospho_df = phospho, output_folder = "myexperiment/")
 }
 \arguments{
 \item{phospho_df}{\verb{<dataframe>} Dataframe to humanize}

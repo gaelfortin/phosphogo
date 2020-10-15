@@ -18,8 +18,8 @@
 
 perform_Fisher_exact_test <- function(top_predictions_file = 'top_predictions.csv',
                                       predictions = "networkin",
-                              output_folder = 'data/',
-                              FC_threshold = 1.2){
+                                      output_folder = 'myexperiment/',
+                                      FC_threshold = 1.2){
   phospho_predictions <- read_csv(paste0(output_folder, top_predictions_file), col_types = cols())
   upreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
