@@ -3,7 +3,7 @@
 #' NetworKIN predictions are filtered to keep the top 20% prediction scores.
 #' @param predictions_file `<character>` Location of NetworKIN output file
 #' @param threshold `<numeric>` NetworKIN prediction score threshold used
-#' @param experiment `<character>` Name of the experiment to tag output files
+#' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
@@ -11,10 +11,10 @@
 #' @export
 #'
 
-filter_predictions <- function(predictions_file = 'data/outputs/networKIN_output.tsv',
+filter_predictions <- function(predictions_file = 'networKIN_output.tsv',
                                threshold = 0.8,
-                              experiment = 'test'){
-  predictions <- read_tsv(predictions_file, col_types = cols()) %>%
+                              output_folder = 'data/'){
+  predictions <- read_tsv(paste0(output_folder, predictions_file), col_types = cols()) %>%
     select(-`Target Name`,
            -`Kinase/Phosphatase/Phospho-binding domain description`,
            -`Kinase/Phosphatase/Phospho-binding domain Name`) %>%
@@ -42,6 +42,6 @@ filter_predictions <- function(predictions_file = 'data/outputs/networKIN_output
                                             slice(1))
   predictions %<>%
     filter(networkin_score >= networkin_score_threshold)
-  write_csv(predictions, paste0("data/analyses/filtered_networkin_predictions_", experiment, ".csv"))
+  write_csv(predictions, paste0(output_folder, "filtered_networkin_predictions.csv"))
 
 }

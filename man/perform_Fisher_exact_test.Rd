@@ -5,15 +5,18 @@
 \title{Perform Fisher exact test}
 \usage{
 perform_Fisher_exact_test(
-  top_predictions_file = "data/analyses/top_predictions.csv",
-  experiment = "test",
+  top_predictions_file = "top_predictions.csv",
+  predictions = "networkin",
+  output_folder = "data/",
   FC_threshold = 1.2
 )
 }
 \arguments{
 \item{top_predictions_file}{\verb{<character>} Location of the file with top predictions per phosphosite}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output files}
+\item{predictions}{\verb{<character>} The algorithm used for predictions (NetworKIN or IV-KEA)}
+
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
 
 \item{FC_threshold}{\verb{<numeric>} Fold change threshold to select phosphosites.}
 }

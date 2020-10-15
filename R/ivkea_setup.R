@@ -6,7 +6,7 @@
 #' @importFrom readr write_csv
 #' @export
 #' 
-ivkea_setup <- function(ivkea_folder = 'data/imported/'){
+ivkea_setup <- function(ivkea_folder = 'imports/'){
   message('Downloading IV-KEA...')
   ivkea_db <- read_csv('https://raw.githubusercontent.com/gaelfortin/phosphogo/master/data/imported/invitrodb.csv')
   write_csv(ivkea_db, paste0(ivkea_folder, 'invitrodb.csv'))

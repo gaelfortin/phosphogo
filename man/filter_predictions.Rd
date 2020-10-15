@@ -5,9 +5,9 @@
 \title{Filter NetworKIN predictions}
 \usage{
 filter_predictions(
-  predictions_file = "data/outputs/networKIN_output.tsv",
+  predictions_file = "networKIN_output.tsv",
   threshold = 0.8,
-  experiment = "test"
+  output_folder = "data/"
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ filter_predictions(
 
 \item{threshold}{\verb{<numeric>} NetworKIN prediction score threshold used}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output files}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
 }
 \description{
 NetworKIN predictions are filtered to keep the top 20\% prediction scores.

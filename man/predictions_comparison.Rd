@@ -9,7 +9,8 @@ predictions_comparison(
   networkin_enrichment_file,
   FDR_cutoff = 0.05,
   graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
-  save_path = "figures/predictions_comparison.pdf"
+  output_folder = "data/",
+  file_name
 )
 }
 \arguments{
@@ -23,7 +24,9 @@ file with Fisher exact test results}
 
 \item{graph_title}{\verb{<character>}}
 
-\item{save_path}{\verb{<character>} File path to save the volcano plot in.}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
+
+\item{file_name}{\verb{<character>} File name including extension (.pdf recommended)}
 }
 \description{
 Print NetworKIN and IV-KEA predictions on the same volcano plot

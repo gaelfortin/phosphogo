@@ -4,12 +4,12 @@
 \alias{data_humanization}
 \title{Humanize phosphoproteomic data}
 \usage{
-data_humanization(phospho_df = phospho, experiment = "test")
+data_humanization(phospho_df = phospho, output_folder = "data/")
 }
 \arguments{
 \item{phospho_df}{\verb{<dataframe>} Dataframe to humanize}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output files}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
 }
 \description{
 This function humanizes mouse phosphoproteomic data according to the

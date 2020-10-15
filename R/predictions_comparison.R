@@ -8,7 +8,8 @@
 #' file with Fisher exact test results
 #' @param FDR_cutoff `<numeric>` Cutoff to display.
 #' @param graph_title `<character>`
-#' @param save_path `<character>` File path to save the volcano plot in.
+#' @param output_folder `<character>` Where the output files should be stored
+#' @param file_name `<character>` File name including extension (.pdf recommended)
 #' @import readr
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
@@ -20,12 +21,13 @@ predictions_comparison <- function(ivkea_enrichment_file,
                                    networkin_enrichment_file,
                                     FDR_cutoff = 0.05,
                                     graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
-                                    save_path = "figures/predictions_comparison.pdf"){
-  iv_kea <- read_csv('data/analyses/kinase_enrichment_ivkea_human.csv') %>%  
+                                    output_folder = 'data/',
+                                    file_name){
+  iv_kea <- read_csv(paste0(output_folder, ivkea_enrichment_file)) %>%  
     filter(up_vs_down_FDR <= FDR_cutoff) %>% 
     select(top_predicted_kinase, "up_vs_down_odds_ratio") %>% 
     bind_cols("Prediction algorithm" = "IV-KEA")
-  networkin <- read_csv('data/analyses/kinase_enrichment_networkin_human.csv') %>%  
+  networkin <- read_csv(paste0(output_folder, networkin_enrichment_file)) %>%  
     filter(up_vs_down_FDR <= FDR_cutoff) %>%
     select(top_predicted_kinase, "up_vs_down_odds_ratio") %>%  
     bind_cols("Prediction algorithm" = "NetworKIN")
@@ -41,5 +43,5 @@ predictions_comparison <- function(ivkea_enrichment_file,
     ylab("Kinase") +
     geom_hline(yintercept = 0, size = 0.5) + 
     ggtitle(graph_title) +
-    ggsave(save_path)
+    ggsave(paste0(output_folder, file_name))
 }

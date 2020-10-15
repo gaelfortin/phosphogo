@@ -5,9 +5,9 @@
 \title{Run NetworKIN}
 \usage{
 run_networkin(
-  input_file = "data/outputs/networKIN_input_test.res",
+  input_file = "networKIN_input.res",
   blastall_location,
-  experiment = "test"
+  output_folder = "data/"
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ run_networkin(
 
 \item{blastall_location}{\verb{<character>} Location of BLASTALL on the computer}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
 }
 \description{
 This function prepares and executes NetworKIN to generate predictions

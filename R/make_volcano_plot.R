@@ -11,7 +11,8 @@
 #' that contains the labels.
 #' @param graph_title `<character>`
 #' @param x_axis_title `<character>`
-#' @param save_path `<character>` File path to save the volcano plot in.
+#' @param output_folder `<character>` Where the output files should be stored
+#' @param file_name `<character>` File name including extension (.pdf recommended)
 #' @import readr
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
@@ -20,15 +21,16 @@
 #' @import ggplot2
 #' @export
 
-make_volcano_plot <- function(kinase_enrichment_file = 'data/analyses/networkin_kinase_enrichment.csv',
+make_volcano_plot <- function(kinase_enrichment_file = 'networkin_kinase_enrichment.csv',
                               odds_ratio = odds_ratio,
                               FDR_cutoff = 0.05,
                               FDR_data = FDR,
                               labels = top_predicted_kinase,
                               graph_title = "Volcano plot",
                               x_axis_title = "X axis",
-                              save_path){
-  contingency_table <- read_csv(kinase_enrichment_file, col_types = cols())
+                              output_folder = 'data',
+                              file_name){
+  contingency_table <- read_csv(paste0(output_folder, kinase_enrichment_file), col_types = cols())
   odds_ratio <- enquo(odds_ratio)
   FDR_data <- enquo(FDR_data)
   labels <- enquo(labels)
@@ -56,6 +58,6 @@ make_volcano_plot <- function(kinase_enrichment_file = 'data/analyses/networkin_
                     show.legend = FALSE) +
     theme_classic() +
     ggtitle(graph_title)+
-    ggsave(save_path, width = 10, height = 6)
+    ggsave(paste0(output_folder, file_name), width = 10, height = 6)
 
 }

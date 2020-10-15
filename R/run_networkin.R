@@ -5,13 +5,13 @@
 #' NetworKIN requires Python and the BLASTALL version of BLAST.
 #' @param input_file `<character>` Location of the input file 
 #' @param blastall_location `<character>` Location of BLASTALL on the computer
-#' @param experiment `<character>` Name of the experiment to tag output
+#' @param output_folder `<character>` Where the output files should be stored
 #' @export
 #' 
 
-run_networkin <- function(input_file = 'data/outputs/networKIN_input_test.res', 
+run_networkin <- function(input_file = 'networKIN_input.res', 
                           blastall_location, 
-                          experiment = 'test'){
+                          output_folder = 'data/'){
   if (file.exists(blastall_location)==FALSE) {
     stop('BLASTALL was not found on your device. Follow phosphogo documentation to know how to install BLASTALL on your device.')
   }
@@ -20,8 +20,6 @@ run_networkin <- function(input_file = 'data/outputs/networKIN_input_test.res',
   system(paste0("networkin/bin/NetworKIN3.0_release/NetworKIN.py -n   networkin/bin/NetPhorest_human_2.1/netphorest -b ", 
                 blastall_location, 
                 " 9606 networkin/databases/uniprot122013/cleaned_9606_uniprot_201312.fa ", 
-                input_file, 
-                " > data/outputs/networKIN_output_", 
-                experiment, 
-                ".tsv")) #Run NetworKIN
+                output_folder, input_file, 
+                " > ", output_folder, "networKIN_output.tsv")) #Run NetworKIN
 }

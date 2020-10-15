@@ -5,12 +5,12 @@
 \title{Generate NetworKIN input}
 \usage{
 networkin_input(
-  phospho_file = "data/imported/phospho_human.xlsx",
+  phospho_file = "phospho_human.xlsx",
   species = "hsa",
   phosphosites_column = "PhosphoSite",
   log2_column = "Log2",
   fdr_column = "Adj. Pvalue",
-  experiment = "human"
+  output_folder = "data/"
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ networkin_input(
 
 \item{fdr_column}{\verb{<column_name>} Column with adjusted pvalues}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output files}
+\item{output_folder}{\verb{<character>} Where the output files should be stored (with a \code{/} at the end)}
 }
 \description{
 This function imports, clean, and prepare phosphoproteomic

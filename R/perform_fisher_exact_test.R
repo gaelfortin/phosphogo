@@ -4,7 +4,8 @@
 #' for upregulated vs downregulated phosphosites, upregulated vs all phosphosites,
 #' downregulated vs all phosphosites.
 #' @param top_predictions_file `<character>` Location of the file with top predictions per phosphosite
-#' @param experiment `<character>` Name of the experiment to tag output files
+#' @param predictions `<character>` The algorithm used for predictions (NetworKIN or IV-KEA)
+#' @param output_folder `<character>` Where the output files should be stored
 #' @param FC_threshold `<numeric>` Fold change threshold to select phosphosites.
 #' @import readr
 #' @import dplyr
@@ -15,10 +16,11 @@
 #' @importFrom magrittr "%<>%" 
 #' @export
 
-perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_predictions.csv',
-                              experiment = 'test',
+perform_Fisher_exact_test <- function(top_predictions_file = 'top_predictions.csv',
+                                      predictions = "networkin",
+                              output_folder = 'data/',
                               FC_threshold = 1.2){
-  phospho_predictions <- read_csv(top_predictions_file, col_types = cols())
+  phospho_predictions <- read_csv(paste0(output_folder, top_predictions_file), col_types = cols())
   upreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
     filter(Log2 > FC_threshold) %>%
@@ -48,5 +50,5 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'data/analyses/top_
   contingency_table %<>% bind_cols(
     up_vs_tot_FDR =  p.adjust(contingency_table$up_vs_tot_pvalue, method = "fdr"),
     down_vs_tot_FDR =  p.adjust(contingency_table$down_vs_tot_pvalue, method = "fdr"))
-  write_csv(contingency_table, paste0("data/analyses/kinase_enrichment_", experiment, ".csv"))
+  write_csv(contingency_table, paste0(output_folder, "kinase_enrichment_", predictions, ".csv"))
 }

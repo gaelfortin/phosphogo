@@ -5,14 +5,15 @@
 \title{Make volcano plot}
 \usage{
 make_volcano_plot(
-  kinase_enrichment_file = "data/analyses/networkin_kinase_enrichment.csv",
+  kinase_enrichment_file = "networkin_kinase_enrichment.csv",
   odds_ratio = odds_ratio,
   FDR_cutoff = 0.05,
   FDR_data = FDR,
   labels = top_predicted_kinase,
   graph_title = "Volcano plot",
   x_axis_title = "X axis",
-  save_path
+  output_folder = "data",
+  file_name
 )
 }
 \arguments{
@@ -33,7 +34,9 @@ that contains the labels.}
 
 \item{x_axis_title}{\verb{<character>}}
 
-\item{save_path}{\verb{<character>} File path to save the volcano plot in.}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
+
+\item{file_name}{\verb{<character>} File name including extension (.pdf recommended)}
 }
 \description{
 Draw a volcano plot from any test results

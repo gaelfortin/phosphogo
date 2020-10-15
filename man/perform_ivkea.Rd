@@ -7,9 +7,9 @@ This function performs IV-KEA on a given phosphoproteomic file
 according to the in vitro database produced by Sugiyama et al. 2019.}
 \usage{
 perform_ivkea(
-  clean_phospho_file = "data/outputs/phospho_clean.csv",
-  invitrodb_file = "data/imported/invitrodb.csv",
-  experiment = "test"
+  clean_phospho_file = "phospho_clean.csv",
+  invitrodb_file = "imports/invitrodb.csv",
+  output_folder = "data/"
 )
 }
 \arguments{
@@ -19,7 +19,7 @@ phosphoproteomic file}
 \item{invitrodb_file}{\verb{<character>} Location of the in vitro database.
 This must be the ready-to-use version of the database produced by \code{ivkea_setup}}
 
-\item{experiment}{\verb{<character>} Name of the experiment to tag output}
+\item{output_folder}{\verb{<character>} Where the output files should be stored}
 
 \item{uniprot_id_phospho}{\verb{<column_name>} Column with UniprotKB IDs in
 the file containing cleaned phosphoproteomic results.}

@@ -7,7 +7,7 @@
 #' @param phosphosites_column `<column_name>` Column with phosphosite names
 #' @param log2_column `<column_name>` Column with log2(experiment/control) values
 #' @param fdr_column `<column_name>` Column with adjusted pvalues
-#' @param experiment `<character>` Name of the experiment to tag output files
+#' @param output_folder `<character>` Where the output files should be stored (with a `/` at the end)
 #' @import dplyr
 #' @import readr
 #' @import readxl
@@ -18,19 +18,19 @@
 #' @export
 #'
 
-networkin_input <- function(phospho_file = 'data/imported/phospho_human.xlsx',
+networkin_input <- function(phospho_file = 'phospho_human.xlsx',
                             species = 'hsa',
                             phosphosites_column = 'PhosphoSite',
                             log2_column = 'Log2',
                             fdr_column = 'Adj. Pvalue',
-                            experiment = 'human'){
+                            output_folder = 'data/'){
   phosphosites_column <- enquo(phosphosites_column)
   log2_column <- enquo(log2_column)
   fdr_column <- enquo(fdr_column)
-  if (str_detect(phospho_file, pattern = "\\.xlsx") == TRUE ) {
-    phospho <- read_xlsx(phospho_file)
-  } else if (str_detect(phospho_file, pattern = "\\.csv") == TRUE) {
-    phospho <- read_csv(phospho_file)
+  if (str_detect((paste0(output_folder, phospho_file)), pattern = "\\.xlsx") == TRUE ) {
+    phospho <- read_xlsx(paste0(output_folder, phospho_file))
+  } else if (str_detect((paste0(output_folder, phospho_file)), pattern = "\\.csv") == TRUE) {
+    phospho <- read_csv(paste0(output_folder, phospho_file))
   } else {stop(paste0(sapply(str_split(phospho_file, "/"), tail, 1),
                       ' is not a .csv or a .xlsx file.'))} #Error message if data is not in a proper format
   
@@ -47,24 +47,24 @@ networkin_input <- function(phospho_file = 'data/imported/phospho_human.xlsx',
     mutate(MOD_RSD = paste0(MOD_RSD, "-p")) #-p added for nomenclature consistency
 
   if (species == 'mmu') {
-    phospho <- data_humanization(phospho_df = phospho, experiment = experiment)
+    phospho <- data_humanization(phospho_df = phospho, output_folder = output_folder)
   }
 
   phospho %<>%
     select("substrate" = ACC_ID, MOD_RSD, Ratio, Log2, adj_pvalue)
 
   if (species == 'hsa') { #data humanization directly produce Uniprot IDs. This step is skipped for mouse data.
-    ortho <- suppressWarnings(read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = c("__c___c"))) %>% #import Uniprot IDs
+    ortho <- suppressWarnings(read_csv("imports/shared_phospho_human_mouse.csv", col_types = c("__c___c"))) %>% #import Uniprot IDs
       distinct()
     phospho <- inner_join(phospho, ortho, by = c("substrate" = "PROTEIN_human")) %>%
       select("substrate" = ACC_ID_human, MOD_RSD, Ratio, Log2, adj_pvalue)
   }
 
-  write_csv(phospho, paste0("data/outputs/phospho_clean_", experiment, ".csv")) #write cleaned file
+  write_csv(phospho, paste0(output_folder, "phospho_clean.csv")) #write cleaned file
 
   phospho %>% #generate NetworKIN input
     mutate(location = str_extract(MOD_RSD, pattern = "[:digit:]+"),
            amino_acid = str_extract(MOD_RSD, pattern = "^[:alpha:]")) %>%
     select(substrate, location, amino_acid) %>%
-    write_tsv(paste0("data/outputs/networKIN_input_", experiment ,".res"), col_names = FALSE)
+    write_tsv(paste0(output_folder, "networKIN_input.res"), col_names = FALSE)
 }

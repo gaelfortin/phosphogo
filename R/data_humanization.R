@@ -3,7 +3,7 @@
 #' This function humanizes mouse phosphoproteomic data according to the
 #' PhosphoSitePlus orthology database.
 #' @param phospho_df `<dataframe>` Dataframe to humanize
-#' @param experiment `<character>` Name of the experiment to tag output files
+#' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
@@ -12,8 +12,8 @@
 #'
 
 data_humanization <- function(phospho_df = phospho,
-                              experiment = 'test'){
-  ortho <- read_csv("data/imported/shared_phospho_human_mouse.csv", col_types = cols())
+                              output_folder = 'data/'){
+  ortho <- read_csv("imports/shared_phospho_human_mouse.csv", col_types = cols())
   phospho_df <-
     inner_join(phospho_df,
                ortho,
