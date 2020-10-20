@@ -33,12 +33,12 @@ shinyServer(function(input, output, session) {
 
    # Verify that IV-KEA is installed
    output$ivkea_verif <- renderText({
-      ifelse(file.exists("data/imported/invitrodb.csv")==TRUE, 
+      ifelse(file.exists("data/imports/invitrodb.csv")==TRUE, 
              "IV-KEA is properly installed.",
              "WARNING! IV-KEA is not installed.")})
    
    output$ivkea_install <-
-      renderUI(expr = if (file.exists("data/imported/invitrodb.csv")==TRUE) { 
+      renderUI(expr = if (file.exists("data/imports/invitrodb.csv")==TRUE) { 
          NULL } else {
             actionButton("run_ivkea_setup", label = "Install IV-KEA")})
    
@@ -46,13 +46,37 @@ shinyServer(function(input, output, session) {
       input$run_ivkea_setup, {
          ivkea_setup()
          output$ivkea_install <-
-            renderUI(expr = if (file.exists("data/imported/invitrodb.csv")==TRUE) { 
+            renderUI(expr = if (file.exists("data/imports/invitrodb.csv")==TRUE) { 
                NULL } else {
                   actionButton("run_ivkea_setup", label = "Install IV-KEA")})
          output$ivkea_verif <- renderText({
-            ifelse(file.exists("data/imported/invitrodb.csv")==TRUE, 
+            ifelse(file.exists("data/imports/invitrodb.csv")==TRUE, 
                    "IV-KEA is properly installed.",
                    "WARNING! IV-KEA is not installed.")})})
+   
+   # Render phospho data to help to input proper column headers
+   output$phospho_table <- renderUI({
+      # input$file1 will be NULL initially. After the user selects
+      # and uploads a file, it will be a data frame with 'name',
+      # 'size', 'type', and 'datapath' columns. The 'datapath'
+      # column will contain the local filenames where the data can
+      # be found.
+      
+      tagList(
+         renderText({
+            inFile <- input$phosphofile
+            ifelse(is.null(inFile), "Please select the file containing your data.", "First lines of your data:")
+         }),
+         renderTable({
+            inFile <- input$phosphofile
+      if (is.null(inFile))
+         return(NULL)
+      
+      if (str_detect(inFile$datapath, "csv")) {
+         head(read_csv(inFile$datapath))
+      } else {head(readxl::read_xlsx(inFile$datapath))}
+      })
+   )})
    
    # Select where to save outputs
    observeEvent(
@@ -72,8 +96,11 @@ shinyServer(function(input, output, session) {
          }
       }
    )
+   
+
    # Run IV-KEA
    observeEvent(input$run_ivkea, {
+      output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
       withProgress(message = 'Running IV-KEA', value = 0, {
          incProgress(1/3, detail = 'Preparing data for IV-KEA')
          networkin_input(
@@ -81,37 +108,41 @@ shinyServer(function(input, output, session) {
             phosphosites_column = input$phosphosite_column,
             log2_column = input$log2_column,
             fdr_column = input$fdr_column,
-            experiment = "shiny",
+            output_folder = output_dir,
             species = input$species
          )
          incProgress(2/3, detail = 'Running IV-KEA')
-         perform_ivkea(clean_phospho_file = 'data/outputs/phospho_clean_shiny.csv',
-                       invitrodb_file = 'data/imported/invitrodb.csv',
-                       experiment = 'shiny')
-         perform_Fisher_exact_test(top_predictions_file = 'data/outputs/ivkea_predictions_shiny.csv',
-                                   experiment = 'ivkea_shiny')
+         perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
+                       invitrodb_file = 'data/imports/invitrodb.csv',
+                       output_folder = output_dir)
+         perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
+                                   predictions = "ivkea",
+                                   output_folder = output_dir)
          incProgress(3/3, detail = 'Generating results plots')
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_ivkea_shiny.csv', 
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv', 
                            odds_ratio = up_vs_down_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = up_vs_down_FDR,
                            graph_title = "Kinases prediction enrichment (IV-KEA) up vs down",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/up_down_volcano_plot_shiny_ivkea.pdf")
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_ivkea_shiny.csv', 
+                           output_folder = output_dir,
+                           file_name = "up_down_volcano_plot_ivkea.pdf")
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv', 
                            odds_ratio = up_vs_tot_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = up_vs_tot_FDR,
                            graph_title = "Kinases prediction enrichment (IV-KEA) up vs tot",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/up_tot_volcano_plot_ivkea_shiny.pdf")
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_ivkea_shiny.csv', 
+                           output_folder = output_dir,
+                           file_name = "up_tot_volcano_plot_ivkea.pdf")
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv', 
                            odds_ratio = down_vs_tot_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = down_vs_tot_FDR,
                            graph_title = "Kinases prediction enrichment (IV-KEA) down vs tot",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/down_tot_volcano_plot_ivkea_shiny.pdf")
+                           output_folder = output_dir,
+                           file_name = "down_tot_volcano_plot_ivkea.pdf")
          })
       
 
@@ -124,6 +155,7 @@ shinyServer(function(input, output, session) {
    })
    # Run NetworKIN
    observeEvent(input$run_networkin, {
+      output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
       withProgress(message = 'Running NetworKIN', value = 0, {
          incProgress(1/6, detail = 'Preparing data for NetworKIN')
          networkin_input(
@@ -131,49 +163,53 @@ shinyServer(function(input, output, session) {
             phosphosites_column = input$phosphosite_column,
             log2_column = input$log2_column,
             fdr_column = input$fdr_column,
-            experiment = "shiny",
-            species = input$species
+            species = input$species,
+            output_folder = output_dir
          )
          incProgress(2/6, detail = 'Running NetworKIN. This step may take up to 1 hour')
          run_networkin(
-            input_file = "data/outputs/networKIN_input_shiny.res",
+            input_file = "networKIN_input.res",
             blastall_location = "~/blast-2.2.17/bin/blastall",
-            experiment = "shiny"
+            output_folder = output_dir
          )
          incProgress(3/6, detail = 'Filtering NetworKIN predictions')
          filter_predictions(
-            predictions_file = 'data/outputs/networKIN_output_shiny.tsv',
-            experiment = 'shiny'
+            predictions_file = 'networKIN_output.tsv',
+            output_folder = output_dir
          )
          incProgress(4/6, detail = 'Keeping only top predictions')
-         select_top_predictions(predictions_file = 'data/analyses/filtered_networkin_predictions_shiny.csv',
-                                phospho_cleaned_file = 'data/outputs/phospho_clean_shiny.csv',
-                                experiment = 'shiny')
+         select_top_predictions(predictions_file = 'filtered_networkin_predictions.csv',
+                                phospho_cleaned_file = 'phospho_clean.csv',
+                                output_folder = output_dir)
          incProgress(5/6, detail = 'Running statistical analysis')
-         perform_Fisher_exact_test(top_predictions_file = 'data/analyses/top_predictions_shiny.csv',
-                                   experiment = 'networkin_shiny')
+         perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
+                                   predictions = "networkin",
+                                   output_folder = output_dir)
          incProgress(6/6, detail = 'Generating results plots')
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_networkin_shiny.csv', 
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = up_vs_down_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = up_vs_down_FDR,
-                           graph_title = "Kinases prediction enrichment (IV-KEA) up vs down",
+                           graph_title = "Kinases prediction enrichment (NetworKIN) up vs down",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/up_down_volcano_plot_shiny_networkin.pdf")
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_networkin_shiny.csv', 
+                           output_folder = output_dir,
+                           file_name = "up_down_volcano_plot_networkin.pdf")
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = up_vs_tot_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = up_vs_tot_FDR,
-                           graph_title = "Kinases prediction enrichment (IV-KEA) up vs tot",
+                           graph_title = "Kinases prediction enrichment (NetworKIN) up vs tot",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/up_tot_volcano_plot_networkin_shiny.pdf")
-         make_volcano_plot(kinase_enrichment_file = 'data/analyses/kinase_enrichment_networkin_shiny.csv', 
+                           output_folder = output_dir,
+                           file_name = "up_tot_volcano_plot_networkin.pdf")
+         make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = down_vs_tot_odds_ratio,
                            FDR_cutoff = 0.05, 
                            FDR = down_vs_tot_FDR,
-                           graph_title = "Kinases prediction enrichment (IV-KEA) down vs tot",
+                           graph_title = "Kinases prediction enrichment (NetworKIN) down vs tot",
                            x_axis_title = "log2(odds ratio)",
-                           save_path = "figures/down_tot_volcano_plot_networkin_shiny.pdf")
+                           output_folder = output_dir,
+                           file_name = "down_tot_volcano_plot_networkin.pdf")
       })
       
       
@@ -202,17 +238,19 @@ shinyServer(function(input, output, session) {
       if (input$graph_type == "enrichment") {
          graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols())
          output$graph <- renderPlotly(
-            plot_ly(x = graph_data$up_vs_down_odds_ratio, y = -log10(graph_data$up_vs_down_FDR), name = graph_data$top_predicted_kinase) %>% 
+            plot_ly(x = log2(graph_data$up_vs_down_odds_ratio), y = -log10(graph_data$up_vs_down_FDR), name = graph_data$top_predicted_kinase) %>% 
             layout(title = input$graph_title,
-                   xaxis = list(title = "Odds ratio"),
+                   xaxis = list(title = "log2(Odds ratio)"),
                    yaxis = list(title = "-log10(FDR)"))
          )} else {
+            output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
                p <- predictions_comparison(
                   ivkea_enrichment_file = input$ivkea_file[1,4],
                   networkin_enrichment_file = input$networkin_file[1,4],
                   FDR_cutoff = 0.05, 
                   graph_title = input$graph_title,
-                  save_path = "figures/comp_plot.pdf"
+                  output_folder = output_dir,
+                  file_name = "comp_plot.pdf"
                )
                output$graph <- renderPlotly(ggplotly(p))
             }

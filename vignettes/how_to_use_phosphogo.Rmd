@@ -122,7 +122,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
 6. Perform IV-KEA
 ```{r eval=FALSE}
 perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
-                          invitrodb_file = 'imports/invitrodb.csv',
+                          invitrodb_file = 'data/imports/invitrodb.csv',
                           output_folder = 'myexperiment/')
 ```
 

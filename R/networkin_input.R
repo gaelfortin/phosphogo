@@ -54,7 +54,7 @@ networkin_input <- function(phospho_file = 'phospho_human.xlsx',
     select("substrate" = ACC_ID, MOD_RSD, Ratio, Log2, adj_pvalue)
 
   if (species == 'hsa') { #data humanization directly produce Uniprot IDs. This step is skipped for mouse data.
-    ortho <- suppressWarnings(read_csv("imports/shared_phospho_human_mouse.csv", col_types = c("__c___c"))) %>% #import Uniprot IDs
+    ortho <- suppressWarnings(read_csv("data/imports/shared_phospho_human_mouse.csv", col_types = c("__c___c"))) %>% #import Uniprot IDs
       distinct()
     phospho <- inner_join(phospho, ortho, by = c("substrate" = "PROTEIN_human")) %>%
       select("substrate" = ACC_ID_human, MOD_RSD, Ratio, Log2, adj_pvalue)

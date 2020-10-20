@@ -21,7 +21,7 @@ predictions_comparison <- function(ivkea_enrichment_file,
                                    networkin_enrichment_file,
                                     FDR_cutoff = 0.05,
                                     graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
-                                    output_folder = 'data/',
+                                    output_folder = 'myexperiment/',
                                     file_name){
   iv_kea <- read_csv(paste0(output_folder, ivkea_enrichment_file)) %>%  
     filter(up_vs_down_FDR <= FDR_cutoff) %>% 
