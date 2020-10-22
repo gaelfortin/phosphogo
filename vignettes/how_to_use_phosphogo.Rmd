@@ -24,9 +24,10 @@ library(phosphogo)
 dir.create('myexperiment', showWarnings = FALSE) 
 ```
 
-0. Install NetworKIN
+0. Install NetworKIN and IV-KEA
 ```{r eval=FALSE}
-networkin_setup()
+dependencies_setup(networkin = TRUE,
+                   ivkea = TRUE)
 ```
 
 1. Generate NetworKIN input from phosphoproteomic data

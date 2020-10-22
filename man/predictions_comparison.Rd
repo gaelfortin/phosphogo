@@ -9,7 +9,7 @@ predictions_comparison(
   networkin_enrichment_file,
   FDR_cutoff = 0.05,
   graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
-  output_folder = "data/",
+  output_folder = "myexperiment/",
   file_name
 )
 }

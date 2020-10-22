@@ -8,7 +8,7 @@
 #' 
 ivkea_setup <- function(ivkea_folder = 'data/imports/'){
   message('Downloading IV-KEA...')
-  ivkea_db <- read_csv('https://raw.githubusercontent.com/gaelfortin/phosphogo/master/data/imported/invitrodb.csv')
+  ivkea_db <- read_csv('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213702&authkey=AKbXsVkfod3C3uc')
   write_csv(ivkea_db, paste0(ivkea_folder, 'invitrodb.csv'))
   message('IV-KEA setup completed.')
 }
