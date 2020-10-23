@@ -67,7 +67,13 @@ run_networkin(
 )
 ```
 
-3. NetworKIN predictions filtering
+3. Verify NetworKIN prediction scores
+```{r}
+networkin_qc(predictions_file = 'networKIN_output.tsv',
+             output_folder = '/home/gael/Downloads/phosphogo_MLLAF9/')
+```
+
+4. NetworKIN predictions filtering
 Predictions that have a score in the top 20% of all predictions are kept. Predictions are kept for all sites (significantly deregulated or not deregulated).
 ```{r eval=FALSE}
 filter_predictions(
@@ -76,7 +82,7 @@ filter_predictions(
 )
 ```
 
-4. NetworKIN Fisher exact test
+5. NetworKIN Fisher exact test
 The following Fisher exact test can be performed with NetworKIN and IV-KEA:
 - Up reg vs down reg
 - Up reg vs everything (signif and not signif)
@@ -91,7 +97,7 @@ perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
                               FC_threshold = 1.2) 
 ```
 
-5. Generate volcano plots
+6. Generate volcano plots
 Each Fisher exact test can be used to generate a volcano plot.
 ```{r eval=FALSE}
 make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
@@ -120,7 +126,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
                   file_name = "down_tot_volcano_plot_networkin.pdf")
 ```
 
-6. Perform IV-KEA
+7. Perform IV-KEA
 ```{r eval=FALSE}
 perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
                           invitrodb_file = 'data/imports/invitrodb.csv',
@@ -163,7 +169,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv',
                   file_name = "down_tot_volcano_plot_ivkea.pdf")
 ```
   
-7. Compare enrichment tests from NetworKIN and IV-KEA
+8. Compare enrichment tests from NetworKIN and IV-KEA
 ```{r}
 predictions_comparison(
   ivkea_enrichment_file = 'kinase_enrichment_ivkea.csv',

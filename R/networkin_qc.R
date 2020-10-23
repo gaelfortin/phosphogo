@@ -1,6 +1,6 @@
-#' Filter NetworKIN predictions
+#' Quality control of NetworKIN predictions
 #' 
-#' NetworKIN predictions are filtered to keep the top 20% prediction scores.
+#' Draw a density plot of all predictions made by NetworKIN before filtering
 #' @param predictions_file `<character>` Location of NetworKIN output file
 #' @param threshold `<numeric>` NetworKIN prediction score threshold used
 #' @param output_folder `<character>` Where the output files should be stored
@@ -8,10 +8,10 @@
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
+#' @import ggplot2
 #' @export
-#'
-
-filter_predictions <- function(predictions_file = 'networKIN_output.tsv',
+#' 
+networkin_qc <- function(predictions_file = 'networKIN_output.tsv',
                                threshold = 0.8,
                                output_folder = 'myexperiment/'){
   predictions <- read_tsv(paste0(output_folder, predictions_file), col_types = cols()) %>%
@@ -40,8 +40,17 @@ filter_predictions <- function(predictions_file = 'networKIN_output.tsv',
                                             filter(count_fraction > threshold_fraction) %>%
                                             select(networkin_score) %>%
                                             slice(1))
-  predictions %<>%
-    filter(networkin_score >= networkin_score_threshold)
-  write_csv(predictions, paste0(output_folder, "filtered_networkin_predictions.csv"))
-
-}
+  
+  ggplot(predictions, aes(networkin_score)) +
+    geom_density(kernel = "gaussian") +
+    geom_vline(aes(xintercept = networkin_score_threshold), linetype="dashed", 
+               color = "red") +
+    labs(title = "Distribution of scores of NetworKIN predictions.",
+         subtitle = paste0("Current NetworKIN threshold is set to select the top ", threshold*100, "% predictions."),
+         caption = paste0("Number of predictions made by NetworKIN: ", nrow(predictions)),
+         x = "NetworKIN score of each prediction",
+         y = "Density of scores") +
+    xlim(0, summary(predictions$networkin_score)[5]+2)+ #extract 3rd quartile
+    theme_classic()+
+    ggsave(paste0(output_folder, 'networkin_qc.pdf'))
+  }
