@@ -11,14 +11,14 @@ shinyUI(fluidPage(
     tabsetPanel(type = "tabs",
                 tabPanel("Setup",
                          textOutput("networkin_verif"),
-                         textOutput("test_dir"),
-                         
-                         uiOutput('networkin_install'),
-                         
                          textOutput("ivkea_verif"),
-                         
-                         uiOutput('ivkea_install'),
-                         
+                         h3("Install / reinstall prediction softwares"),
+                         h4("Choose which prediction software(s) should be installed:"),
+                         checkboxInput("install_networkin", label = "NetworKIN", value = TRUE),
+                         checkboxInput("install_ivkea", label = "IV-KEA", value = TRUE),
+                         actionButton("install", label = "Install"),
+                         ),
+                tabPanel('Your data',
                          fileInput("phosphofile", label = h3("Phosphoproteomic input"), placeholder = "Choose CSV or XLSX file"),
                          h3("Your data at a glance"),
                          tableOutput("phospho_table"),

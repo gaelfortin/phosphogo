@@ -10,3 +10,4 @@ data/outputs
 pipeline_test.Rmd
 myexperiment/
 tmp/
+invitrodb.csv

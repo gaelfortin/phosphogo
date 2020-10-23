@@ -7,16 +7,38 @@ library(plotly)
 shinyServer(function(input, output, session) {
     setwd(dir = "../")
    
-   # Verify that NetworKIN is installed
+   # Verify that NetworKIN and IV-KEA are installed
    output$networkin_verif <- renderText({
        ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
               "NetworKIN is properly installed.",
               "WARNING! NetworKIN is not installed.")})
+   output$ivkea_verif <- renderText({
+      ifelse(file.exists("invitrodb.csv")==TRUE, 
+             "IV-KEA is properly installed.",
+             "WARNING! IV-KEA is not installed.")})
    
-   output$networkin_install <-
-       renderUI(expr = if (file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE) { 
-           NULL } else {
-               actionButton("run_networkin_setup", label = "Install NetworKIN")})
+   #Install NetworKIN and IV-KEA
+   observeEvent(
+      input$install, {
+       if (input$install_networkin == TRUE) {
+          withProgress(message = 'Installing NetworKIN...', value = 0,
+                       {incProgress(1/1)
+                        networkin_setup()})}
+       if (input$install_ivkea) {
+          withProgress(message = 'Installing IV-KEA', value = 0,
+                       {incProgress(1/1)
+                        ivkea_setup()})}
+      output$networkin_verif <- renderText({
+         ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
+                "NetworKIN is properly installed.",
+                "WARNING! NetworKIN is not installed.")})
+      output$ivkea_verif <- renderText({
+         ifelse(file.exists("invitrodb.csv")==TRUE, 
+                "IV-KEA is properly installed.",
+                "WARNING! IV-KEA is not installed.")})  
+         
+      })
+   
    
    observeEvent(
       input$run_networkin_setup, {
@@ -32,10 +54,7 @@ shinyServer(function(input, output, session) {
    
 
    # Verify that IV-KEA is installed
-   output$ivkea_verif <- renderText({
-      ifelse(file.exists("data/imports/invitrodb.csv")==TRUE, 
-             "IV-KEA is properly installed.",
-             "WARNING! IV-KEA is not installed.")})
+   
    
    output$ivkea_install <-
       renderUI(expr = if (file.exists("data/imports/invitrodb.csv")==TRUE) { 
