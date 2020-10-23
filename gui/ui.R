@@ -51,7 +51,7 @@ navbarPage("Phosphogo",
                                     "put here a tutorial in .md"
                                     ),
                            tabPanel("About",
-                                    "put here info about us, the paper...")
+                                    includeMarkdown("about.md")
                            
                            
                            
@@ -59,7 +59,7 @@ navbarPage("Phosphogo",
                 
                 )
     
-    
+)
     
   
   
