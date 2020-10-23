@@ -2,8 +2,7 @@
 % Please edit documentation in R/dependencies_setup.R
 \name{dependencies_setup}
 \alias{dependencies_setup}
-\title{Dependencies setup
-This script installs IVKEA and NetworKIN in the current directory}
+\title{Dependencies setup}
 \usage{
 dependencies_setup(networkin = TRUE, ivkea = TRUE)
 }
@@ -13,6 +12,5 @@ dependencies_setup(networkin = TRUE, ivkea = TRUE)
 \item{ivkea}{\verb{<bolean>} Whether to install IV-KEA or not}
 }
 \description{
-Dependencies setup
 This script installs IVKEA and NetworKIN in the current directory
 }

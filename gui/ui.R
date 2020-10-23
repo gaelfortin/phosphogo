@@ -1,24 +1,22 @@
 library(shiny)
 library(shinyDirectoryInput)
 library(plotly)
+library(shinythemes)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
 
-    # Application title
-    titlePanel("Phosphogo"),
-    
-    tabsetPanel(type = "tabs",
-                tabPanel("Setup",
+navbarPage("Phosphogo",
+  theme = shinytheme("flatly"), #cosmo or flatly or sandstone
+                tabPanel("0. Setup",
+                         h3("Install / reinstall prediction softwares"),
+                         h4("Current status of NetworKIN and IV-KEA:"),
                          textOutput("networkin_verif"),
                          textOutput("ivkea_verif"),
-                         h3("Install / reinstall prediction softwares"),
                          h4("Choose which prediction software(s) should be installed:"),
                          checkboxInput("install_networkin", label = "NetworKIN", value = TRUE),
                          checkboxInput("install_ivkea", label = "IV-KEA", value = TRUE),
-                         actionButton("install", label = "Install"),
+                         actionButton("install", label = "Install", class="btn btn-primary", style = "margin-bottom:20px"),
                          ),
-                tabPanel('Your data',
+                tabPanel('1. Your data',
                          fileInput("phosphofile", label = h3("Phosphoproteomic input"), placeholder = "Choose CSV or XLSX file"),
                          h3("Your data at a glance"),
                          tableOutput("phospho_table"),
@@ -30,38 +28,39 @@ shinyUI(fluidPage(
                                       selected = "hsa"),
                          directoryInput('output_dir', label = 'Select a directory to save all outputs', value = '~'),
                          ),
-                tabPanel("Run",
-                         actionButton(inputId = "run_ivkea", label = "Run IV-KEA"),
-                         actionButton(inputId = "run_networkin", label = "Run NetworKIN")
+                tabPanel("2. Run",
+                         actionButton(inputId = "run_ivkea", label = "Run IV-KEA", class="btn btn-primary", style = "margin-bottom:20px"),
+                         actionButton(inputId = "run_networkin", label = "Run NetworKIN", class="btn btn-primary", style = "margin-bottom:20px"),
+                         plotOutput("qc")
                          ),
-                tabPanel("Visualize",
+                tabPanel("3. Visualize",
                         sidebarLayout(
                             sidebarPanel("Settings",
                                          radioButtons("graph_type", label = "Type of graph", 
                                                       choices = list("Enrichment graph" = "enrichment", "Predictions comparison graph" = "comparison"), 
                                                       selected = "enrichment"),
                                          uiOutput('plot_data')
-                                         
-                                         
-                                         ),
+                                        ),
                             mainPanel(
-                                plotlyOutput("graph")
+                              plotlyOutput("graph")
                             )
-                        )
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                          
-                         )
+                          )
+                        ),
+                navbarMenu("More",
+                           tabPanel("Tutorial",
+                                    "put here a tutorial in .md"
+                                    ),
+                           tabPanel("About",
+                                    "put here info about us, the paper...")
+                           
+                           
+                           
+                           )
                 
                 )
     
     
     
   
-    )
-)
+  
+

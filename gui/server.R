@@ -132,7 +132,7 @@ shinyServer(function(input, output, session) {
          )
          incProgress(2/3, detail = 'Running IV-KEA')
          perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
-                       invitrodb_file = 'data/imports/invitrodb.csv',
+                       invitrodb_file = 'invitrodb.csv',
                        output_folder = output_dir)
          perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
                                    predictions = "ivkea",
@@ -185,26 +185,30 @@ shinyServer(function(input, output, session) {
             species = input$species,
             output_folder = output_dir
          )
-         incProgress(2/6, detail = 'Running NetworKIN. This step may take up to 1 hour')
+         incProgress(2/6, detail = 'Running NetworKIN. This step may take up to 1 hour depending on your dataset size')
          run_networkin(
             input_file = "networKIN_input.res",
             blastall_location = "~/blast-2.2.17/bin/blastall",
             output_folder = output_dir
          )
-         incProgress(3/6, detail = 'Filtering NetworKIN predictions')
+         incProgress(3/7, detail = "Generating QC graph")
+         output$qc <- renderPlot(networkin_qc(
+            output_folder = output_dir
+         ))
+         incProgress(4/7, detail = 'Filtering NetworKIN predictions')
          filter_predictions(
             predictions_file = 'networKIN_output.tsv',
             output_folder = output_dir
          )
-         incProgress(4/6, detail = 'Keeping only top predictions')
+         incProgress(5/7, detail = 'Keeping only top predictions')
          select_top_predictions(predictions_file = 'filtered_networkin_predictions.csv',
                                 phospho_cleaned_file = 'phospho_clean.csv',
                                 output_folder = output_dir)
-         incProgress(5/6, detail = 'Running statistical analysis')
+         incProgress(6/7, detail = 'Running statistical analysis')
          perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
                                    predictions = "networkin",
                                    output_folder = output_dir)
-         incProgress(6/6, detail = 'Generating results plots')
+         incProgress(7/7, detail = 'Generating results plots')
          make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = up_vs_down_odds_ratio,
                            FDR_cutoff = 0.05, 
@@ -249,7 +253,7 @@ shinyServer(function(input, output, session) {
          } else {fileInput("networkin_file", label = h3("Networkin enrichment results file"), placeholder = "Select NetworKIN enrichment results")},
          if (input$graph_type != "enrichment") {fileInput("ivkea_file", label = h3("IV-KEA enrichment results file"), placeholder = "Select IV-KEA enrichment results")},
          textInput("graph_title", label = "Graph title", value = paste0(input$graph_type, " graph")),
-         actionButton("generate_graph", label = "Generate graph"))
+         actionButton("generate_graph", label = "Generate graph", class="btn btn-primary", style = "margin-bottom:20px"))
          )
    
    ## Generate graph

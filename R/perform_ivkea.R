@@ -19,7 +19,7 @@
 #' @export
 
 perform_ivkea <- function(clean_phospho_file = 'phospho_clean.csv',
-                          invitrodb_file = 'data/imports/invitrodb.csv',
+                          invitrodb_file = 'invitrodb.csv',
                           output_folder = 'myexperiment/'
                           ){
   phospho <- read_csv(paste0(output_folder, clean_phospho_file), col_types = cols())

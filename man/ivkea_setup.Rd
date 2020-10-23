@@ -4,7 +4,7 @@
 \alias{ivkea_setup}
 \title{IV-KEA setup}
 \usage{
-ivkea_setup(ivkea_folder = "data/imports/")
+ivkea_setup(ivkea_folder = "")
 }
 \arguments{
 \item{ivkea_folder}{\verb{<character>} Where to download IV-KEA database}
