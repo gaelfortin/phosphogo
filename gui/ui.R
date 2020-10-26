@@ -48,7 +48,7 @@ navbarPage("Phosphogo",
                         ),
                 navbarMenu("More",
                            tabPanel("Tutorial",
-                                    "put here a tutorial in .md"
+                                    includeMarkdown("tutorial.md")
                                     ),
                            tabPanel("About",
                                     includeMarkdown("about.md")

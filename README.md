@@ -30,6 +30,13 @@ You are ready to perform all analyses included in `phosphogo`!
 _For custom installation, see the detailed instructions below._
 
 
+### User-friendly application
+Phosphogo comes with a intuitive user interface that offers the same functions
+than the command-line version of the package. To launch the app, run:
+
+```
+runApp('gui')
+```
 
 
 ### __Pipeline example__
