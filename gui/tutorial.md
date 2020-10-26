@@ -71,6 +71,11 @@ The results of one enrichment analysis (either IV-KEA or NetworKIN) can be visua
 If you have run NetworKIN and IV-KEa on your dataset, you can easily compare the results of both algorithms in one plot thanks to this function. Just import the two kinase enrichment files and generate the graph.
 
 
+<img src="comparison_plot.png" width="893" height="331" />
+
+
+
+
 *As NetworKIN and IV-KEA use two different annotation systems, some kinases are labelled with different names by the to algorithms.*
 
-**ADD AN IMAGE HERE WHEN BUG FIXED**
+
