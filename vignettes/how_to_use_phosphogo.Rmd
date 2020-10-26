@@ -172,11 +172,11 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv',
 8. Compare enrichment tests from NetworKIN and IV-KEA
 ```{r}
 predictions_comparison(
-  ivkea_enrichment_file = 'kinase_enrichment_ivkea.csv',
-  networkin_enrichment_file = 'kinase_enrichment_networkin.csv',
+  ivkea_enrichment_file = 'myexperiment/kinase_enrichment_ivkea.csv',
+  networkin_enrichment_file = 'myexperiment/kinase_enrichment_networkin.csv',
   FDR_cutoff = 0.05, 
   graph_title = "Kinases prediction enrichment up vs down networkin vs iv-kea",
-  output_folder = 'myexperiment/',
+  output_folder = '',
   file_name = "comp_plot.pdf"
 )
 ```

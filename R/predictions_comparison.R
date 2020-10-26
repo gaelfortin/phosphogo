@@ -23,11 +23,11 @@ predictions_comparison <- function(ivkea_enrichment_file,
                                     graph_title = "Kinases prediction enrichment Networkin vs IV-KEA",
                                     output_folder = 'myexperiment/',
                                     file_name){
-  iv_kea <- read_csv(paste0(output_folder, ivkea_enrichment_file)) %>%  
+  iv_kea <- read_csv(ivkea_enrichment_file) %>%  
     filter(up_vs_down_FDR <= FDR_cutoff) %>% 
     select(top_predicted_kinase, "up_vs_down_odds_ratio") %>% 
     bind_cols("Prediction algorithm" = "IV-KEA")
-  networkin <- read_csv(paste0(output_folder, networkin_enrichment_file)) %>%  
+  networkin <- read_csv(networkin_enrichment_file) %>%  
     filter(up_vs_down_FDR <= FDR_cutoff) %>%
     select(top_predicted_kinase, "up_vs_down_odds_ratio") %>%  
     bind_cols("Prediction algorithm" = "NetworKIN")
@@ -39,8 +39,8 @@ predictions_comparison <- function(ivkea_enrichment_file,
     theme_classic()+
     theme(axis.line.y = element_blank(),
           axis.ticks.y = element_blank()) +
-    xlab("Enrichment scores") +
-    ylab("Kinase") +
+    xlab("Kinases") +
+    ylab("Enrichment scores") +
     geom_hline(yintercept = 0, size = 0.5) + 
     ggtitle(graph_title) +
     ggsave(paste0(output_folder, file_name))

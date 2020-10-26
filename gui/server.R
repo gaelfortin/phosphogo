@@ -258,15 +258,17 @@ shinyServer(function(input, output, session) {
    
    ## Generate graph
    observeEvent(input$generate_graph, {
-      if (input$graph_type == "enrichment") {
-         graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols())
-         output$graph <- renderPlotly(
-            plot_ly(x = log2(graph_data$up_vs_down_odds_ratio), y = -log10(graph_data$up_vs_down_FDR), name = graph_data$top_predicted_kinase) %>% 
-            layout(title = input$graph_title,
-                   xaxis = list(title = "log2(Odds ratio)"),
-                   yaxis = list(title = "-log10(FDR)"))
-         )} else {
-            output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
+      withProgress(message = 'Rendering your plot...', value = 0, {
+         incProgress(1/1)
+         if (input$graph_type == "enrichment") {
+            graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols())
+            output$graph <- renderPlotly(
+               plot_ly(x = log2(graph_data$up_vs_down_odds_ratio), y = -log10(graph_data$up_vs_down_FDR), name = graph_data$top_predicted_kinase) %>% 
+                  layout(title = input$graph_title,
+                         xaxis = list(title = "log2(Odds ratio)"),
+                         yaxis = list(title = "-log10(FDR)"))
+            )} else {
+               output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
                p <- predictions_comparison(
                   ivkea_enrichment_file = input$ivkea_file[1,4],
                   networkin_enrichment_file = input$networkin_file[1,4],
@@ -277,6 +279,9 @@ shinyServer(function(input, output, session) {
                )
                output$graph <- renderPlotly(ggplotly(p))
             }
+         })
+      
+      
    })
          
 })
