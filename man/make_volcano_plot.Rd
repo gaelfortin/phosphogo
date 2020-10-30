@@ -5,7 +5,7 @@
 \title{Make volcano plot}
 \usage{
 make_volcano_plot(
-  kinase_enrichment_file = "networkin_kinase_enrichment.csv",
+  kinase_enrichment_file = "kinase_enrichment_networkin.csv",
   odds_ratio = odds_ratio,
   FDR_cutoff = 0.05,
   FDR_data = FDR,
@@ -17,7 +17,7 @@ make_volcano_plot(
 )
 }
 \arguments{
-\item{kinase_enrichment_file}{\verb{<character>} Location of the file with Fisher exact test results}
+\item{kinase_enrichment_file}{\verb{<character>} Name of the file with Fisher exact test results}
 
 \item{odds_ratio}{\verb{<column_name>} Unquoted name of the \code{kinase_enrichment_file} column
 that contains the odds ratios.}

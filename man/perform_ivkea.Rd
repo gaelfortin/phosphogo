@@ -8,7 +8,7 @@ according to the in vitro database produced by Sugiyama et al. 2019.}
 \usage{
 perform_ivkea(
   clean_phospho_file = "phospho_clean.csv",
-  invitrodb_file = "data/imports/invitrodb.csv",
+  invitrodb_file = "invitrodb.csv",
   output_folder = "myexperiment/"
 )
 }

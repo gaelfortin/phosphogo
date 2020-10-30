@@ -35,7 +35,7 @@ Phosphogo comes with a intuitive user interface that offers the same functions
 than the command-line version of the package. To launch the app, run:
 
 ```
-runApp('gui')
+launchApp()
 ```
 
 

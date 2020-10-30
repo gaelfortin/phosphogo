@@ -18,6 +18,8 @@ This vignette highlights essential functions of `phosphogo` and their use.
 For details on `phosphogo` installation, refer to the [GitHub repository](https://github.com/gaelfortin/phosphogo)
 of `phosphogo`.
 
+You can also use the web interface of pĥosphogo with `r launchApp()`.
+
 
 ```{r setup}
 library(phosphogo)
