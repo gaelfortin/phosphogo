@@ -176,7 +176,7 @@ predictions_comparison(
   networkin_enrichment_file = 'myexperiment/kinase_enrichment_networkin.csv',
   FDR_cutoff = 0.05, 
   graph_title = "Kinases prediction enrichment up vs down networkin vs iv-kea",
-  output_folder = '',
+  output_folder = 'myexperiment/',
   file_name = "comp_plot.pdf"
 )
 ```

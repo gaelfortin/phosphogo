@@ -1,7 +1,7 @@
 #' Make volcano plot
 #' 
 #' Draw a volcano plot from any test results
-#' @param kinase_enrichment_file `<character>` Location of the file with Fisher exact test results
+#' @param kinase_enrichment_file `<character>` Name of the file with Fisher exact test results
 #' @param odds_ratio `<column_name>` Unquoted name of the `kinase_enrichment_file` column
 #' that contains the odds ratios.
 #' @param FDR_cutoff `<numeric>` Cutoff to display.
@@ -21,7 +21,7 @@
 #' @import ggplot2
 #' @export
 
-make_volcano_plot <- function(kinase_enrichment_file = 'networkin_kinase_enrichment.csv',
+make_volcano_plot <- function(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
                               odds_ratio = odds_ratio,
                               FDR_cutoff = 0.05,
                               FDR_data = FDR,

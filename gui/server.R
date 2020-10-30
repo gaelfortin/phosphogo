@@ -52,26 +52,25 @@ shinyServer(function(input, output, session) {
                    "NetworKIN is properly installed.",
                    "WARNING! NetworKIN is not installed.")})})
    
-
-   # Verify that IV-KEA is installed
-   
-   
-   output$ivkea_install <-
-      renderUI(expr = if (file.exists("data/imports/invitrodb.csv")==TRUE) { 
-         NULL } else {
-            actionButton("run_ivkea_setup", label = "Install IV-KEA")})
-   
+   # Select where BLAST is installed
    observeEvent(
-      input$run_ivkea_setup, {
-         ivkea_setup()
-         output$ivkea_install <-
-            renderUI(expr = if (file.exists("data/imports/invitrodb.csv")==TRUE) { 
-               NULL } else {
-                  actionButton("run_ivkea_setup", label = "Install IV-KEA")})
-         output$ivkea_verif <- renderText({
-            ifelse(file.exists("data/imports/invitrodb.csv")==TRUE, 
-                   "IV-KEA is properly installed.",
-                   "WARNING! IV-KEA is not installed.")})})
+      ignoreNULL = TRUE,
+      eventExpr = {
+         input$blast
+      },
+      handlerExpr = {
+         if (input$blast > 0) {
+            # condition prevents handler execution on initial app launch
+            
+            # launch the directory selection dialog with initial path read from the widget
+            blast <- choose.dir(default = readDirectoryInput(session, 'blast'))
+            
+            # update the widget value
+            updateDirectoryInput(session, 'blast', value = blast)
+         }
+      }
+   )
+   
    
    # Render phospho data to help to input proper column headers
    output$phospho_table <- renderUI({
@@ -175,6 +174,7 @@ shinyServer(function(input, output, session) {
    # Run NetworKIN
    observeEvent(input$run_networkin, {
       output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
+      print(paste0(readDirectoryInput(session, 'blast'), '/bin/blastall'))
       withProgress(message = 'Running NetworKIN', value = 0, {
          incProgress(1/6, detail = 'Preparing data for NetworKIN')
          networkin_input(
@@ -188,7 +188,7 @@ shinyServer(function(input, output, session) {
          incProgress(2/6, detail = 'Running NetworKIN. This step may take up to 1 hour depending on your dataset size')
          run_networkin(
             input_file = "networKIN_input.res",
-            blastall_location = "~/blast-2.2.17/bin/blastall",
+            blastall_location = paste0(readDirectoryInput(session, 'blast'), '/bin/blastall'),
             output_folder = output_dir
          )
          incProgress(3/7, detail = "Generating QC graph")
@@ -262,12 +262,23 @@ shinyServer(function(input, output, session) {
          incProgress(1/1)
          if (input$graph_type == "enrichment") {
             graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols())
-            output$graph <- renderPlotly(
-               plot_ly(x = log2(graph_data$up_vs_down_odds_ratio), y = -log10(graph_data$up_vs_down_FDR), name = graph_data$top_predicted_kinase) %>% 
-                  layout(title = input$graph_title,
-                         xaxis = list(title = "log2(Odds ratio)"),
-                         yaxis = list(title = "-log10(FDR)"))
-            )} else {
+            g <- ggplot(graph_data, aes(x = log2(up_vs_down_odds_ratio), y = -log10(up_vs_down_FDR), label = top_predicted_kinase)) +
+               geom_point() +
+               scale_colour_manual(name = "Significance", values = c("#333333", "#B90504")) +
+               # xlim(-xlim_volcano, +xlim_volcano) +
+               xlab("log2(odds ratio)") +
+               ylab("-log10(FDR)") +
+               geom_hline(aes(yintercept = -log10(0.05)),
+                          linetype = "dashed",
+                          colour = "#FF6347") +
+               geom_vline(xintercept = 0, linetype = "dotted") +
+               scale_linetype_manual(name = "Threshold", values = c("dashed"),
+                                     guide = guide_legend(override.aes = list(color = c("#FF6347"))))+
+               theme_classic()#+
+               # ggtitle(input$graph_title)
+               output$graph <- renderPlotly(ggplotly(g))
+            
+                      } else {
                output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
                p <- predictions_comparison(
                   ivkea_enrichment_file = input$ivkea_file[1,4],
