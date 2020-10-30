@@ -25,6 +25,7 @@ launchApp()
 ```
 
 
+First, load phosphogo and create a new folder to output all files:
 ```{r eval=FALSE}
 library(phosphogo)
 dir.create('myexperiment', showWarnings = FALSE) 
