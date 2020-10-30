@@ -261,8 +261,9 @@ shinyServer(function(input, output, session) {
       withProgress(message = 'Rendering your plot...', value = 0, {
          incProgress(1/1)
          if (input$graph_type == "enrichment") {
-            graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols())
-            g <- ggplot(graph_data, aes(x = log2(up_vs_down_odds_ratio), y = -log10(up_vs_down_FDR), label = top_predicted_kinase)) +
+            graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols()) %>% 
+               mutate(cutoff = ifelse(up_vs_down_FDR < 0.05, "Significant", "Not significant"))
+            g <- ggplot(graph_data, aes(x = log2(up_vs_down_odds_ratio+0.0001), y = -log10(up_vs_down_FDR), label = top_predicted_kinase, col = cutoff)) +
                geom_point() +
                scale_colour_manual(name = "Significance", values = c("#333333", "#B90504")) +
                # xlim(-xlim_volcano, +xlim_volcano) +
@@ -274,8 +275,8 @@ shinyServer(function(input, output, session) {
                geom_vline(xintercept = 0, linetype = "dotted") +
                scale_linetype_manual(name = "Threshold", values = c("dashed"),
                                      guide = guide_legend(override.aes = list(color = c("#FF6347"))))+
-               theme_classic()#+
-               # ggtitle(input$graph_title)
+               theme_classic() +
+               ggtitle(input$graph_title)
                output$graph <- renderPlotly(ggplotly(g))
             
                       } else {
