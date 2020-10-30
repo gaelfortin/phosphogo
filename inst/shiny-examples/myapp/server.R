@@ -11,11 +11,22 @@ shinyServer(function(input, output, session) {
    output$networkin_verif <- renderText({
        ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
               "NetworKIN is properly installed.",
-              "WARNING! NetworKIN is not installed.")})
+              "WARNING! NetworKIN is not installed in current directory.")})
    output$ivkea_verif <- renderText({
       ifelse(file.exists("invitrodb.csv")==TRUE, 
              "IV-KEA is properly installed.",
-             "WARNING! IV-KEA is not installed.")})
+             "WARNING! IV-KEA is not installed in current directory.")})
+   
+   # Verify OS for NetworKIN
+   output$networkin_os1 <- renderText({
+      ifelse(Sys.info()[['sysname']] == "Linux", 
+             "",
+             "Your operating system is not compatible with NetworKIN. Use a Linux distribution (such as Ubuntu) to run NetworKIN with phosphogo.")})
+   
+   output$networkin_os2 <- renderText({
+      ifelse(Sys.info()[['sysname']] == "Linux", 
+             "",
+             "Your operating system is not compatible with NetworKIN. Use a Linux distribution (such as Ubuntu) to run NetworKIN with phosphogo.")})
    
    #Install NetworKIN and IV-KEA
    observeEvent(
