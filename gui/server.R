@@ -135,6 +135,7 @@ shinyServer(function(input, output, session) {
                        output_folder = output_dir)
          perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
                                    predictions = "ivkea",
+                                   FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
          incProgress(3/3, detail = 'Generating results plots')
          make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv', 
@@ -207,6 +208,7 @@ shinyServer(function(input, output, session) {
          incProgress(6/7, detail = 'Running statistical analysis')
          perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
                                    predictions = "networkin",
+                                   FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
          incProgress(7/7, detail = 'Generating results plots')
          make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 

@@ -23,12 +23,12 @@ perform_Fisher_exact_test <- function(top_predictions_file = 'top_predictions.cs
   phospho_predictions <- read_csv(paste0(output_folder, top_predictions_file), col_types = cols())
   upreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
-    filter(Log2 > FC_threshold) %>%
+    filter(Log2 >= FC_threshold) %>%
     filter(adj_pvalue < 0.05) %>%
     count(top_predicted_kinase)
   downreg_proteo <- phospho_predictions %>%
     filter(is.na(top_predicted_kinase)==FALSE) %>%
-    filter(Log2 < -FC_threshold) %>%
+    filter(Log2 <= -FC_threshold) %>%
     filter(adj_pvalue < 0.05) %>%
     count(top_predicted_kinase)
   contingency_table <- full_join(upreg_proteo, downreg_proteo, by = "top_predicted_kinase", suffix = c("_upreg", "_downreg"))
