@@ -175,7 +175,6 @@ shinyServer(function(input, output, session) {
    # Run NetworKIN
    observeEvent(input$run_networkin, {
       output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
-      print(paste0(readDirectoryInput(session, 'blast'), '/bin/blastall'))
       withProgress(message = 'Running NetworKIN', value = 0, {
          incProgress(1/6, detail = 'Preparing data for NetworKIN')
          networkin_input(
