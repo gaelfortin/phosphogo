@@ -8,6 +8,7 @@ IV-KEA (in vitro kinase enrichment analysis).
 `phosphogo` can be installed with:
 
 ```
+devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
 devtools::install_github('gaelfortin/phosphogo')
 ```
 
