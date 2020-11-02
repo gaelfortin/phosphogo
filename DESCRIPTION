@@ -15,7 +15,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    shinyDirectoryInput,
+Remotes: wleepang/shiny-directory-input 
 VignetteBuilder: knitr
 Imports: 
     readr,
@@ -28,7 +30,6 @@ Imports:
     stringr,
     ggrepel,
     purrr,
-    shinyDirectoryInput,
     shiny,
     plotly,
     shinythemes
