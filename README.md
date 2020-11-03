@@ -4,52 +4,45 @@ mouse and human experiments. Kinase-substrate predictions can
 be performed using [NetworKIN](http://kinomexplorer.info) and 
 IV-KEA (in vitro kinase enrichment analysis).
 
-### __Easy installation__
+### Easy installation
 `phosphogo` can be installed with:
 
 ```
 devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
 devtools::install_github('gaelfortin/phosphogo')
 ```
+That's it! You can now use phosphogo in application mode or in command-line mode.
 
-Then, download the complete `phosphogo` R project 
-by cloning `https://github.com/gaelfortin/phosphogo.git` with git
-or hitting the `Code` button and selecting `Download Zip` on the 
-[GitHub repository](https://github.com/gaelfortin/phosphogo). Open the 
-R project file `phosphogo.Rproj` and execute the following commands:
-
-```
-library(phosphogo)
-dir.create('data/analyses', showWarnings = FALSE) 
-dir.create('data/outputs', showWarnings = FALSE)
-dir.create('figures', showWarnings = FALSE)
-networkin_setup()
-```
-
-You are ready to perform all analyses included in `phosphogo`!
-
-_For custom installation, see the detailed instructions below._
-
-
-### User-friendly application
+### __Phosphogo user-friendly application__
 Phosphogo comes with a intuitive user interface that offers the same functions
 than the command-line version of the package. To launch the app, run:
 
 ```
+library(phosphogo)
 launchApp()
 ```
 
+You can find demonstration files in the [GitHub repository](https://github.com/gaelfortin/phosphogo) of phosphogo.
 
-### __Pipeline example__
+### __Command-line version of phosphogo__
 
-An example of a pipeline can be found in the vignette 
+#### Pipeline example
+
+An example of a pipeline can be found in the vignette with the command
 `utils::browseVignettes('phosphogo')`.
 
 
 
-### __Detailed instructions for custom installation (not recommended)__
-### NetworKIN installation
+### __Detailed instructions for command-line installation__
+_Follow the following instructions if you want to use phosphogo in command-line version._
+#### NetworKIN installation
 `phosphogo` uses a modified version of NetworKIN 3.
+
+Install NetworKIN by running:
+```
+networkin_setup()
+```
+
 
 __Dependencies__
 
@@ -66,17 +59,7 @@ be downloaded [here](https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPOR
 - Python 2. Python 3 is currently __not__ supported. 
 Python 2 can be installed with `sudo apt install python2` (on a bash terminal).
 
-
-__Installation__
-
-Run
-```
-networkin_setup()
-```
-
-
-
-### IV-KEA
+#### IV-KEA
 __Installation__
 
 
