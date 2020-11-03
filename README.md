@@ -13,7 +13,7 @@ devtools::install_github('gaelfortin/phosphogo')
 ```
 That's it! You can now use phosphogo in application mode or in command-line mode.
 
-### __Phosphogo user-friendly application__
+### __Phosphogo user-friendly application (recommended)__
 Phosphogo comes with a intuitive user interface that offers the same functions
 than the command-line version of the package. To launch the app, run:
 
