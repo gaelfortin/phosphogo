@@ -41,13 +41,6 @@ You can run either NetworKIN or IV-KEA.
 ### NetworKIN
 NetworKIN is a predictive algorithm that uses published datasets and homology to predict kinase-subtrate relationship. For more details, see [Horn et al., 2014](http://www.nature.com/nmeth/journal/v11/n6/full/nmeth.2968.html).
 
-
-#### NetworKIN dependencies
-NetworKIN is supported only on Linux operating systems (*e.g* Ubuntu).
-**NetworKIN requires Python 2 and BLAST version 2.2.17** or **older**. Donwload BLAST 2.2.17 [here](https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/).
-NetworKIN can take up to one hour to analyze big datasets.
-
-
 #### Quality control
 Phosphogo selects by default only the top 20% predictions according to their prediction score. Phosphogo will output the density of prediction scores as a quality control.
 

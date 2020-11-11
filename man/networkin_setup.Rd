@@ -7,5 +7,5 @@
 networkin_setup()
 }
 \description{
-NetworKIN is properly downloaded and installed with this function.
+This function downloads NetworKIN predictions database.
 }

@@ -5,20 +5,16 @@
 \title{Run NetworKIN}
 \usage{
 run_networkin(
-  input_file = "networKIN_input.res",
-  blastall_location,
+  input_file = "phospho_clean.csv",
   output_folder = "myexperiment/"
 )
 }
 \arguments{
 \item{input_file}{\verb{<character>} Location of the input file}
 
-\item{blastall_location}{\verb{<character>} Location of BLASTALL on the computer}
-
 \item{output_folder}{\verb{<character>} Where the output files should be stored}
 }
 \description{
-This function prepares and executes NetworKIN to generate predictions
+This function uses pre-computed NetworKIN predictions to generate predictions
 on a given set of phosphorylated peptides.
-NetworKIN requires Python and the BLASTALL version of BLAST.
 }
