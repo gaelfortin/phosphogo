@@ -141,7 +141,7 @@ shinyServer(function(input, output, session) {
          )
          incProgress(2/6, detail = 'Running NetworKIN. This step may take a few minutes.')
          run_networkin(
-            input_file = "phospho_clean.csv", #error here
+            input_file = "phospho_clean.csv",
             output_folder = output_dir
          )
          incProgress(3/6, detail = "Generating QC graph")
@@ -211,8 +211,15 @@ shinyServer(function(input, output, session) {
       withProgress(message = 'Rendering your plot...', value = 0, {
          incProgress(1/1)
          if (input$graph_type == "enrichment") {
-            graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols()) %>% 
-               mutate(cutoff = ifelse(up_vs_down_FDR < 0.05, "Significant", "Not significant"))
+            graph_data <- read_csv(input$enrichment_file[1,4], col_types= cols()) 
+            graph_data  <- graph_data %>% 
+               mutate(cutoff = ifelse(up_vs_down_FDR < 0.05, "Significant", "Not significant"),
+                      up_vs_down_odds_ratio = 
+                         ifelse(up_vs_down_odds_ratio == 'Inf',
+                                max(graph_data$up_vs_down_odds_ratio[which(graph_data$up_vs_down_odds_ratio < Inf)]),
+                                up_vs_down_odds_ratio)
+                      )
+            
             g <- ggplot(graph_data, aes(x = log2(up_vs_down_odds_ratio+0.0001), y = -log10(up_vs_down_FDR), label = top_predicted_kinase, col = cutoff)) +
                geom_point() +
                scale_colour_manual(name = "Significance", values = c("#333333", "#B90504")) +
