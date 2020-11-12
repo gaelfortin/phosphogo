@@ -7,18 +7,11 @@ library(shinythemes)
 navbarPage("Phosphogo",
   theme = shinytheme("flatly"), #cosmo or flatly or sandstone
                 tabPanel("0. Setup",
-                         h3("Install / reinstall prediction softwares"),
-                         h4("Current status of NetworKIN and IV-KEA:"),
+                         h3("Install NetworKIN"),
+                         h4("Current status of NetworKIN:"),
                          textOutput("networkin_verif"),
                          span(textOutput("networkin_os1"), style="color:red"),
-                         textOutput("ivkea_verif"),
-                         h4("Choose which prediction software(s) should be installed:"),
-                         checkboxInput("install_networkin", label = "NetworKIN", value = TRUE),
-                         checkboxInput("install_ivkea", label = "IV-KEA", value = TRUE),
-                         actionButton("install", label = "Install", class="btn btn-primary", style = "margin-bottom:20px"),
-                         h4("Locate BLAST software (for NetworKIN only)"),
-                         "This folder contains the folders bin, data and doc.",
-                         directoryInput("blast", label = "BLAST algorithm")
+                         actionButton("install", label = "Install NetworKIN", class="btn btn-primary", style = "margin-bottom:20px"),
                          ),
                 tabPanel('1. Your data',
                          fileInput("phosphofile", label = h3("Phosphoproteomic input"), placeholder = "Choose CSV or XLSX file"),
@@ -52,7 +45,7 @@ navbarPage("Phosphogo",
                                          uiOutput('plot_data')
                                         ),
                             mainPanel(
-                              plotlyOutput("graph")
+                              plotlyOutput("graph", height = "600px")
                             )
                           )
                         ),

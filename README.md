@@ -4,7 +4,8 @@ mouse and human experiments. Kinase-substrate predictions can
 be performed using [NetworKIN](http://kinomexplorer.info) and 
 IV-KEA (in vitro kinase enrichment analysis).
 
-### Easy installation
+
+### __Installation__
 `phosphogo` can be installed with:
 
 ```
@@ -13,7 +14,19 @@ devtools::install_github('gaelfortin/phosphogo')
 ```
 That's it! You can now use phosphogo in application mode or in command-line mode.
 
-### __Phosphogo user-friendly application (recommended)__
+
+Then, on RStudio, run the following commands:
+
+```
+library(phosphogo)
+dir.create('myexperiment/', showWarnings = FALSE) 
+networkin_setup()
+```
+
+You are ready to perform all analyses included in `phosphogo`!
+
+### User-friendly application
+
 Phosphogo comes with a intuitive user interface that offers the same functions
 than the command-line version of the package. To launch the app, run:
 
@@ -32,45 +45,15 @@ An example of a pipeline can be found in the vignette with the command
 `utils::browseVignettes('phosphogo')`.
 
 
+### __How does phosphogo make kinase-substrate predictions?__
+Phosphogo relies on the following prediction strategies. Please cite their corresponding authors.
 
-### __Detailed instructions for command-line installation__
-_Follow the following instructions if you want to use phosphogo in command-line version._
-#### NetworKIN installation
-`phosphogo` uses a modified version of NetworKIN 3.
+### NetworKIN
+[Horn et al., KinomeXplorer: an integrated platform for kinome biology studies. Nature Methods 2014 Jun;11(6):603–4.](http://www.nature.com/nmeth/journal/v11/n6/full/nmeth.2968.html)
 
-Install NetworKIN by running:
-```
-networkin_setup()
-```
-
-
-__Dependencies__
-
-
-_Predictions based on NetworKIN can be generated only when using a linux-based
-OS._
-
-
-NetworKIN relies on the following dependencies:
-
-- BLAST version 2.2.17 or __older__ (BLAST+ is not supported). BLAST 2.2.17 can
-be downloaded [here](https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/).
-
-- Python 2. Python 3 is currently __not__ supported. 
-Python 2 can be installed with `sudo apt install python2` (on a bash terminal).
-
-#### IV-KEA
-__Installation__
-
-
-IV-KEA relies on the in vitro kinase-substrate interaction database produced
-by [Sugiyama _et al._](https://www.nature.com/articles/s41598-019-46385-4).
-UniprotKB accession numbers have been added to this database. The database 
-is contained in a ready-to-use file (`data/imported/invitrodb.csv').
-To download the IV-KEA database (for custom installation), run:
-```
-ivkea_setup()
-```
+### IV-KEA
+Phosphogo uses the *in vitro* database published in:
+[Sugiyama et al., Large-scale Discovery of Substrates of the Human Kinome. Scientific Reports 2019](https://www.nature.com/articles/s41598-019-46385-4)
 
 ## Issues
 If you have an issue or find a bug, please open an issue
@@ -80,5 +63,5 @@ in the Issues section of the [Github repository](https://github.com/gaelfortin/p
 `phosphogo` is distributed under the CC BY-NC-SA licence.
 
 ## Other informations
-This package is maintained by Gael Fortin (fortin.gael@outlook.fr) and was designed
+This package is maintained by Gael Fortin (fortin.gael@outlook.fr) and was written
 on R 3.6.3

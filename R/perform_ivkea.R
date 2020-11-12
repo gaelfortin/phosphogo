@@ -3,13 +3,6 @@
 #' according to the in vitro database produced by Sugiyama et al. 2019.
 #' @param clean_phospho_file `<character>` Location of the clean
 #' phosphoproteomic file
-#' 
-#' @param invitrodb_file `<character>` Location of the in vitro database.
-#' This must be the ready-to-use version of the database produced by `ivkea_setup`
-#' @param uniprot_id_phospho `<column_name>` Column with UniprotKB IDs in
-#' the file containing cleaned phosphoproteomic results.
-#' @param uniprot_id_invitrodb Column with UniprotKB IDs in the in vitro
-#' database from Sugiyama 2019.
 #' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
@@ -19,16 +12,15 @@
 #' @export
 
 perform_ivkea <- function(clean_phospho_file = 'phospho_clean.csv',
-                          invitrodb_file = 'invitrodb.csv',
                           output_folder = 'myexperiment/'
                           ){
   phospho <- read_csv(paste0(output_folder, clean_phospho_file), col_types = cols())
-  invitro_db <- read_csv(invitrodb_file, col_types = cols()) %>% 
+  data("invitrodb")
+  invitro_db <- invitrodb %>% 
     mutate(substrate_position = paste0(substrate_position, "-p"))
   invitro_phospho_predictions <- phospho %>%
     left_join(invitro_db, by = c("substrate" = "ACC_ID", "MOD_RSD" = "substrate_position")) %>%
     select(everything(), -substrate_protein_description, 'top_predicted_kinase' = kinase)
-
   write_csv(invitro_phospho_predictions, paste0(output_folder, "ivkea_predictions.csv"))
 
 }

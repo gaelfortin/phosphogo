@@ -1,15 +1,13 @@
 #' NetworKIN setup
 #' 
-#' NetworKIN is properly downloaded and installed with this function.
+#' This function downloads NetworKIN predictions database.
 #' @importFrom utils unzip
 #' @export
 #' 
 networkin_setup <- function(){
   unlink('networkin', recursive = TRUE) #Remove old networkin folder
-  message('Downloading NetworKIN archive...')
-  download.file('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213567&authkey=AGdpgSa0BgvVV-U', 'networkin.zip')
-  message('Unzipping NetworKIN archive...')
-  system('unzip networkin.zip', ignore.stdout = TRUE) #use unix unzip as R unzip alters networkin files
-  system(paste0("chmod +x networkin/bin/NetworKIN3.0_release/NetworKIN.py")) # Allow NetworKIN to be executed
+  message('Downloading NetworKIN database...')
+  download.file('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213819&authkey=AA7DYbPsGbtXQn8', 'predictions_networkin.Rda')
   message('NetworKIN setup completed.')
 }
+

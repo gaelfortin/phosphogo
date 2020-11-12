@@ -6,7 +6,7 @@
 \usage{
 networkin_qc(
   predictions_file = "networKIN_output.tsv",
-  threshold = 0.8,
+  threshold = 0.5,
   output_folder = "myexperiment/"
 )
 }
