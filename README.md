@@ -4,6 +4,7 @@ mouse and human experiments. Kinase-substrate predictions can
 be performed using [NetworKIN](http://kinomexplorer.info) and 
 IV-KEA (in vitro kinase enrichment analysis).
 
+
 ### __Installation__
 `phosphogo` can be installed with:
 
@@ -11,6 +12,8 @@ IV-KEA (in vitro kinase enrichment analysis).
 devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
 devtools::install_github('gaelfortin/phosphogo')
 ```
+That's it! You can now use phosphogo in application mode or in command-line mode.
+
 
 Then, on RStudio, run the following commands:
 
@@ -23,6 +26,7 @@ networkin_setup()
 You are ready to perform all analyses included in `phosphogo`!
 
 ### User-friendly application
+
 Phosphogo comes with a intuitive user interface that offers the same functions
 than the command-line version of the package. To launch the app, run:
 
@@ -31,12 +35,14 @@ library(phosphogo)
 launchApp()
 ```
 
+You can find demonstration files in the [GitHub repository](https://github.com/gaelfortin/phosphogo) of phosphogo.
 
-### __Pipeline example__
+### __Command-line version of phosphogo__
 
-An example of a pipeline can be found in the vignette 
+#### Pipeline example
+
+An example of a pipeline can be found in the vignette with the command
 `utils::browseVignettes('phosphogo')`.
-
 
 
 ### __How does phosphogo make kinase-substrate predictions?__
@@ -48,8 +54,6 @@ Phosphogo relies on the following prediction strategies. Please cite their corre
 ### IV-KEA
 Phosphogo uses the *in vitro* database published in:
 [Sugiyama et al., Large-scale Discovery of Substrates of the Human Kinome. Scientific Reports 2019](https://www.nature.com/articles/s41598-019-46385-4)
-
-
 
 ## Issues
 If you have an issue or find a bug, please open an issue
