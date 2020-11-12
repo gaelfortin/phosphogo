@@ -45,7 +45,7 @@ navbarPage("Phosphogo",
                                          uiOutput('plot_data')
                                         ),
                             mainPanel(
-                              plotlyOutput("graph")
+                              plotlyOutput("graph", height = "600px")
                             )
                           )
                         ),

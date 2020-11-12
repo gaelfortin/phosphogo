@@ -32,16 +32,21 @@ predictions_comparison <- function(ivkea_enrichment_file,
     select(top_predicted_kinase, "up_vs_down_odds_ratio") %>%  
     bind_cols("Prediction algorithm" = "NetworKIN")
   
-  bind_rows(networkin, iv_kea) %>% 
-    ggplot(aes(x=top_predicted_kinase, y=up_vs_down_odds_ratio, fill=`Prediction algorithm`)) +
+  merged <- bind_rows(networkin, iv_kea) 
+  merged %>% 
+    mutate(up_vs_down_odds_ratio = 
+             ifelse(up_vs_down_odds_ratio == 'Inf',
+                    max(merged$up_vs_down_odds_ratio[which(merged$up_vs_down_odds_ratio < Inf)]),
+                    up_vs_down_odds_ratio)) %>% 
+    ggplot(aes(x=reorder(top_predicted_kinase, log2(up_vs_down_odds_ratio)), y=log2(up_vs_down_odds_ratio+0.0001), fill=`Prediction algorithm`)) +
     geom_bar(stat="identity", position=position_dodge()) +
     coord_flip()+
     theme_classic()+
     theme(axis.line.y = element_blank(),
           axis.ticks.y = element_blank()) +
     xlab("Kinases") +
-    ylab("Enrichment scores") +
-    geom_hline(yintercept = 0, size = 0.5) + 
+    ylab("Enrichment scores in log2") +
+    geom_hline(yintercept = 0, size = 0.5)+ 
     ggtitle(graph_title) +
     ggsave(paste0(output_folder, file_name))
 }
