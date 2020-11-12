@@ -7,81 +7,25 @@ library(plotly)
 shinyServer(function(input, output, session) {
     setwd(dir = "../")
    
-   # Verify that NetworKIN and IV-KEA are installed
+   # Verify that NetworKIN is installed
    output$networkin_verif <- renderText({
-       ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
+       ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
               "NetworKIN is properly installed.",
               "WARNING! NetworKIN is not installed in current directory.")})
-   output$ivkea_verif <- renderText({
-      ifelse(file.exists("invitrodb.csv")==TRUE, 
-             "IV-KEA is properly installed.",
-             "WARNING! IV-KEA is not installed in current directory.")})
    
-   # Verify OS for NetworKIN
-   output$networkin_os1 <- renderText({
-      ifelse(Sys.info()[['sysname']] == "Linux", 
-             "",
-             "Your operating system is not compatible with NetworKIN. Use a Linux distribution (such as Ubuntu) to run NetworKIN with phosphogo.")})
    
-   output$networkin_os2 <- renderText({
-      ifelse(Sys.info()[['sysname']] == "Linux", 
-             "",
-             "Your operating system is not compatible with NetworKIN. Use a Linux distribution (such as Ubuntu) to run NetworKIN with phosphogo.")})
-   
+  
    #Install NetworKIN and IV-KEA
    observeEvent(
       input$install, {
-       if (input$install_networkin == TRUE) {
-          withProgress(message = 'Installing NetworKIN...', value = 0,
+       withProgress(message = 'Installing NetworKIN...', value = 0,
                        {incProgress(1/1)
-                        networkin_setup()})}
-       if (input$install_ivkea) {
-          withProgress(message = 'Installing IV-KEA', value = 0,
-                       {incProgress(1/1)
-                        ivkea_setup()})}
-      output$networkin_verif <- renderText({
-         ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
+                        networkin_setup()})
+       output$networkin_verif <- renderText({
+         ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
                 "NetworKIN is properly installed.",
                 "WARNING! NetworKIN is not installed.")})
-      output$ivkea_verif <- renderText({
-         ifelse(file.exists("invitrodb.csv")==TRUE, 
-                "IV-KEA is properly installed.",
-                "WARNING! IV-KEA is not installed.")})  
-         
       })
-   
-   
-   observeEvent(
-      input$run_networkin_setup, {
-         networkin_setup()
-         output$networkin_install <-
-            renderUI(expr = if (file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE) { 
-               NULL } else {
-                  actionButton("run_networkin_setup", label = "Install NetworKIN")})
-         output$networkin_verif <- renderText({
-            ifelse(file.exists("networkin/bin/NetworKIN3.0_release/NetworKIN.py")==TRUE, 
-                   "NetworKIN is properly installed.",
-                   "WARNING! NetworKIN is not installed.")})})
-   
-   # Select where BLAST is installed
-   observeEvent(
-      ignoreNULL = TRUE,
-      eventExpr = {
-         input$blast
-      },
-      handlerExpr = {
-         if (input$blast > 0) {
-            # condition prevents handler execution on initial app launch
-            
-            # launch the directory selection dialog with initial path read from the widget
-            blast <- choose.dir(default = readDirectoryInput(session, 'blast'))
-            
-            # update the widget value
-            updateDirectoryInput(session, 'blast', value = blast)
-         }
-      }
-   )
-   
    
    # Render phospho data to help to input proper column headers
    output$phospho_table <- renderUI({
@@ -132,7 +76,7 @@ shinyServer(function(input, output, session) {
       output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
       withProgress(message = 'Running IV-KEA', value = 0, {
          incProgress(1/3, detail = 'Preparing data for IV-KEA')
-         networkin_input(
+         phospho_input(
             phospho_file = input$phosphofile[1,4],
             phosphosites_column = input$phosphosite_column,
             log2_column = input$log2_column,
@@ -142,7 +86,6 @@ shinyServer(function(input, output, session) {
          )
          incProgress(2/3, detail = 'Running IV-KEA')
          perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
-                       invitrodb_file = 'invitrodb.csv',
                        output_folder = output_dir)
          perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
                                    predictions = "ivkea",
@@ -188,7 +131,7 @@ shinyServer(function(input, output, session) {
       output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
       withProgress(message = 'Running NetworKIN', value = 0, {
          incProgress(1/6, detail = 'Preparing data for NetworKIN')
-         networkin_input(
+         phospho_input(
             phospho_file = input$phosphofile[1,4],
             phosphosites_column = input$phosphosite_column,
             log2_column = input$log2_column,
@@ -196,31 +139,26 @@ shinyServer(function(input, output, session) {
             species = input$species,
             output_folder = output_dir
          )
-         incProgress(2/6, detail = 'Running NetworKIN. This step may take up to 1 hour depending on your dataset size')
+         incProgress(2/6, detail = 'Running NetworKIN. This step may take a few minutes.')
          run_networkin(
-            input_file = "networKIN_input.res",
-            blastall_location = paste0(readDirectoryInput(session, 'blast'), '/bin/blastall'),
+            input_file = "phospho_clean.csv", #error here
             output_folder = output_dir
          )
-         incProgress(3/7, detail = "Generating QC graph")
+         incProgress(3/6, detail = "Generating QC graph")
          output$qc <- renderPlot(networkin_qc(
-            output_folder = output_dir
-         ))
-         incProgress(4/7, detail = 'Filtering NetworKIN predictions')
-         filter_predictions(
             predictions_file = 'networKIN_output.tsv',
             output_folder = output_dir
-         )
-         incProgress(5/7, detail = 'Keeping only top predictions')
-         select_top_predictions(predictions_file = 'filtered_networkin_predictions.csv',
+         ))
+         incProgress(4/6, detail = 'Keeping only top predictions')
+         select_top_predictions(predictions_file = 'networKIN_output.tsv',
                                 phospho_cleaned_file = 'phospho_clean.csv',
                                 output_folder = output_dir)
-         incProgress(6/7, detail = 'Running statistical analysis')
+         incProgress(5/6, detail = 'Running statistical analysis')
          perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
                                    predictions = "networkin",
                                    FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
-         incProgress(7/7, detail = 'Generating results plots')
+         incProgress(6/6, detail = 'Generating results plots')
          make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = up_vs_down_odds_ratio,
                            FDR_cutoff = 0.05, 

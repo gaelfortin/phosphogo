@@ -1,7 +1,7 @@
-#' Generate NetworKIN input
+#' Generate a clean phosphoproteomic file for NetworKIN and IV-KEA
 #' 
 #' This function imports, clean, and prepare phosphoproteomic
-#' data for NetworKIN.
+#' data for NetworKIN and IV-KEA.
 #' @param phospho_file `<.xlsx or .csv file>` Raw phosphoproteomic data
 #' @param species `<character>` Species code from which samples were obtained (`hsa` or `mmu`).
 #' @param phosphosites_column `<column_name>` Column with phosphosite names
@@ -18,7 +18,7 @@
 #' @export
 #'
 
-networkin_input <- function(phospho_file = 'phospho_human.xlsx',
+phospho_input <- function(phospho_file = 'phospho_human.xlsx',
                             species = 'hsa',
                             phosphosites_column = 'PhosphoSite',
                             log2_column = 'Log2',

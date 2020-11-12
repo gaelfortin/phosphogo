@@ -10,7 +10,7 @@ run_networkin(
 )
 }
 \arguments{
-\item{input_file}{\verb{<character>} Location of the input file}
+\item{input_file}{\verb{<character>} Location of \code{phospho_clean} file}
 
 \item{output_folder}{\verb{<character>} Where the output files should be stored}
 }

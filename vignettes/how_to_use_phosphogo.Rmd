@@ -36,10 +36,10 @@ dir.create('myexperiment', showWarnings = FALSE)
 networkin_setup()
 ```
 
-1. Generate NetworKIN input from phosphoproteomic data
+1. Generate NetworKIN and IV-KEA input from phosphoproteomic data
 ```{r eval=FALSE}
 # Human phosphoproteomic data
-networkin_input(
+phospho_input(
   phospho_file = "phospho_human.xlsx",
   phosphosites_column = "PhosphoSite",
   log2_column = "Log2",
@@ -49,7 +49,7 @@ networkin_input(
 )
 
 # Mouse phosphoproteomic data
-networkin_input(
+phospho_input(
   phospho_file = "phospho_mouse.xlsx",
   phosphosites_column = "ProteinID-Phospho:Site",
   log2_column = "Log2",
