@@ -12,15 +12,15 @@
 #' @export
 #' 
 networkin_qc <- function(predictions_file = 'networKIN_output.tsv',
-                               threshold = 0.8,
+                               threshold = 0.5,
                                output_folder = 'myexperiment/'){
   predictions <- read_tsv(paste0(output_folder, predictions_file), col_types = cols()) %>%
     select(-`Target Name`,
            -`Kinase/Phosphatase/Phospho-binding domain description`,
            -`Kinase/Phosphatase/Phospho-binding domain Name`) %>%
-    select("target_id" = `#Name`,
+    select("target_id" = `substrate`,
            "protein_name" = `Target description`,
-           "phosphosite" = Position,
+           "phosphosite" = MOD_RSD,
            "kinase_phosphatase_phospho-binding" = `Kinase/Phosphatase/Phospho-binding domain`,
            "networkin_score" = `NetworKIN score`,
            "netphorest_probability" = `NetPhorest probability`,
@@ -28,7 +28,6 @@ networkin_qc <- function(predictions_file = 'networKIN_output.tsv',
            "netphorest_group" = `NetPhorest Group`)
   predictions %<>%
     mutate(protein_phosphosite = str_c(target_id, phosphosite, sep = ":"))
-  threshold_fraction <- threshold
   cumulated_scores <- predictions %>%
     count(networkin_score)
   cumulated_scores %<>%
@@ -36,21 +35,14 @@ networkin_qc <- function(predictions_file = 'networKIN_output.tsv',
   total_score <- cumulated_scores$cumulated_count[nrow(cumulated_scores)]
   cumulated_scores %<>%
     mutate(count_fraction = cumulated_count/total_score)
-  networkin_score_threshold <- as.numeric(cumulated_scores %>%
-                                            filter(count_fraction > threshold_fraction) %>%
-                                            select(networkin_score) %>%
-                                            slice(1))
   
   ggplot(predictions, aes(networkin_score)) +
     geom_density(kernel = "gaussian") +
-    geom_vline(aes(xintercept = networkin_score_threshold), linetype="dashed", 
-               color = "red") +
     labs(title = "Distribution of scores of NetworKIN predictions.",
-         subtitle = paste0("Current NetworKIN threshold is set to select the top ", threshold*100, "% predictions."),
          caption = paste0("Number of predictions made by NetworKIN: ", nrow(predictions)),
          x = "NetworKIN score of each prediction",
          y = "Density of scores") +
     xlim(0, summary(predictions$networkin_score)[5]+2)+ #extract 3rd quartile
     theme_classic()+
     ggsave(paste0(output_folder, 'networkin_qc.pdf'))
-  }
+}

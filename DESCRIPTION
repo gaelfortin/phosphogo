@@ -33,3 +33,5 @@ Imports:
     shiny,
     plotly,
     shinythemes
+Depends: 
+    R (>= 2.10)
