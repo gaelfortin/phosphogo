@@ -7,26 +7,6 @@ library(plotly)
 shinyServer(function(input, output, session) {
     setwd(dir = "../")
    
-   # Verify that NetworKIN is installed
-   output$networkin_verif <- renderText({
-       ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
-              "NetworKIN is properly installed.",
-              "WARNING! NetworKIN is not installed in current directory.")})
-   
-   
-  
-   #Install NetworKIN and IV-KEA
-   observeEvent(
-      input$install, {
-       withProgress(message = 'Installing NetworKIN...', value = 0,
-                       {incProgress(1/1)
-                        networkin_setup()})
-       output$networkin_verif <- renderText({
-         ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
-                "NetworKIN is properly installed.",
-                "WARNING! NetworKIN is not installed.")})
-      })
-   
    # Render phospho data to help to input proper column headers
    output$phospho_table <- renderUI({
       # input$file1 will be NULL initially. After the user selects

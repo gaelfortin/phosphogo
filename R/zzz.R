@@ -1,22 +1,8 @@
 .onAttach <- function(libname, pkgname) {
   
   if (!("shinyDirectoryInput" %in% rownames(installed.packages()))) {
-    packageStartupMessage(
-      paste0(
-        "Please install `shinyDirectoryInput` by",
-        " `devtools::install_github('wleepang/shiny-directory-input')`"
-      )
-    )
+    message("phosphogo application relies in part on shinyDirectoryInput.")
+    message("This package will now be installed.")
+    devtools::install_github('wleepang/shiny-directory-input')
   }
-  
-  if (!("phosphogodb" %in% rownames(installed.packages()))) {
-    packageStartupMessage(
-      paste0(
-        "Please install `phosphogodb` by",
-        " `devtools::install_github('gaelfortin/phosphogodb')`"
-      )
-    )
-  }
-  
-  
 }

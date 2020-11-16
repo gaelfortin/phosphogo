@@ -21,7 +21,7 @@ of `phosphogo`.
 You can also use the web interface of pĥosphogo with:
 ```{r eval=FALSE}
 library(phosphogo)
-launchApp()
+phosphogoApp()
 ```
 
 

@@ -6,13 +6,6 @@ library(shinythemes)
 
 navbarPage("Phosphogo",
   theme = shinytheme("flatly"), #cosmo or flatly or sandstone
-                tabPanel("0. Setup",
-                         h3("Install NetworKIN"),
-                         h4("Current status of NetworKIN:"),
-                         textOutput("networkin_verif"),
-                         span(textOutput("networkin_os1"), style="color:red"),
-                         actionButton("install", label = "Install NetworKIN", class="btn btn-primary", style = "margin-bottom:20px"),
-                         ),
                 tabPanel('1. Your data',
                          fileInput("phosphofile", label = h3("Phosphoproteomic input"), placeholder = "Choose CSV or XLSX file"),
                          h3("Your data at a glance"),
