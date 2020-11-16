@@ -17,7 +17,9 @@ Suggests:
     knitr,
     rmarkdown,
     shinyDirectoryInput,
-Remotes: wleepang/shiny-directory-input 
+    phosphogodb
+Remotes: wleepang/shiny-directory-input, 
+         gaelfortin/phosphogodb
 VignetteBuilder: knitr
 Imports: 
     readr,

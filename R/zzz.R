@@ -9,4 +9,14 @@
     )
   }
   
+  if (!("phosphogodb" %in% rownames(installed.packages()))) {
+    packageStartupMessage(
+      paste0(
+        "Please install `phosphogodb` by",
+        " `devtools::install_github('gaelfortin/phosphogodb')`"
+      )
+    )
+  }
+  
+  
 }

@@ -6,6 +6,7 @@
 #' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
+#' @import phosphogodb
 #' @importFrom tidyr everything
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 

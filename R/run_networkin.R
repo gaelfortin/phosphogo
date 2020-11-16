@@ -9,6 +9,7 @@
 #' @import readxl
 #' @import tidyr
 #' @import stringr
+#' @import phosphogodb
 #' @importFrom magrittr "%>%" 
 #' @export
 #' 
@@ -17,7 +18,7 @@ run_networkin <- function(input_file = 'phospho_clean.csv',
                           output_folder = 'myexperiment/'){
   phospho <- readr::read_csv(paste0(output_folder, input_file), col_names = TRUE) %>% 
     mutate(MOD_RSD = stringr::str_extract(MOD_RSD, ".+(?=-p)"))
-  load("predictions_networkin.Rda")
+  data("predictions_networkin_nov2020")
   predictions <- phospho %>% dplyr::inner_join(predictions_networkin_nov2020, by = c("substrate" = "#Name", "MOD_RSD" = "Position")) %>%
     dplyr::select(-Ratio, -Log2, -adj_pvalue)
   readr::write_tsv(predictions, paste0(output_folder, 'networKIN_output.tsv'))

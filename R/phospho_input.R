@@ -13,6 +13,7 @@
 #' @import readxl
 #' @import tidyr
 #' @import stringr
+#' @import phosphogodb
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
 #' @export
@@ -54,7 +55,9 @@ phospho_input <- function(phospho_file = 'phospho_human.xlsx',
     select("substrate" = ACC_ID, MOD_RSD, Ratio, Log2, adj_pvalue)
 
   if (species == 'hsa') { #data humanization directly produce Uniprot IDs. This step is skipped for mouse data.
-    ortho <- suppressWarnings(read_csv('https://onedrive.live.com/download?cid=38F5374142AA4416&resid=38F5374142AA4416%213701&authkey=ABuyMfUDcdV8vdo', col_types = c("__c___c"))) %>% #import Uniprot IDs
+    data('ortho')
+    ortho <- ortho %>% 
+      select(PROTEIN_human, ACC_ID_human) %>% 
       distinct()
     phospho <- inner_join(phospho, ortho, by = c("substrate" = "PROTEIN_human")) %>%
       select("substrate" = ACC_ID_human, MOD_RSD, Ratio, Log2, adj_pvalue)
