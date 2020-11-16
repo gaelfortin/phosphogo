@@ -1,3 +1,3 @@
-# phosphogo 2.0
+# phosphogo 2.1
 
 * Added a `NEWS.md` file to track changes to the package.
