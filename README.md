@@ -6,6 +6,8 @@ IV-KEA (in vitro kinase enrichment analysis). Databases used by `phosphogo`
 are located in the `phosphogodb` package.
 
 
+__This version of phosphogo does not support R > 4.__
+
 ### __Installation__
 `phosphogo` can be installed with:
 
