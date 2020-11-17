@@ -1,24 +1,20 @@
-## ---- include = FALSE------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- include = FALSE----------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  library(phosphogo)
-#  launchApp()
+#  phosphogoApp()
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  library(phosphogo)
 #  dir.create('myexperiment', showWarnings = FALSE)
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
-#  dependencies_setup(networkin = TRUE,
-#                     ivkea = TRUE)
-
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  # Human phosphoproteomic data
-#  networkin_input(
+#  phospho_input(
 #    phospho_file = "phospho_human.xlsx",
 #    phosphosites_column = "PhosphoSite",
 #    log2_column = "Log2",
@@ -28,7 +24,7 @@ knitr::opts_chunk$set(
 #  )
 #  
 #  # Mouse phosphoproteomic data
-#  networkin_input(
+#  phospho_input(
 #    phospho_file = "phospho_mouse.xlsx",
 #    phosphosites_column = "ProteinID-Phospho:Site",
 #    log2_column = "Log2",
@@ -37,33 +33,28 @@ knitr::opts_chunk$set(
 #    output_folder = 'myexperiment/'
 #  )
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  run_networkin(
 #    input_file = "networKIN_input.res",
-#    blastall_location = "~/blast-2.2.17/bin/blastall",
 #    output_folder = "myexperiment/"
 #  )
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  networkin_qc(predictions_file = 'networKIN_output.tsv',
-#               output_folder = '/home/gael/Downloads/phosphogo_MLLAF9/')
+#               output_folder = 'myexperiment/')
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
-#  filter_predictions(
-#    predictions_file = 'networKIN_output.tsv',
-#    output_folder = 'myexperiment/'
-#  )
-
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
-#  select_top_predictions(predictions_file = 'filtered_networkin_predictions.csv',
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
+#  select_top_predictions(predictions_file = 'networKIN_output.tsv',
 #                  phospho_cleaned_file = 'phospho_clean.csv',
-#                  output_folder = 'myexperiment/')
+#                  output_folder = 'mll/')
+
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
 #                                predictions = "networkin",
 #                                output_folder = "myexperiment/",
 #                                FC_threshold = 1.2)
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
 #                    odds_ratio = up_vs_down_odds_ratio,
 #                    FDR_cutoff = 0.05,
@@ -89,18 +80,17 @@ knitr::opts_chunk$set(
 #                    output_folder = 'myexperiment/',
 #                    file_name = "down_tot_volcano_plot_networkin.pdf")
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
-#                            invitrodb_file = 'data/imports/invitrodb.csv',
 #                            output_folder = 'myexperiment/')
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
 #                                predictions = "ivkea",
 #                                output_folder = 'myexperiment/',
 #                                FC_threshold = 1.2)
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv',
 #                    odds_ratio = up_vs_down_odds_ratio,
 #                    FDR_cutoff = 0.05,
@@ -126,7 +116,7 @@ knitr::opts_chunk$set(
 #                    output_folder = 'myexperiment/',
 #                    file_name = "down_tot_volcano_plot_ivkea.pdf")
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------------------------------------
 #  predictions_comparison(
 #    ivkea_enrichment_file = 'myexperiment/kinase_enrichment_ivkea.csv',
 #    networkin_enrichment_file = 'myexperiment/kinase_enrichment_networkin.csv',

@@ -15,9 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
-    rmarkdown,
-    shinyDirectoryInput,
-    phosphogodb
+    rmarkdown
 Remotes: wleepang/shiny-directory-input, 
          gaelfortin/phosphogodb
 VignetteBuilder: knitr
@@ -34,6 +32,11 @@ Imports:
     purrr,
     shiny,
     plotly,
-    shinythemes
+    shinythemes,
+    phosphogodb,
+    shinyDirectoryInput,
+    devtools,
+    stats,
+    utils
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)

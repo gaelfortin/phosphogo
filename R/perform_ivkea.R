@@ -6,7 +6,6 @@
 #' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
-#' @import phosphogodb
 #' @importFrom tidyr everything
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
@@ -16,7 +15,7 @@ perform_ivkea <- function(clean_phospho_file = 'phospho_clean.csv',
                           output_folder = 'myexperiment/'
                           ){
   phospho <- read_csv(paste0(output_folder, clean_phospho_file), col_types = cols())
-  data("invitrodb")
+  invitrodb <- phosphogodb::invitrodb
   invitro_db <- invitrodb %>% 
     mutate(substrate_position = paste0(substrate_position, "-p"))
   invitro_phospho_predictions <- phospho %>%

@@ -6,7 +6,6 @@
 #' @param output_folder `<character>` Where the output files should be stored
 #' @import readr
 #' @import dplyr
-#' @import phosphogodb
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
 #' @export
@@ -14,7 +13,7 @@
 
 data_humanization <- function(phospho_df = phospho,
                               output_folder = 'myexperiment/'){
-  data('ortho')
+  ortho <- phosphogodb::ortho
   phospho_df <-
     inner_join(phospho_df,
                ortho,
