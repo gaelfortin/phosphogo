@@ -9,3 +9,4 @@
 ^data/phospho_human\.csv$
 ^data/phospho_human\.xlsx$
 ^data/phospho_mouse\.xlsx$
+^pipeline_test\.Rmd$

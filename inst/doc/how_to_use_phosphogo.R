@@ -40,16 +40,11 @@ knitr::opts_chunk$set(
 #  )
 
 ## ----eval=FALSE----------------------------------------------------------------------------------------------------
-#  networkin_qc(predictions_file = 'networKIN_output.tsv',
+#  networkin_qc(predictions_file = 'networkin_output.csv',
 #               output_folder = 'myexperiment/')
 
 ## ----eval=FALSE----------------------------------------------------------------------------------------------------
-#  select_top_predictions(predictions_file = 'networKIN_output.tsv',
-#                  phospho_cleaned_file = 'phospho_clean.csv',
-#                  output_folder = 'mll/')
-
-## ----eval=FALSE----------------------------------------------------------------------------------------------------
-#  perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
+#  perform_Fisher_exact_test(predictions_file = 'networkin_output.csv',
 #                                predictions = "networkin",
 #                                output_folder = "myexperiment/",
 #                                FC_threshold = 1.2)
