@@ -1,11 +1,12 @@
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.com/gaelfortin/phosphogo.svg?branch=master)](https://travis-ci.com/gaelfortin/phosphogo)
-  <!-- badges: end -->
-  
+  ![](https://travis-ci.org/gaelfortin/phosphogo.svg?branch=master)
+<!-- badges: end -->
+
 # __phosphogo__
 `phosphogo` is a set of tools to analyze phosphoproteomic data from
 mouse and human experiments. Kinase-substrate predictions can
-be performed using [NetworKIN](http://kinomexplorer.info) and 
+be performed using [NetworKIN](http://kinomexplorer.info) and
 IV-KEA (in vitro kinase enrichment analysis). Databases used by `phosphogo`
 are located in the `phosphogodb` package.
 
@@ -28,7 +29,7 @@ Then, on RStudio, run the following commands:
 
 ```
 library(phosphogo)
-dir.create('myexperiment/', showWarnings = FALSE) 
+dir.create('myexperiment/', showWarnings = FALSE)
 ```
 
 You are ready to perform all analyses included in `phosphogo`!
