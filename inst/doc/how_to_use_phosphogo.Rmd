@@ -21,7 +21,7 @@ of `phosphogo`.
 You can also use the web interface of pĥosphogo with:
 ```{r eval=FALSE}
 library(phosphogo)
-launchApp()
+phosphogoApp()
 ```
 
 
@@ -31,16 +31,11 @@ library(phosphogo)
 dir.create('myexperiment', showWarnings = FALSE) 
 ```
 
-0. Install NetworKIN and IV-KEA
-```{r eval=FALSE}
-dependencies_setup(networkin = TRUE,
-                   ivkea = TRUE)
-```
 
-1. Generate NetworKIN input from phosphoproteomic data
+1. Generate NetworKIN and IV-KEA input from phosphoproteomic data
 ```{r eval=FALSE}
 # Human phosphoproteomic data
-networkin_input(
+phospho_input(
   phospho_file = "phospho_human.xlsx",
   phosphosites_column = "PhosphoSite",
   log2_column = "Log2",
@@ -50,7 +45,7 @@ networkin_input(
 )
 
 # Mouse phosphoproteomic data
-networkin_input(
+phospho_input(
   phospho_file = "phospho_mouse.xlsx",
   phosphosites_column = "ProteinID-Phospho:Site",
   log2_column = "Log2",
@@ -61,50 +56,35 @@ networkin_input(
 ```
 
 2. Run NetworKIN
-__Does not work on Windows__
-NetworKIN works with old versions of BLAST (i.e. before BLAST 2.2.18). 
-Install Blast 2.2.17 at https://ftp.ncbi.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.17/
-NetworKIN requires Python 2.
+NetworKIN predictions were pre-computed on all human phosphosites. Thus, phosphogo
+fetches prediction for the given list of phosphosites.
 
 ```{r eval=FALSE}
 run_networkin(
   input_file = "networKIN_input.res",
-  blastall_location = "~/blast-2.2.17/bin/blastall",
   output_folder = "myexperiment/"
 )
 ```
 
-3. Verify NetworKIN prediction scores
+3. Verify NetworKIN prediction scores distribution
 ```{r eval=FALSE}
-networkin_qc(predictions_file = 'networKIN_output.tsv',
-             output_folder = '/home/gael/Downloads/phosphogo_MLLAF9/')
+networkin_qc(predictions_file = 'networkin_output.csv',
+             output_folder = 'myexperiment/')
 ```
 
-4. NetworKIN predictions filtering
-Predictions that have a score in the top 20% of all predictions are kept. Predictions are kept for all sites (significantly deregulated or not deregulated).
-```{r eval=FALSE}
-filter_predictions(
-  predictions_file = 'networKIN_output.tsv',
-  output_folder = 'myexperiment/'
-)
-```
-
-5. NetworKIN Fisher exact test
+4. NetworKIN Fisher exact test
 The following Fisher exact test can be performed with NetworKIN and IV-KEA:
 - Up reg vs down reg
 - Up reg vs everything (signif and not signif)
 - Down reg vs everything (signif and not signif)
 ```{r eval=FALSE}
-select_top_predictions(predictions_file = 'filtered_networkin_predictions.csv',
-                phospho_cleaned_file = 'phospho_clean.csv',
-                output_folder = 'myexperiment/')
-perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
+perform_Fisher_exact_test(predictions_file = 'networkin_output.csv',
                               predictions = "networkin",
                               output_folder = "myexperiment/",
                               FC_threshold = 1.2) 
 ```
 
-6. Generate volcano plots
+5. Generate volcano plots
 Each Fisher exact test can be used to generate a volcano plot.
 ```{r eval=FALSE}
 make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
@@ -133,10 +113,9 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
                   file_name = "down_tot_volcano_plot_networkin.pdf")
 ```
 
-7. Perform IV-KEA
+6. Perform IV-KEA
 ```{r eval=FALSE}
 perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
-                          invitrodb_file = 'data/imports/invitrodb.csv',
                           output_folder = 'myexperiment/')
 ```
 
@@ -176,7 +155,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv',
                   file_name = "down_tot_volcano_plot_ivkea.pdf")
 ```
   
-8. Compare enrichment tests from NetworKIN and IV-KEA
+7. Compare enrichment tests from NetworKIN and IV-KEA
 ```{r eval=FALSE}
 predictions_comparison(
   ivkea_enrichment_file = 'myexperiment/kinase_enrichment_ivkea.csv',

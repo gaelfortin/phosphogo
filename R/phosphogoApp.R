@@ -5,7 +5,7 @@
 #' @export
 #' 
 #' 
-launchApp <- function() {
+phosphogoApp <- function() {
   appDir <- system.file("shiny-examples", "myapp", package = "phosphogo")
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `phosphogo`.", call. = FALSE)

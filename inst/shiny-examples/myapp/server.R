@@ -7,26 +7,6 @@ library(plotly)
 shinyServer(function(input, output, session) {
     setwd(dir = "../")
    
-   # Verify that NetworKIN is installed
-   output$networkin_verif <- renderText({
-       ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
-              "NetworKIN is properly installed.",
-              "WARNING! NetworKIN is not installed in current directory.")})
-   
-   
-  
-   #Install NetworKIN and IV-KEA
-   observeEvent(
-      input$install, {
-       withProgress(message = 'Installing NetworKIN...', value = 0,
-                       {incProgress(1/1)
-                        networkin_setup()})
-       output$networkin_verif <- renderText({
-         ifelse(file.exists("predictions_networkin.Rda")==TRUE, 
-                "NetworKIN is properly installed.",
-                "WARNING! NetworKIN is not installed.")})
-      })
-   
    # Render phospho data to help to input proper column headers
    output$phospho_table <- renderUI({
       # input$file1 will be NULL initially. After the user selects
@@ -130,7 +110,7 @@ shinyServer(function(input, output, session) {
    observeEvent(input$run_networkin, {
       output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
       withProgress(message = 'Running NetworKIN', value = 0, {
-         incProgress(1/6, detail = 'Preparing data for NetworKIN')
+         incProgress(1/5, detail = 'Preparing data for NetworKIN')
          phospho_input(
             phospho_file = input$phosphofile[1,4],
             phosphosites_column = input$phosphosite_column,
@@ -139,26 +119,22 @@ shinyServer(function(input, output, session) {
             species = input$species,
             output_folder = output_dir
          )
-         incProgress(2/6, detail = 'Running NetworKIN. This step may take a few minutes.')
+         incProgress(2/5, detail = 'Running NetworKIN. This step may take a few minutes.')
          run_networkin(
             input_file = "phospho_clean.csv",
             output_folder = output_dir
          )
-         incProgress(3/6, detail = "Generating QC graph")
+         incProgress(3/5, detail = "Generating QC graph")
          output$qc <- renderPlot(networkin_qc(
-            predictions_file = 'networKIN_output.tsv',
+            predictions_file = 'networkin_output.csv',
             output_folder = output_dir
          ))
-         incProgress(4/6, detail = 'Keeping only top predictions')
-         select_top_predictions(predictions_file = 'networKIN_output.tsv',
-                                phospho_cleaned_file = 'phospho_clean.csv',
-                                output_folder = output_dir)
-         incProgress(5/6, detail = 'Running statistical analysis')
-         perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
+         incProgress(4/5, detail = 'Running statistical analysis')
+         perform_Fisher_exact_test(predictions_file = 'networkin_output.csv',
                                    predictions = "networkin",
                                    FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
-         incProgress(6/6, detail = 'Generating results plots')
+         incProgress(5/5, detail = 'Generating results plots')
          make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
                            odds_ratio = up_vs_down_odds_ratio,
                            FDR_cutoff = 0.05, 

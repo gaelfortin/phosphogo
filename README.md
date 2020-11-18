@@ -2,8 +2,11 @@
 `phosphogo` is a set of tools to analyze phosphoproteomic data from
 mouse and human experiments. Kinase-substrate predictions can
 be performed using [NetworKIN](http://kinomexplorer.info) and 
-IV-KEA (in vitro kinase enrichment analysis).
+IV-KEA (in vitro kinase enrichment analysis). Databases used by `phosphogo`
+are located in the `phosphogodb` package.
 
+
+__This version of phosphogo does not support R > 4.__
 
 ### __Installation__
 `phosphogo` can be installed with:
@@ -12,6 +15,7 @@ IV-KEA (in vitro kinase enrichment analysis).
 devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
 devtools::install_github('gaelfortin/phosphogodb') #database dependency
 devtools::install_github('gaelfortin/phosphogo')
+devtools::install_github('gaelfortin/phosphogodb') #databases required for phosphogo
 ```
 That's it! You can now use phosphogo in application mode or in command-line mode.
 
@@ -21,7 +25,6 @@ Then, on RStudio, run the following commands:
 ```
 library(phosphogo)
 dir.create('myexperiment/', showWarnings = FALSE) 
-networkin_setup()
 ```
 
 You are ready to perform all analyses included in `phosphogo`!
@@ -33,7 +36,7 @@ than the command-line version of the package. To launch the app, run:
 
 ```
 library(phosphogo)
-launchApp()
+phosphogoApp()
 ```
 
 You can find demonstration files in the [GitHub repository](https://github.com/gaelfortin/phosphogo) of phosphogo.

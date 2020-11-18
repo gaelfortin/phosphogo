@@ -21,7 +21,7 @@ of `phosphogo`.
 You can also use the web interface of pĥosphogo with:
 ```{r eval=FALSE}
 library(phosphogo)
-launchApp()
+phosphogoApp()
 ```
 
 
@@ -31,10 +31,6 @@ library(phosphogo)
 dir.create('myexperiment', showWarnings = FALSE) 
 ```
 
-0. Install NetworKIN and IV-KEA
-```{r eval=FALSE}
-networkin_setup()
-```
 
 1. Generate NetworKIN and IV-KEA input from phosphoproteomic data
 ```{r eval=FALSE}
@@ -72,31 +68,23 @@ run_networkin(
 
 3. Verify NetworKIN prediction scores distribution
 ```{r eval=FALSE}
-networkin_qc(predictions_file = 'networKIN_output.tsv',
+networkin_qc(predictions_file = 'networkin_output.csv',
              output_folder = 'myexperiment/')
 ```
 
-4. NetworKIN predictions filtering
-The top predictions of each phosphosite are kept.
-```{r eval=FALSE}
-select_top_predictions(predictions_file = 'networKIN_output.tsv',
-                phospho_cleaned_file = 'phospho_clean.csv',
-                output_folder = 'mll/')
-```
-
-5. NetworKIN Fisher exact test
+4. NetworKIN Fisher exact test
 The following Fisher exact test can be performed with NetworKIN and IV-KEA:
 - Up reg vs down reg
 - Up reg vs everything (signif and not signif)
 - Down reg vs everything (signif and not signif)
 ```{r eval=FALSE}
-perform_Fisher_exact_test(top_predictions_file = 'top_predictions.csv',
+perform_Fisher_exact_test(predictions_file = 'networkin_output.csv',
                               predictions = "networkin",
                               output_folder = "myexperiment/",
                               FC_threshold = 1.2) 
 ```
 
-6. Generate volcano plots
+5. Generate volcano plots
 Each Fisher exact test can be used to generate a volcano plot.
 ```{r eval=FALSE}
 make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv', 
@@ -125,7 +113,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_networkin.csv',
                   file_name = "down_tot_volcano_plot_networkin.pdf")
 ```
 
-7. Perform IV-KEA
+6. Perform IV-KEA
 ```{r eval=FALSE}
 perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
                           output_folder = 'myexperiment/')
@@ -167,7 +155,7 @@ make_volcano_plot(kinase_enrichment_file = 'kinase_enrichment_ivkea.csv',
                   file_name = "down_tot_volcano_plot_ivkea.pdf")
 ```
   
-8. Compare enrichment tests from NetworKIN and IV-KEA
+7. Compare enrichment tests from NetworKIN and IV-KEA
 ```{r eval=FALSE}
 predictions_comparison(
   ivkea_enrichment_file = 'myexperiment/kinase_enrichment_ivkea.csv',

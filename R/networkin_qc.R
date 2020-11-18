@@ -8,35 +8,24 @@
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
+#' @importFrom rlang .data
 #' @import ggplot2
 #' @export
 #' 
-networkin_qc <- function(predictions_file = 'networKIN_output.tsv',
+networkin_qc <- function(predictions_file = 'networkin_output.csv',
                                threshold = 0.5,
                                output_folder = 'myexperiment/'){
-  predictions <- read_tsv(paste0(output_folder, predictions_file), col_types = cols()) %>%
-    select(-`Target Name`,
-           -`Kinase/Phosphatase/Phospho-binding domain description`,
-           -`Kinase/Phosphatase/Phospho-binding domain Name`) %>%
-    select("target_id" = `substrate`,
-           "protein_name" = `Target description`,
-           "phosphosite" = MOD_RSD,
-           "kinase_phosphatase_phospho-binding" = `Kinase/Phosphatase/Phospho-binding domain`,
-           "networkin_score" = `NetworKIN score`,
-           "netphorest_probability" = `NetPhorest probability`,
-           "family_tree" = Tree,
-           "netphorest_group" = `NetPhorest Group`)
-  predictions %<>%
-    mutate(protein_phosphosite = str_c(target_id, phosphosite, sep = ":"))
+  
+  predictions <- read_csv(paste0(output_folder, predictions_file), col_types = cols())
   cumulated_scores <- predictions %>%
-    count(networkin_score)
-  cumulated_scores %<>%
-    bind_cols(., "cumulated_count" = cumsum(cumulated_scores$n))
+    count(.data$networkin_score)
+  cumulated_scores <- 
+    bind_cols(cumulated_scores, "cumulated_count" = cumsum(cumulated_scores$n))
   total_score <- cumulated_scores$cumulated_count[nrow(cumulated_scores)]
   cumulated_scores %<>%
-    mutate(count_fraction = cumulated_count/total_score)
+    mutate(count_fraction = .data$cumulated_count/total_score)
   
-  ggplot(predictions, aes(networkin_score)) +
+  ggplot(predictions, aes(.data$networkin_score)) +
     geom_density(kernel = "gaussian") +
     labs(title = "Distribution of scores of NetworKIN predictions.",
          caption = paste0("Number of predictions made by NetworKIN: ", nrow(predictions)),

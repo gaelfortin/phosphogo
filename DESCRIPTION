@@ -1,6 +1,6 @@
 Package: phosphogo
-Title: Analyze your phosphoproteomic data
-Version: 2.1
+Title: Analyze Your Phosphoproteomic Data
+Version: 2.2
 Authors@R: 
     person(given = "Gael",
            family = "Fortin",
@@ -15,9 +15,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
-    rmarkdown,
-    shinyDirectoryInput,
-Remotes: wleepang/shiny-directory-input 
+    rmarkdown
+Remotes: wleepang/shiny-directory-input, 
+         gaelfortin/phosphogodb
 VignetteBuilder: knitr
 Imports: 
     readr,
@@ -32,6 +32,12 @@ Imports:
     purrr,
     shiny,
     plotly,
-    shinythemes
+    shinythemes,
+    phosphogodb,
+    shinyDirectoryInput,
+    devtools,
+    stats,
+    utils,
+    rlang
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)
