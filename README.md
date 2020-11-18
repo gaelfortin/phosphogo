@@ -1,3 +1,7 @@
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.com/gaelfortin/phosphogo.svg?branch=master)](https://travis-ci.com/gaelfortin/phosphogo)
+  <!-- badges: end -->
+  
 # __phosphogo__
 `phosphogo` is a set of tools to analyze phosphoproteomic data from
 mouse and human experiments. Kinase-substrate predictions can
@@ -13,6 +17,7 @@ __This version of phosphogo does not support R > 4.__
 
 ```
 devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
+devtools::install_github('gaelfortin/phosphogodb') #database dependency
 devtools::install_github('gaelfortin/phosphogo')
 devtools::install_github('gaelfortin/phosphogodb') #databases required for phosphogo
 ```

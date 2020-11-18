@@ -1,6 +1,6 @@
 Package: phosphogo
 Title: Analyze Your Phosphoproteomic Data
-Version: 2.1
+Version: 2.2
 Authors@R: 
     person(given = "Gael",
            family = "Fortin",
