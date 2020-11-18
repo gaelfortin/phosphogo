@@ -1,5 +1,5 @@
 Package: phosphogo
-Title: Analyze your phosphoproteomic data
+Title: Analyze Your Phosphoproteomic Data
 Version: 2.1
 Authors@R: 
     person(given = "Gael",
@@ -37,6 +37,7 @@ Imports:
     shinyDirectoryInput,
     devtools,
     stats,
-    utils
+    utils,
+    rlang
 Depends: 
     R (>= 3.5)

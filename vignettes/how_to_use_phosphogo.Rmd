@@ -68,7 +68,7 @@ run_networkin(
 
 3. Verify NetworKIN prediction scores distribution
 ```{r eval=FALSE}
-networkin_qc(predictions_file = 'networkin_output.tsv',
+networkin_qc(predictions_file = 'networkin_output.csv',
              output_folder = 'myexperiment/')
 ```
 

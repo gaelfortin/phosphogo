@@ -19,8 +19,8 @@ networkin_qc <- function(predictions_file = 'networkin_output.csv',
   predictions <- read_csv(paste0(output_folder, predictions_file), col_types = cols())
   cumulated_scores <- predictions %>%
     count(.data$networkin_score)
-  cumulated_scores %<>%
-    bind_cols(., "cumulated_count" = cumsum(cumulated_scores$n))
+  cumulated_scores <- 
+    bind_cols(cumulated_scores, "cumulated_count" = cumsum(cumulated_scores$n))
   total_score <- cumulated_scores$cumulated_count[nrow(cumulated_scores)]
   cumulated_scores %<>%
     mutate(count_fraction = .data$cumulated_count/total_score)

@@ -8,7 +8,8 @@
 #' @import dplyr
 #' @importFrom tidyr everything
 #' @importFrom magrittr "%>%" 
-#' @importFrom magrittr "%<>%" 
+#' @importFrom magrittr "%<>%"
+#' @importFrom rlang .data 
 #' @export
 
 perform_ivkea <- function(clean_phospho_file = 'phospho_clean.csv',
@@ -17,10 +18,10 @@ perform_ivkea <- function(clean_phospho_file = 'phospho_clean.csv',
   phospho <- read_csv(paste0(output_folder, clean_phospho_file), col_types = cols())
   invitrodb <- phosphogodb::invitrodb
   invitro_db <- invitrodb %>% 
-    mutate(substrate_position = paste0(substrate_position, "-p"))
+    mutate(substrate_position = paste0(.data$substrate_position, "-p"))
   invitro_phospho_predictions <- phospho %>%
     left_join(invitro_db, by = c("substrate" = "ACC_ID", "MOD_RSD" = "substrate_position")) %>%
-    select(everything(), -substrate_protein_description, 'top_predicted_kinase' = kinase)
+    select(everything(), -.data$substrate_protein_description, 'top_predicted_kinase' = .data$kinase)
   write_csv(invitro_phospho_predictions, paste0(output_folder, "ivkea_predictions.csv"))
 
 }

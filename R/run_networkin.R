@@ -22,15 +22,15 @@ run_networkin <- function(input_file = 'phospho_clean.csv',
   predictions <- phospho %>% dplyr::inner_join(predictions_networkin_nov2020, by = c("substrate" = "#Name", "MOD_RSD" = "Position")) 
   
   predictions <-predictions %>% 
-    mutate(protein_phosphosite = paste0(substrate, ":", MOD_RSD)) %>% 
-    mutate(MOD_RSD = paste0(MOD_RSD, "-p")) %>% 
-    select(substrate, 
-           MOD_RSD, 
-           "top_predicted_kinase" = `Kinase/Phosphatase/Phospho-binding domain`, 
-           protein_phosphosite,
-           Ratio,
-           Log2,
-           adj_pvalue,
-           "networkin_score" = `NetworKIN score`)
+    mutate(protein_phosphosite = paste0(.data$substrate, ":", .data$MOD_RSD)) %>% 
+    mutate(MOD_RSD = paste0(.data$MOD_RSD, "-p")) %>% 
+    select(.data$substrate, 
+           .data$MOD_RSD, 
+           "top_predicted_kinase" = .data$`Kinase/Phosphatase/Phospho-binding domain`, 
+           .data$protein_phosphosite,
+           .data$Ratio,
+           .data$Log2,
+           .data$adj_pvalue,
+           "networkin_score" = .data$`NetworKIN score`)
     write_csv(predictions, paste0(output_folder, 'networkin_output.csv'))
 }

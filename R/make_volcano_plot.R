@@ -17,6 +17,7 @@
 #' @import dplyr
 #' @importFrom magrittr "%>%" 
 #' @importFrom magrittr "%<>%" 
+#' @importFrom rlang .data
 #' @import ggrepel
 #' @import ggplot2
 #' @export
@@ -30,6 +31,7 @@ make_volcano_plot <- function(kinase_enrichment_file = 'kinase_enrichment_networ
                               x_axis_title = "X axis",
                               output_folder = 'myexperiment/',
                               file_name){
+  FDR <- top_predicted_kinase <- NULL
   contingency_table <- read_csv(paste0(output_folder, kinase_enrichment_file), col_types = cols())
   odds_ratio <- enquo(odds_ratio)
   FDR_data <- enquo(FDR_data)
@@ -38,10 +40,10 @@ make_volcano_plot <- function(kinase_enrichment_file = 'kinase_enrichment_networ
     mutate(cutoff = if_else(condition = !!FDR_data < FDR_cutoff, true = "signif", false = "not signif")) %>%
     arrange(!!FDR_data)
 
-  significant_kinases <- filter(contingency_table, cutoff == "signif")
+  significant_kinases <- filter(contingency_table, .data$cutoff == "signif")
 
   contingency_table %>%
-    ggplot(aes(x = log2(!!odds_ratio), y = -log10(!!FDR_data), col = cutoff)) +
+    ggplot(aes(x = log2(!!odds_ratio), y = -log10(!!FDR_data), col = .data$cutoff)) +
     geom_point() +
     scale_colour_manual(name = "Significance", values = c("#333333", "#B90504")) +
     # xlim(-xlim_volcano, +xlim_volcano) +

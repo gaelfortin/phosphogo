@@ -5,7 +5,7 @@
 \title{Quality control of NetworKIN predictions}
 \usage{
 networkin_qc(
-  predictions_file = "networKIN_output.tsv",
+  predictions_file = "networkin_output.csv",
   threshold = 0.5,
   output_folder = "myexperiment/"
 )

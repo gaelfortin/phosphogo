@@ -3,7 +3,7 @@
 #' This function computes Fisher exact test and the corresponding adjusted p-values (FDR)
 #' for upregulated vs downregulated phosphosites, upregulated vs all phosphosites,
 #' downregulated vs all phosphosites.
-#' @param top_predictions_file `<character>` Location of the file with top predictions per phosphosite
+#' @param predictions_file `<character>` Location of the file with top predictions per phosphosite
 #' @param predictions `<character>` The algorithm used for predictions (NetworKIN or IV-KEA)
 #' @param output_folder `<character>` Where the output files should be stored
 #' @param FC_threshold `<numeric>` Fold change threshold to select phosphosites.
