@@ -1,3 +1,7 @@
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.com/gaelfortin/phosphogo.svg?branch=master)](https://travis-ci.com/gaelfortin/phosphogo)
+  <!-- badges: end -->
+  
 # __phosphogo__
 `phosphogo` is a set of tools to analyze phosphoproteomic data from
 mouse and human experiments. Kinase-substrate predictions can
