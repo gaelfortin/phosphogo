@@ -1,5 +1,4 @@
 <!-- badges: start -->
-  [![Travis build status](https://travis-ci.com/gaelfortin/phosphogo.svg?branch=master)](https://travis-ci.com/gaelfortin/phosphogo)
   ![](https://travis-ci.org/gaelfortin/phosphogo.svg?branch=master)
 <!-- badges: end -->
 
