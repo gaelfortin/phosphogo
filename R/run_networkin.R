@@ -26,6 +26,7 @@ run_networkin <- function(input_file = 'phospho_clean.csv',
     mutate(MOD_RSD = paste0(.data$MOD_RSD, "-p")) %>% 
     select(.data$substrate, 
            .data$MOD_RSD, 
+           "target_name" =  .data$`Target description`,
            "top_predicted_kinase" = .data$`Kinase/Phosphatase/Phospho-binding domain`, 
            .data$protein_phosphosite,
            .data$Ratio,
