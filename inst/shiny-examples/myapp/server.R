@@ -67,7 +67,7 @@ shinyServer(function(input, output, session) {
          incProgress(2/3, detail = 'Running IV-KEA')
          perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
                        output_folder = output_dir)
-         perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
+         perform_Fisher_exact_test(predictions_file = 'ivkea_predictions.csv',
                                    predictions = "ivkea",
                                    FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
