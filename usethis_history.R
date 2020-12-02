@@ -1,4 +1,4 @@
-#This script is the history of all usethis::use_package() commands
+#This script is the history of all usethis commands
 #performed to build phosphogo dependencies
 usethis::use_package('readr')
 usethis::use_package('dplyr')
@@ -17,6 +17,9 @@ usethis::use_package('shinyDirectoryInput')
 usethis::use_package('phosphogodb')
 usethis::use_package('devtools')
 usethis::use_package("rlang")
+usethis::use_package('ggridges')
+usethis::use_package('depmap')
+usethis::use_package('ExperimentHub')
 usethis::use_build_ignore('data/phospho_human.csv')
 usethis::use_build_ignore('data/phospho_human.xlsx')
 usethis::use_build_ignore('data/phospho_mouse.xlsx')
