@@ -166,3 +166,28 @@ predictions_comparison(
   file_name = "comp_plot.pdf"
 )
 ```
+
+8. Investigate deregulated kinases functions in cancer with DepMap
+
+
+[DepMap](https://depmap.org/portal/) is a set of databases that aggregates dependency data for many cancer cell lineages. Phosphogo takes advantage of DepMap to identify deregulated kinases and there substrates that are important for the survival of cancers.
+```{r}
+# Import kinase predictions
+enrichment <- read_csv('myexperiment/kinase_enrichment_networkin.csv')
+deregulated_kinases<- enrichment %>% #select only deregulated kinases
+     filter(up_vs_down_FDR < 0.05) %>%  
+     pull(top_predicted_kinase)
+# Extract median dependency score of each kinase in cancer cell lineages
+dependency_k_output <- dependency_kinases(kinases = deregulated_kinases, 
+                                          dependency_threshold = -0.2)
+# Extract substrates dependency scores of interesting kinases from dependency_kinases()
+dependency_d_output <- dependency_data(dependency_kinases_output = dependency_k_output, 
+                                       functional_threshold = 0.25)
+# Generate the plot of dependency for interesting kinases from dependency_kinases()
+dependency_g <- dependency_graph(dependency_data_output = dependency_d_output)
+# Output dependency analysis results
+dependency_k_output
+dependency_g
+details_dependency
+```
+

@@ -9,17 +9,25 @@ be performed using [NetworKIN](http://kinomexplorer.info) and
 IV-KEA (in vitro kinase enrichment analysis). Databases used by `phosphogo`
 are located in the `phosphogodb` package.
 
+The following processes can be done with phosphogo:
 
-__This version of phosphogo does not support R > 4.__
+- Generate predictions of kinase-substrate relationships with NetworKIN
+- Generate predictions of kinase-substrate relationships with IV-KEA 
+(in vitro kinase enrichment analysis)
+- Visualise more and less active kinases in your case vs control condition
+- Compare active kinases predicted by NetworKIN and IV-KEA
+- Investigate phosphosites functionality in cancers with the DepMap database
+
+
+__This version of phosphogo does not support R > 3.6.__
 
 ### __Installation__
 `phosphogo` can be installed with:
 
 ```
-devtools::install_github('wleepang/shiny-directory-input') #dependency for Shiny app
-devtools::install_github('gaelfortin/phosphogodb') #database dependency
+install.packages("BiocManager")
+BiocManager::install("depmap")
 devtools::install_github('gaelfortin/phosphogo')
-devtools::install_github('gaelfortin/phosphogodb') #databases required for phosphogo
 ```
 That's it! You can now use phosphogo in application mode or in command-line mode.
 
@@ -43,7 +51,7 @@ library(phosphogo)
 phosphogoApp()
 ```
 
-You can find demonstration files in the [GitHub repository](https://github.com/gaelfortin/phosphogo) of phosphogo.
+You can find demonstration files in the [data folder of the project](https://github.com/gaelfortin/phosphogo/data).
 
 ### __Command-line version of phosphogo__
 
@@ -56,12 +64,15 @@ An example of a pipeline can be found in the vignette with the command
 ### __How does phosphogo make kinase-substrate predictions?__
 Phosphogo relies on the following prediction strategies. Please cite their corresponding authors.
 
-### NetworKIN
+__NetworKIN__
 [Horn et al., KinomeXplorer: an integrated platform for kinome biology studies. Nature Methods 2014 Jun;11(6):603–4.](http://www.nature.com/nmeth/journal/v11/n6/full/nmeth.2968.html)
 
-### IV-KEA
+__IV-KEA__
 Phosphogo uses the *in vitro* database published in:
 [Sugiyama et al., Large-scale Discovery of Substrates of the Human Kinome. Scientific Reports 2019](https://www.nature.com/articles/s41598-019-46385-4)
+
+### __Using DepMap to investigate kinases role in cancer__
+[DepMap](https://depmap.org/portal/) is a set of databases that aggregates dependency data for many cancer cell lineages. Phosphogo takes advantage of DepMap to identify deregulated kinases and there substrates that are important for the survival of cancers.
 
 ## Issues
 If you have an issue or find a bug, please open an issue

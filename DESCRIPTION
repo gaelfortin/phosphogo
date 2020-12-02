@@ -39,6 +39,5 @@ Imports:
     stats,
     utils,
     rlang
-biocViews:
 Depends: 
     R (>= 3.5)
