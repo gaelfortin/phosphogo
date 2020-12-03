@@ -12,6 +12,7 @@
 dependency_graph <- function(dependency_data_output){
   g <- dependency_data_output %>% 
     ggplot(aes(x = dependency, y = combination, fill = combination)) +
+    xlab("dependency score") +
     theme(legend.position = "none")+
     geom_density_ridges() +
     stat_density_ridges(quantile_lines = TRUE, quantiles = 2)

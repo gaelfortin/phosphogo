@@ -18,7 +18,7 @@ navbarPage("Phosphogo",
                                       selected = "hsa"),
                          directoryInput('output_dir', label = 'Select a directory to save all outputs', value = '~'),
                          ),
-                tabPanel("2. Run",
+                tabPanel("2. Analyze",
                          h3('Select the fold change threshold to use in the analysis.'),
                          h4('Phosphosites below this threshold will not be taken into account when comparing kinase predictions for upregulated and downregulated phosphosites.'),
                          sliderInput('FC_threshold', label = 'Fold change threshold', min = 0, max = 5, value = 1, step = 0.1),
@@ -45,6 +45,36 @@ navbarPage("Phosphogo",
                             )
                           )
                         ),
+                tabPanel("4. Interpret",
+                         sidebarLayout(
+                           
+                           sidebarPanel(
+                             h3("Import data"),
+                             fileInput('kinase_enrichments', 'Choose one or several kinase enrichment files', accept=c('.csv'), multiple = TRUE),
+                             h3("Dependency analysis settings"),
+                             numericInput("dep_threshold", label = "Dependency score threshold", value = -0.2),
+                             numericInput("func_threshold", label = "Functional score threshold", value = 0.25),
+                             actionButton(inputId = "run_dep", label = "Run dependency analysis", class="btn btn-primary", style = "margin-bottom:20px")
+                           ),
+                           mainPanel(
+                             tabsetPanel(
+                               type = "tabs",
+                               tabPanel(
+                                 "Essential deregulated kinases",
+                                 DT::dataTableOutput("dep_k")
+                               ),
+                               tabPanel(
+                                 "Dependency graphs of essential kinases",
+                                 plotOutput("dep_g")
+                               ),
+                               tabPanel(
+                                 "Dependency analysis details",
+                                 DT::dataTableOutput("dep_details")
+                               )
+                             )
+                           )
+                         )
+                ),
                 navbarMenu("More",
                            tabPanel("Tutorial",
                                     includeMarkdown("tutorial.md")

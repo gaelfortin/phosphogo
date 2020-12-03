@@ -228,5 +228,41 @@ shinyServer(function(input, output, session) {
       
       
    })
+   
+   # DepMap analysis
+   observeEvent(input$run_dep,{
+      withProgress(message = 'Running dependency analysis', value = 1, max = 4, {
+         incProgress(1/4, detail = 'Importing deregulated kinases')
+         deregulated_kinases <- NULL
+         for(i in 1:length(input$kinase_enrichments[,1])){ # import list of deregulated kinases
+                     deregulated_kinases <- c(deregulated_kinases,
+                                              read_csv(input$kinase_enrichments[[i, 'datapath']]) %>%
+                                                 filter(up_vs_down_FDR < 0.05) %>%
+                                                 pull(top_predicted_kinase))
+                  }
+         deregulated_kinases <- unique(deregulated_kinases) #remove duplicates
+         incProgress(2/4, detail = 'Computing median dependency scores of deregulated kinases')
+         # Extract median dependency score of each kinase in cancer cell lineages
+         dependency_k_output <- dependency_kinases(kinases = deregulated_kinases, 
+                                                   dependency_threshold = input$dep_threshold)
+         incProgress(3/4, detail = 'Computing dependency analysis details')
+         # Extract substrates dependency scores of interesting kinases from dependency_kinases()
+         dependency_d_output <- dependency_data(dependency_kinases_output = dependency_k_output, 
+                                                functional_threshold = input$func_threshold)
+         
+         incProgress(4/4, detail = 'Generating dependency analysis graph')
+         # Generate the plot of dependency for interesting kinases from dependency_kinases()
+         dependency_g <- dependency_graph(dependency_data_output = dependency_d_output)
+         # Output dependency analysis results
+         output$dep_k <- DT::renderDataTable(dependency_k_output)
+         output$dep_g <- renderPlot(dependency_g)
+         output$dep_details <- DT::renderDataTable(dependency_d_output)
+      })
+      
+   })
+   
+   # 
+   # 
+   
          
 })
