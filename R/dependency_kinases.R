@@ -6,6 +6,7 @@
 #' (0 is a non-essentiel gene, 1 an essential gene)
 #' @param functional_threshold `<integer>` Minimum threshold to filter functional 
 #' phosphosites as defined by Ochoa et al., 2019 (0 is a not functional site, 1 a highly functional site)
+#' @param output_folder `<character>` Where the output files should be stored
 #' @import depmap
 #' @import ExperimentHub
 #' @import ggridges 
@@ -15,7 +16,7 @@
 #' 
 
 
-dependency_kinases <- function(kinases, dependency_threshold = -0.2, functional_threshold = 0.25){
+dependency_kinases <- function(kinases, dependency_threshold = -0.2, functional_threshold = 0.25, output_folder = 'myexperiment/'){
   invitrodb <- phosphogodb::invitrodb %>% 
     mutate(uniprot_name = str_extract(uniprot_name, ".+(?=_HUMAN)"),
            position = as.numeric(str_extract(substrate_position, "[:digit:]+")))
@@ -42,5 +43,7 @@ dependency_kinases <- function(kinases, dependency_threshold = -0.2, functional_
       bind_cols("kinase" = k) %>% 
       bind_rows(dependencies, .)
   }
+  filter(dependencies, median_dependency < dependency_threshold) %>%
+    write_csv(paste0(output_folder, "dependency_kinases.csv"))
   return(filter(dependencies, median_dependency < dependency_threshold))
 }
