@@ -25,8 +25,14 @@ __This version of phosphogo does not support R > 3.6.__
 `phosphogo` can be installed with:
 
 ```
-install.packages("BiocManager")
-BiocManager::install("depmap")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+BiocManager::install("uclouvain-cbio/depmap") #DepMap dependency
+
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
 devtools::install_github('gaelfortin/phosphogo')
 ```
 That's it! You can now use phosphogo in application mode or in command-line mode.
@@ -51,7 +57,7 @@ library(phosphogo)
 phosphogoApp()
 ```
 
-You can find demonstration files in the [data folder of the project](https://github.com/gaelfortin/phosphogo/data).
+You can find demonstration files in the [data folder of the project](https://github.com/gaelfortin/phosphogo/tree/master/data).
 
 ### __Command-line version of phosphogo__
 

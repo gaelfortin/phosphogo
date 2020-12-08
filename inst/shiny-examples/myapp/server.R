@@ -243,15 +243,17 @@ shinyServer(function(input, output, session) {
          incProgress(2/4, detail = 'Computing median dependency scores of deregulated kinases')
          # Extract median dependency score of each kinase in cancer cell lineages
          dependency_k_output <- dependency_kinases(kinases = deregulated_kinases, 
-                                                   dependency_threshold = input$dep_threshold)
+                                                   dependency_threshold = input$dep_threshold,
+                                                   output_folder = output_dir)
          incProgress(3/4, detail = 'Computing dependency analysis details')
          # Extract substrates dependency scores of interesting kinases from dependency_kinases()
-         dependency_d_output <- dependency_data(dependency_kinases_output = dependency_k_output, 
-                                                functional_threshold = input$func_threshold)
-         
+         dependency_d_output <- dependency_data(dependency_kinases_output = "dependency_kinases.csv", 
+                                                functional_threshold = input$func_threshold,
+                                                output_folder = output_dir)
          incProgress(4/4, detail = 'Generating dependency analysis graph')
          # Generate the plot of dependency for interesting kinases from dependency_kinases()
-         dependency_g <- dependency_graph(dependency_data_output = dependency_d_output)
+         dependency_g <- dependency_graph(dependency_data_output = "dependency_data.csv",
+                                          output_folder = output_dir)
          # Output dependency analysis results
          output$dep_k <- DT::renderDataTable(dependency_k_output)
          output$dep_g <- renderPlot(dependency_g)

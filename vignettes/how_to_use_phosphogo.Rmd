@@ -180,15 +180,18 @@ deregulated_kinases<- enrichment %>% #select only deregulated kinases
      pull(top_predicted_kinase)
 # Extract median dependency score of each kinase in cancer cell lineages
 dependency_k_output <- dependency_kinases(kinases = deregulated_kinases, 
-                                          dependency_threshold = -0.2)
+                                          dependency_threshold = -0.2,
+                                          output_folder = 'myexperiment/')
 # Extract substrates dependency scores of interesting kinases from dependency_kinases()
-dependency_d_output <- dependency_data(dependency_kinases_output = dependency_k_output, 
-                                       functional_threshold = 0.25)
+dependency_d_output <- dependency_data(dependency_kinases_output = "dependency_kinases.csv", 
+                                       functional_threshold = 0.25,
+                                       output_folder = 'myexperiment/')
 # Generate the plot of dependency for interesting kinases from dependency_kinases()
-dependency_g <- dependency_graph(dependency_data_output = dependency_d_output)
+dependency_g <- dependency_graph(dependency_data_output = "dependency_data.csv",
+                                 output_folder = 'myexperiment/')
 # Output dependency analysis results
 dependency_k_output
 dependency_g
-details_dependency
+dependency_d_output
 ```
 

@@ -38,6 +38,8 @@ Imports:
     devtools,
     stats,
     utils,
-    rlang
+    rlang,
+    remotes,
+    ggridges
 Depends: 
-    R (>= 3.5)
+    R (>= 4.0)
