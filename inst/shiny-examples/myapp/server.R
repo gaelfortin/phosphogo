@@ -1,6 +1,5 @@
 library(shiny)
 library(phosphogo)
-library(tidyverse)
 library(shinyDirectoryInput) # install with devtools::install_github('wleepang/shiny-directory-input')
 library(plotly)
 
