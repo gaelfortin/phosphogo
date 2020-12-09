@@ -2,6 +2,9 @@ library(shiny)
 library(phosphogo)
 library(shinyDirectoryInput) # install with devtools::install_github('wleepang/shiny-directory-input')
 library(plotly)
+library(dplyr)
+library(ggplot2)
+library(readr)
 
 shinyServer(function(input, output, session) {
     setwd(dir = "../")
@@ -24,8 +27,8 @@ shinyServer(function(input, output, session) {
       if (is.null(inFile))
          return(NULL)
       
-      if (str_detect(inFile$datapath, "csv")) {
-         head(read_csv(inFile$datapath))
+      if (stringr::str_detect(inFile$datapath, "csv")) {
+         head(readr::read_csv(inFile$datapath))
       } else {head(readxl::read_xlsx(inFile$datapath))}
       })
    )})
@@ -66,7 +69,7 @@ shinyServer(function(input, output, session) {
          incProgress(2/3, detail = 'Running IV-KEA')
          perform_ivkea(clean_phospho_file = 'phospho_clean.csv',
                        output_folder = output_dir)
-         perform_Fisher_exact_test(top_predictions_file = 'ivkea_predictions.csv',
+         perform_Fisher_exact_test(predictions_file = 'ivkea_predictions.csv',
                                    predictions = "ivkea",
                                    FC_threshold = input$FC_threshold,
                                    output_folder = output_dir)
@@ -230,7 +233,8 @@ shinyServer(function(input, output, session) {
    
    # DepMap analysis
    observeEvent(input$run_dep,{
-      withProgress(message = 'Running dependency analysis', value = 1, max = 4, {
+      output_dir <- paste0(readDirectoryInput(session, 'output_dir'), '/')
+      withProgress(message = 'Running dependency analysis. This analysis can take several minutes.', value = 1, max = 4, {
          incProgress(1/4, detail = 'Importing deregulated kinases')
          deregulated_kinases <- NULL
          for(i in 1:length(input$kinase_enrichments[,1])){ # import list of deregulated kinases
@@ -256,7 +260,7 @@ shinyServer(function(input, output, session) {
                                           output_folder = output_dir)
          # Output dependency analysis results
          output$dep_k <- DT::renderDataTable(dependency_k_output)
-         output$dep_g <- renderPlot(dependency_g)
+         output$dep_g <- renderPlot(dependency_g, height = 2000)
          output$dep_details <- DT::renderDataTable(dependency_d_output)
       })
       
