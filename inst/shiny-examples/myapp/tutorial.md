@@ -4,6 +4,9 @@ Phosphogo is a set of tools to analyze phosphoproteomic data from mouse and huma
 # Phosphogo user interface
 This user interface allows you to run the same tools than the command-line version of phosphogo. It requires the package `shiny`. From this application, you can install or reinstall phosphogo dependencies, input your phosphoproteomic data, generate predictions and visualize outputs.
 
+** All output files including graphs and tables can be found in the `output folder` selected
+in the `1. Your data` tab.**
+
 # 0. Setup
 You can install/reinstall phosphogo dependencies on this page. Phosphogo scans the folder from which the app is launched and will install NetworKIN and/or the IV-KEA database in this folder.
 NetworKIN and the IV-KEA database will be downloaded and installed in the current folder.

@@ -18,19 +18,22 @@ This vignette highlights essential functions of `phosphogo` and their use.
 For details on `phosphogo` installation, refer to the [GitHub repository](https://github.com/gaelfortin/phosphogo)
 of `phosphogo`.
 
-You can also use the web interface of pĥosphogo with:
+## Using the user-friendly version of phosphogo
+You can use the user-friendly interface of pĥosphogo with:
 ```{r eval=FALSE}
 library(phosphogo)
 phosphogoApp()
 ```
 
+** All output files including graphs and tables can be found in the `output folder` selected
+in the `1. Your data` tab.**
 
+## Command-line version of phosphogo
 First, load phosphogo and create a new folder to output all files:
 ```{r eval=FALSE}
 library(phosphogo)
 dir.create('myexperiment', showWarnings = FALSE) 
 ```
-
 
 1. Generate NetworKIN and IV-KEA input from phosphoproteomic data
 ```{r eval=FALSE}
