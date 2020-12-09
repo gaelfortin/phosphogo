@@ -13,7 +13,7 @@
 
 dependency_graph <- function(dependency_data_output = "dependency_data.csv", output_folder){
   data <- read_csv(paste0(output_folder, dependency_data_output)) 
-  data %>% 
+  g <- data %>% 
     ggplot(aes(x = dependency, y = combination, fill = stat(x))) +
     geom_density_ridges_gradient(rel_min_height = 0.01) +
     scale_fill_viridis_c(name = "Dependency score", option = "C") +

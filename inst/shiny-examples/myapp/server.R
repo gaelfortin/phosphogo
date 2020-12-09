@@ -177,9 +177,9 @@ shinyServer(function(input, output, session) {
    output$plot_data <-
       renderUI(
          tagList(if (input$graph_type == "enrichment") {
-            fileInput("enrichment_file", label = h3("Enrichment results file"), placeholder = "Select a .csv file")
-         } else {fileInput("networkin_file", label = h3("Networkin enrichment results file"), placeholder = "Select NetworKIN enrichment results")},
-         if (input$graph_type != "enrichment") {fileInput("ivkea_file", label = h3("IV-KEA enrichment results file"), placeholder = "Select IV-KEA enrichment results")},
+            fileInput("enrichment_file", label = "Enrichment results file", placeholder = "Select a .csv file")
+         } else {fileInput("networkin_file", label = "NetworKIN enrichment results file", placeholder = "Select NetworKIN enrichment results")},
+         if (input$graph_type != "enrichment") {fileInput("ivkea_file", label = "IV-KEA enrichment results file", placeholder = "Select IV-KEA enrichment results")},
          textInput("graph_title", label = "Graph title", value = paste0(input$graph_type, " graph")),
          actionButton("generate_graph", label = "Generate graph", class="btn btn-primary", style = "margin-bottom:20px"))
          )
