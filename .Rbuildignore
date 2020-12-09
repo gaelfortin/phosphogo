@@ -12,3 +12,6 @@
 ^pipeline_test\.Rmd$
 ^\.travis\.yml$
 ^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

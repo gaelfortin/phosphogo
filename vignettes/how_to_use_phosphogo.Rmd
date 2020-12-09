@@ -22,6 +22,7 @@ of `phosphogo`.
 You can use the user-friendly interface of pĥosphogo with:
 ```{r eval=FALSE}
 library(phosphogo)
+library(purrr)
 phosphogoApp()
 ```
 
@@ -175,15 +176,15 @@ predictions_comparison(
 
 
 [DepMap](https://depmap.org/portal/) is a set of databases that aggregates dependency data for many cancer cell lineages. Phosphogo takes advantage of DepMap to identify deregulated kinases and there substrates that are important for the survival of cancers.
-```{r}
+```{r eval=FALSE}
 # Import kinase predictions from NetworKIN and IVKEA
 deregulated_kinases <- NULL
 kinases_enrichment_files <- c('myexperiment/kinase_enrichment_networkin.csv', 'myexperiment/kinase_enrichment_ivkea.csv')
 for(i in kinases_enrichment_files){ 
   deregulated_kinases <- c(deregulated_kinases,
-                            read_csv(i) %>%
-                               filter(up_vs_down_FDR < 0.05) %>%
-                               pull(top_predicted_kinase))
+                            readr::read_csv(i) %>%
+                               dplyr::filter(up_vs_down_FDR < 0.05) %>%
+                               dplyr::pull(top_predicted_kinase))
                   }
 deregulated_kinases <- unique(deregulated_kinases)
 # Extract median dependency score of each kinase in cancer cell lineages

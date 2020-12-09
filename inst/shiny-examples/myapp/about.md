@@ -7,6 +7,8 @@ Please cite **our paper** when using Phosphogo.
 
 Get the latest updates of phosphogo on the [GitHub repository](https://github.com/gaelfortin/phosphogo) of the project.
 
+**Find more on the [package website](https://gaelfortin.github.io/phosphogo/)**
+
 ### Facing an issue?
 Feel free to use the package documentation:
 - `Tutorial` in the section `More` of this app

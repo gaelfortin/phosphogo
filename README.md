@@ -19,7 +19,9 @@ The following processes can be done with phosphogo:
 - Investigate phosphosites functionality in cancers with the DepMap database
 
 
-__This version of phosphogo does not support R > 3.6.__
+__This version of phosphogo supports R > 4.0__
+
+**Find more on the [package website](https://gaelfortin.github.io/phosphogo/)**
 
 ### __Installation__
 `phosphogo` can be installed with:

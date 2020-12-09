@@ -43,3 +43,5 @@ Imports:
     ggridges
 Depends: 
     R (>= 4.0)
+URL: https://github.com/gaelfortin/phosphogo https://gaelfortin.github.io/phosphogo/
+BugReports: https://github.com/gaelfortin/phosphogo/issues
