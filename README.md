@@ -78,7 +78,7 @@ Phosphogo uses the *in vitro* database published in:
 [Sugiyama et al., Large-scale Discovery of Substrates of the Human Kinome. Scientific Reports 2019](https://www.nature.com/articles/s41598-019-46385-4)
 
 ### __Using DepMap to investigate kinases role in cancer__
-[DepMap](https://depmap.org/portal/) is a set of databases that aggregates dependency data for many cancer cell lineages. Phosphogo takes advantage of DepMap to identify deregulated kinases and there substrates that are important for the survival of cancers.
+[DepMap](https://depmap.org/portal/) is a set of databases that aggregates dependency data for many cancer cell lineages. Phosphogo takes advantage of DepMap to identify deregulated kinases and there substrates that are important for cancer survival.
 
 ## Issues
 If you have an issue or find a bug, please open an issue
@@ -89,4 +89,4 @@ in the Issues section of the [Github repository](https://github.com/gaelfortin/p
 
 ## Other informations
 This package is maintained by Gael Fortin (fortin.gael@outlook.fr) and was written
-on R 3.6.3
+on R 4.0
