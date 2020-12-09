@@ -11,3 +11,4 @@
 ^data/phospho_mouse\.xlsx$
 ^pipeline_test\.Rmd$
 ^\.travis\.yml$
+^README\.Rmd$
